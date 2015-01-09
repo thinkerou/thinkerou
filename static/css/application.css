@@ -4,7 +4,7 @@
 body {
   font-family: "Microsoft YaHei", "PT Serif", Georgia, Arial, sans-serif;
   background: #eee;/*url("/static/image/light.png") repeat fixed;*/
-  line-height: 1.9em;
+  line-height: 2em;
 }
 li.L4 {
   list-style-type: none;
@@ -147,7 +147,7 @@ h3 {
 }
 .page-content .post-entry {
   padding: 1.5em 0 0;
-  font-size: 15px;
+  font-size: 16px;
 }
 .page-content .post-entry blockquote p {
   font-size: 15px;

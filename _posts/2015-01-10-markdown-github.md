@@ -15,7 +15,7 @@ Differences from traditional Markdown
 Multiple underscores in words
 
 Where Markdown transforms underscores (_) into italics, GFM ignores underscores in words, like this:
-
+<!--more-->
 wow_great_stuff
 do_this_and_do_that_and_another_thing.
 This allows code and names with multiple underscores to render properly. To emphasize a portion of a word, use asterisks (*).

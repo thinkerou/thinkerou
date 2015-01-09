@@ -234,7 +234,7 @@ h3 {
 }
 .post-pager {
   margin-bottom: 5px;
-  border-bottom: 1px solid #ccc/*1px dashed #aaa;*/
+  border-bottom: 1px dashed #aaa;
 }
 .pager {
   list-style: none;

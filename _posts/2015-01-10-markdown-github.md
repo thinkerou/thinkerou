@@ -2,7 +2,7 @@
 layout: post
 title: GitHub Flavored Markdown
 categories: 翻译
-tags: markdown, Github
+tags: markdown Github
 ---
 
 ##GitHub Flavored Markdown

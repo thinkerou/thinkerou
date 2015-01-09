@@ -2,7 +2,7 @@
  * application.less
  */
 body {
-  font-family: "Times New Roman", "Microsoft YaHei", "PT Serif", Georgia, Arial, sans-serif;
+  font-family: "PT Serif", Georgia, Arial, "Microsoft YaHei", sans-serif;
   background: #eee;/*url("/static/image/light.png") repeat fixed;*/
   line-height: 2em;
 }

@@ -1,0 +1,304 @@
+/*
+ * application.less
+ */
+@import "variables.less";
+@import "mixins.less";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+body {
+    font-family: "PT Serif",Georgia,"Microsoft YaHei",Arial,sans-serif;
+    background: url("/static/img/light.png") repeat fixed;
+}
+li.L4 {
+    list-style-type: none;
+}
+pre {
+    white-space:pre;
+    white-space:pre-wrap;
+    word-break:break-all;
+    word-wrap:break-word;
+    background-color: #eee;
+    box-shadow: 4px 4px 4px #888;
+    padding: 4px;
+    overflow: auto;
+}
+::selection {
+    background: #c3e99e;
+    text-shadow: none;
+}
+h1, h2, h3 {
+    font-family: Georgia,"Times New Roman",Times,"Kai","Kaiti SC","KaiTi","BiauKai","楷体","楷体_GB2312",serif;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f7f7f7;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-heading {
+    border-top: 2px solid #bbb;
+    padding-bottom: 10px;
+    position: relative;
+    z-index: 9999;
+}
+.page-brand {
+    margin: 0 7.5%;
+    display: block;
+    h1 {
+        padding: 1.05em 0 0;
+        a {
+            color: #111;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: Consolas,Monaco,'Courier New',Courier,'Andale Mono','DejaVu Sans Mono',monospace!important;
+            line-height: 32px;
+            text-decoration: none;
+        }
+    }
+    h2 {
+        color: #7a7a7a;
+        font-size: 18px;
+        margin: 1em 0 1.25em;
+    }
+}
+.page-navbar {
+    margin: 0 auto 6px;
+    overflow: hidden;
+    background:#000;
+    .page-navbar-container {
+        margin: 0 7.5%;
+        .page-nav {
+            font-size: 13px;
+            list-style: none;
+            margin: 0 0 0 -10px;
+            padding-left: 0;
+            li {
+                float: left;
+                position: relative;
+            }
+            a {
+                color: #eee;
+                display: block;
+                line-height: 3.5em;
+                padding: 0 1.25em;
+                text-decoration: none;
+            }
+            a:hover, a:focus {
+                color: #222;
+                background: #fff;
+            }
+        }
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-article {
+    margin: 0 7.5%;
+    width: auto;
+}
+.page-header {
+    padding-bottom: 10px;
+    margin: 30px 0 20px;
+    border-bottom: 1px solid #bbb;
+    h2 {
+        font-weight: 500;
+        font-family: Georgia,"Times New Roman",Times,"Kai","Kaiti SC","KaiTi","BiauKai","楷体","楷体_GB2312",serif;
+    }
+}
+.page-content {
+    border-bottom: 1px dashed #aaa;
+    margin: 0 0 1.5em;
+    padding: 0 0 1.5em;
+    position: relative;
+    .post-heading {
+        color: #222;
+        text-decoration: none;
+        clear: both;
+        font-size: 22px;
+        font-weight: normal;
+        line-height: 1.15em;
+        padding-bottom: .5em;
+        padding-top: 12px;
+        font-family: Georgia,"Times New Roman",Times,"Kai","Kaiti SC","KaiTi","BiauKai","楷体","楷体_GB2312",serif;
+        a {
+            color: #222;
+            text-decoration: none;
+        }
+    }
+    .post-meta {
+        color: #666;
+        clear: both;
+        font-size: 13px;
+        line-height: 18px;
+        border-bottom: 1px solid #d5d5d5;
+        padding: .5em;
+        span {
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        a {
+            font-weight: 500;
+        }
+    }
+    .post-entry {
+        padding: 1.5em 0 0;
+        font-size: 14px;
+        blockquote p {
+            font-size: 15px;
+        }
+    }
+    .post-footer {
+        clear: both;
+        font-size: 15px;
+        line-height: 20px;
+        margin-bottom: 35px;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-footer {
+    border-top: 1px solid #ddd;
+    color: #555;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.5em;
+    padding: 1.5em .5em;
+    text-align: center;
+    a {
+        color: #1982d1;
+    }
+    .page-generator-time {
+        padding: 0 3px;
+        font-size: 12px;
+        color: #fff;
+        background-color: #428bca;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-list {
+    h3 {
+        color: #428bca;
+        font-family: Georgia,"Times New Roman",Times,"Kai","Kaiti SC","KaiTi","BiauKai","楷体","楷体_GB2312",serif;
+    }
+    ul {
+        font-size: 15px;
+        list-style: square;
+        margin-bottom: 15px;
+        li {
+            margin: 4px;
+            span {
+                color: #555;
+                font-weight: 500;
+                line-height: 1.2em;
+            }
+            span:after {
+                content: "»";
+                margin: 0 10px;
+            }
+            a {
+                color: #222;
+                padding: 2px;
+            }
+            a:hover, a:focus {
+                color: #333;
+                border-radius: 1px;
+            }
+        }
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.page-blank {
+    margin: 1em 0 1.5em;
+    padding: 0 0 1.5em;
+    position: relative;
+}
+.read-more {
+    background: #d4dad8;
+    display: inline-block;
+    margin-top: 10px;
+    padding: .4em .8em;
+    text-decoration: none;
+    float: right;
+    a {
+        color: #222;
+        text-decoration: none;
+    }
+}
+.read-more:hover, .read-more:focus {
+    background: #428bca;
+    a {
+        color: #fff;
+    }
+}
+.post-pager {
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #aaa;
+}
+.pager {
+    list-style: none;
+    li {
+        a {
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.5em;
+            color: #1982d1;
+            text-decoration: none;
+        }
+        a:hover, a:focus{
+            color: #fff;
+            background: #c3e99e;
+        }
+    }
+}
+.page-pagination {
+    text-align: center;
+    .pagination li{
+        a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1982d1;
+            text-decoration: none;
+        }
+        span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            background: transparent;
+        }
+        a.active {
+            color: #1982d1;
+            text-decoration: underline;
+        }
+        a:hover, a:focus {
+            color: #fff;
+            background-color: #428bca;
+        }
+    }
+}
+.page-tags {
+    margin: 15px 0 35px;
+    padding: 10px 0 25px;
+    border-bottom: 1px solid #aaa;
+    a {
+        color: #222;
+        font-weight: bold;
+        text-decoration: none;
+        margin-right: 5px;
+        span{
+            vertical-align: super;
+            font-size: 0.75em;
+        }
+    }
+    a:hover,a:focus {
+        color: #fff;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+@media (max-width: @screen-md-min) {
+    .page-container {
+        margin: 0 auto;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////

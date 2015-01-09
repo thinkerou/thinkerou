@@ -126,7 +126,7 @@ h3 {
 .page-content .post-meta {
   color: #666;
   clear: both;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
   border-bottom: 1px solid #d5d5d5;
   padding: .5em;
@@ -137,7 +137,7 @@ h3 {
 }
 .post-meta span a {
   padding: 0 3px;
-  font-size: 12px;
+  font-size: 13px;
   color: #fff;
   background-color: #428bca;
 }
@@ -146,7 +146,7 @@ h3 {
 }
 .page-content .post-entry {
   padding: 1.5em 0 0;
-  font-size: 14px;
+  font-size: 15px;
 }
 .page-content .post-entry blockquote p {
   font-size: 15px;
@@ -171,7 +171,7 @@ h3 {
 }
 .page-footer .page-generator-time {
   padding: 0 3px;
-  font-size: 12px;
+  font-size: 13px;
   color: #fff;
   background-color: #428bca;
 }

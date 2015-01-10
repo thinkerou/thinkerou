@@ -6,6 +6,7 @@ tags: markdown Github
 ---
 
 ##GitHub Flavored Markdown
+
 GitHub uses "GitHub Flavored Markdown," or GFM, across the site--in issues, comments, and pull requests. It differs from standard Markdown (SM) in a few significant ways, and adds some additional functionality.
 
 If you're not already familiar with Markdown, take a look at Markdown Basics. If you'd like to know more about features that are available in issues, comments, and pull request descriptions, such as task lists, read Writing on GitHub.
@@ -63,6 +64,7 @@ require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
 ```
+
 We use Linguist to perform language detection and syntax highlighting. You can find out which keywords are valid by perusing the languages YAML file.
 
 ##Tables
@@ -73,24 +75,28 @@ First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
 Content Cell  | Content Cell
+
 For aesthetic purposes, you can also add extra pipes on the ends:
 
 | First Header  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
+
 Note that the dashes at the top don't need to match the length of the header text exactly:
 
 | Name | Description          |
 | ------------- | ----------- |
 | Help      | Display the help window.|
 | Close     | Closes a window     |
+
 You can also include inline Markdown such as links, bold, italics, or strikethrough:
 
 | Name | Description          |
 | ------------- | ----------- |
 | Help      | ~~Display the~~ help window.|
 | Close     | _Closes_ a window     |
+
 Finally, by including colons : within the header row, you can define text to be left-aligned, right-aligned, or center-aligned:
 
 | Left-Aligned  | Center Aligned  | Right Aligned |
@@ -98,4 +104,5 @@ Finally, by including colons : within the header row, you can define text to be 
 | col 3 is      | some wordy text | $1600 |
 | col 2 is      | centered        |   $12 |
 | zebra stripes | are neat        |    $1 |
+
 A colon on the left-most side indicates a left-aligned column; a colon on the right-most side indicates a right-aligned column; a colon on both sides indicates a center-aligned column.

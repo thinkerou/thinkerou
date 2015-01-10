@@ -15,7 +15,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   background-color: #eee;
-  box-shadow: 4px 4px 4px #888;
+  /*box-shadow: 4px 4px 4px #888;*/
   padding: 4px;
   overflow: auto;
 }

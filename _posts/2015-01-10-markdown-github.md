@@ -60,9 +60,11 @@ Keep in mind that, within lists, you must indent non-fenced code blocks eight sp
 Code blocks can be taken a step further by adding syntax highlighting. In your fenced block, add an optional language identifier and we'll run it through syntax highlighting. For example, to syntax highlight Ruby code:
 
 ```ruby
+
 require 'redcarpet'
 markdown = Redcarpet.new("Hello World!")
 puts markdown.to_html
+
 ```
 
 We use Linguist to perform language detection and syntax highlighting. You can find out which keywords are valid by perusing the languages YAML file.

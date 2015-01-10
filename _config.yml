@@ -1,6 +1,6 @@
 root: /
 permalink: /:year-:month/:title/
-markdown: kramdown
+markdown: rdiscount
 pygments: false
 paginate: 5
 

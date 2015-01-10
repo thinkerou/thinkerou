@@ -5,8 +5,6 @@ categories: 学习笔记
 tags: COM组件
 ---
 
-##概述
-
 ###宗旨
 
 Markdown 的目标是实现「易读易写」。
@@ -32,16 +30,19 @@ Markdown 不是想要取代 HTML，甚至也没有要和它相近，它的语法
 
 例子如下，在 Markdown 文件里加上一段 HTML 表格：
 
-    这是一个普通段落。
-
     <table>
         <tr>
             <td>Foo</td>
         </tr>
     </table>
 
-    这是另一个普通段落。
+新的测试
 
+	import os
+	importpprint
+	def test():
+	    pprint.pprint()
+	
 请注意，在 HTML 区块标签间的 Markdown 格式语法将不会被处理。比如，你在 HTML 区块内使用 Markdown 样式的`*强调*`会没有效果。
 
 HTML 的区段（行内）标签如 `<span>`、`<cite>`、`<del>` 可以在 Markdown 的段落、列表或是标题里随意使用。依照个人习惯，甚至可以不用 Markdown 格式，而直接采用 HTML 标签来格式化。举例说明：如果比较喜欢 HTML 的 `<a>` 或 `<img>` 标签，可以直接使用这些标签，而不用 Markdown 提供的链接或是图像标签语法。

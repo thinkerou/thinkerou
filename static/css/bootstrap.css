@@ -578,7 +578,7 @@ blockquote {
 blockquote p {
   font-size: 17.5px;
   font-weight: 300;
-  line-height: 1.25;
+  line-height: 1.5;/*1.25*/
 }
 blockquote p:last-child {
   margin-bottom: 0;

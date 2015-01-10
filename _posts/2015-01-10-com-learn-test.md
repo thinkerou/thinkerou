@@ -714,3 +714,32 @@ Mac 平台
 高级应用
 
 * [Sublime Text 2](http://www.sublimetext.com/2) + [MarkdownEditing](http://ttscoff.github.com/MarkdownEditing/) / [教程](http://lucifr.com/2012/07/12/markdownediting-for-sublime-text-2/)
+
+
+## test
+
+```python
+from flask.ext.script import Manager, Server
+from app import app
+
+manager = Manager(app)
+
+manager.add_command("runserver",
+                    Server(host="127.0.0.1", port=5000, use_debugger=True))
+
+if __name__ == '__main__':
+    manager.run()
+```
+
+## testnew
+
+	from flask.ext.script import Manager, Server
+	from app import app
+	
+	manager = Manager(app)
+	
+	manager.add_command("runserver",
+	                    Server(host="127.0.0.1", port=5000, use_debugger=True))
+	
+	if __name__ == '__main__':
+	    manager.run()

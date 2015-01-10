@@ -89,6 +89,7 @@ h3 {
 .page-navbar .page-navbar-container .page-nav a:focus {
   color: #fff;
   background: #428bca;
+  border-radius: 1px;
 }
 .page-article {
   margin: 0 7.5%;

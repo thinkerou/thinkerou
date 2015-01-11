@@ -1,7 +1,7 @@
 root: /
 permalink: /:year-:month/:title/
 markdown: rdiscount
-pygments: false
+pygments: true
 paginate: 5
 
 title: thinkerou

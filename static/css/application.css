@@ -1,0 +1,363 @@
+/*
+ * application.less
+ */
+body {
+  font-family: "PT Serif", Georgia, Arial, "Microsoft YaHei", sans-serif;
+  background: #eee;/*url("/static/image/light.png") repeat fixed;*/
+  line-height: 2em;
+}
+li.L4 {
+  list-style-type: none;
+}
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #eee;
+  /*box-shadow: 4px 4px 4px #888;*/
+  padding: 4px;
+  overflow: auto;
+}
+::selection {
+  background: #428bca;
+  text-shadow: none;
+  color: #fff;
+}
+h1,
+h2,
+h3 {
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+}
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+}
+.page-heading {
+  border-top: 2px solid #bbb;
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 9999;
+}
+.page-brand {
+  margin: 0 7.5%;
+  display: block;
+}
+.page-brand h1 {
+  padding: 1.05em 0 0;
+}
+.page-brand h1 a {
+  color: #111;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: Consolas, Monaco, 'Courier New', Courier, 'Andale Mono', 'DejaVu Sans Mono', monospace !important;
+  line-height: 32px;
+  text-decoration: none;
+}
+.page-brand h2 {
+  color: #7a7a7a;
+  font-size: 20px;
+  margin: 1em 0 1.25em;
+}
+.page-navbar {
+  margin: 0 auto 6px;
+  overflow: hidden;
+  background: #4a4d50;
+}
+.page-navbar .page-navbar-container {
+  margin: 0 7.5%;
+}
+.page-navbar .page-navbar-container .page-nav {
+  font-size: 15px;
+  list-style: none;
+  margin: 0 0 0 -10px;
+  padding-left: 0;
+}
+.page-navbar .page-navbar-container .page-nav li {
+  float: left;
+  position: relative;
+}
+.page-navbar .page-navbar-container .page-nav a {
+  color: #eee;
+  display: block;
+  line-height: 3.5em;
+  padding: 0 1.25em;
+  text-decoration: none;
+}
+.page-navbar .page-navbar-container .page-nav a:hover,
+.page-navbar .page-navbar-container .page-nav a:focus {
+  color: #fff;
+  background: #428bca;
+  border-radius: 1px;
+}
+.page-article {
+  margin: 0 7.5%;
+  width: auto;
+}
+.page-header {
+  padding-bottom: 10px;
+  margin: 30px 0 20px;
+  border-bottom: 1px solid #bbb;
+}
+.page-header h2 {
+  font-weight: 500;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+}
+.page-content {
+  border-bottom: 2px solid #ccc;/*1px dashed #aaa;*/
+  margin: 0 0 1.5em;
+  padding: 0 0 1.5em;
+  position: relative;
+}
+.page-content .post-heading {
+  color: #3498DB;
+  text-decoration: none;
+  clear: both;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.15em;
+  padding-bottom: .5em;
+  padding-top: 12px;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+}
+.page-content .post-heading a {
+  color: #3498DB;
+  text-decoration: none;
+}
+.page-content .post-meta {
+  color: #666;
+  clear: both;
+  font-size: 14px;
+  line-height: 18px;
+  border-bottom: 1px solid #d5d5d5;
+  padding: .5em;
+}
+.page-content .post-meta span {
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.post-meta span a {
+  padding: 0 3px;
+  font-size: 13px;
+  color: #fff;
+  background-color: #428bca;
+}
+.page-content .post-meta a {
+  font-weight: 500;
+}
+.page-content .post-entry {
+  padding: 1.5em 0 0;
+  font-size: 16px;
+}
+.page-content .post-entry blockquote p {
+  font-size: 15px;
+}
+.page-content .post-footer {
+  clear: both;
+  font-size: 15px;
+  line-height: 20px;
+  margin-bottom: 35px;
+}
+.page-footer {
+  border-top: 1px solid #ddd;
+  color: #555;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.5em;
+  padding: 1.5em .5em;
+  text-align: center;
+}
+.page-footer a {
+  color: #1982d1;
+}
+.page-footer .page-generator-time {
+  padding: 0 3px;
+  font-size: 13px;
+  color: #fff;
+  background-color: #428bca;
+}
+.page-list h3 {
+  color: #428bca;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+}
+.page-list ul {
+  font-size: 15px;
+  list-style: square;
+  margin-bottom: 15px;
+}
+.page-list ul li {
+  margin: 4px;
+  height: 1.6em;
+}
+.page-list ul li span {
+  color: #555;
+  font-weight: 500;
+  line-height: 1.2em;
+}
+.page-list ul li span:after {
+  content: "»";
+  margin: 0 10px;
+}
+.page-list ul li a {
+  color: #222;
+  padding: 2px;
+}
+.page-list ul li a:hover,
+.page-list ul li a:focus {
+  color: #fff;
+  border-radius: 1px;
+  background: #428bca;
+}
+.page-blank {
+  margin: 1em 0 1.5em;
+  padding: 0 0 1.5em;
+  position: relative;
+}
+.read-more {
+  background: #d4dad8;
+  display: inline-block;
+  margin-top: 10px;
+  padding: .4em .8em;
+  text-decoration: none;
+  float: right;
+}
+.read-more a {
+  color: #222;
+  text-decoration: none;
+}
+.read-more:hover,
+.read-more:focus {
+  background: #428bca;
+}
+.read-more:hover a,
+.read-more:focus a {
+  color: #fff;
+}
+.post-pager {
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #aaa;
+}
+.pager {
+  list-style: none;
+  /*background: #d4dad8;
+  display: inline-block;
+  margin-top: 8px;*/
+}
+.pager li a {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.5em;
+  color: #222;
+  text-decoration: none;
+}
+.pager li a:hover,
+.pager li a:focus {
+  color: #fff;
+  background: #428bca;
+}
+.page-pagination {
+  text-align: center;
+}
+.page-pagination .pagination li a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1982d1;
+  text-decoration: none;
+}
+.page-pagination .pagination li span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: #428bca;/*transparent;*/
+}
+.page-pagination .pagination li a.active {
+  color: #1982d1;
+  text-decoration: underline;
+}
+.page-pagination .pagination li a:hover,
+.page-pagination .pagination li a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.page-tags {
+  margin: 15px 0 35px;
+  padding: 10px 0 25px;
+  border-bottom: 1px solid #aaa;
+}
+.page-tags a {
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 5px;
+}
+.page-tags a span {
+  vertical-align: super;
+  font-size: 0.75em;
+}
+.page-tags a:hover,
+.page-tags a:focus {
+  color: #fff;
+}
+@media (max-width: 992px){
+  .page-container {
+    margin: 0 auto;
+  }
+}
+
+/*dividing line*/
+.page-categories {
+  margin: 15px 0 35px;
+  padding: 10px 0 25px;
+  border-bottom: 1px solid #aaa;
+}
+/*
+TODO: change categories, like tag.
+.page-categories a {
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 5px;
+}
+.page-categories a span {
+  vertical-align: super;
+  font-size: 0.75em;
+}
+.page-categories a:hover,
+.page-categories a:focus {
+  color: #fff;
+}
+*/
+.page-about-header {
+  margin: 0 auto 6px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #bbb;
+}
+.page-about-header .page-about-header-container {
+  margin: 0 1.5%;
+}
+.page-about-header .page-about-header-container .page-about {
+  font-size: 13px;
+  list-style: none;
+  margin: 0 0 0 -10px;
+  padding-left: 0;
+}
+.page-about-header .page-about-header-container .page-about li {
+  float: left;
+  position: relative;
+}
+.page-about-header .page-about-header-container .page-about a {
+  display: block;
+  line-height: 3.5em;
+  padding: 0 1.25em;
+  text-decoration: none;
+}
+.page-about-header .page-about-header-container .page-about a:hover {
+  color: #222;
+  background: #428bca;
+}

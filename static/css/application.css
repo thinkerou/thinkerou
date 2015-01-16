@@ -88,7 +88,7 @@ h3 {
 .page-navbar .page-navbar-container .page-nav a:hover,
 .page-navbar .page-navbar-container .page-nav a:focus {
   color: #fff;
-  background: /*#428bca*/#f90;
+  background: #428bca;
   border-radius: 1px;
 }
 .page-article {
@@ -228,7 +228,7 @@ h3 {
 }
 .read-more:hover,
 .read-more:focus {
-  background: #f90/*#428bca*/;
+  background: #428bca;
 }
 .read-more:hover a,
 .read-more:focus a {

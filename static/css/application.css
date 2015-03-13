@@ -3,7 +3,7 @@
  */
 body {
   font-family: "PT Serif", Georgia, Arial, "Microsoft YaHei", sans-serif;
-  background: #eee;/*url("/static/image/light.png") repeat fixed;*/
+  background: /*#eee;*/url("/static/image/light.png") repeat fixed;
   line-height: 2em;
 }
 li.L4 {

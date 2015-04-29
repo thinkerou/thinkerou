@@ -38,6 +38,8 @@ Python 对象在 Python 解析器中都为 PyObject。
   	
 如何构建一个 `{'key1': {'key2': ['valuex', 'valuey']}}` 对象？
 
+<!--more-->
+
 	PyObject* pObj1 = PyDict_New();
 	PyObject* pObj2 = PyDict_New();
 	PyObject* pObj3 = PyList_New(2);
@@ -53,8 +55,6 @@ Python 对象管理使用引用计数技术，从而实现自动垃圾回收机�
 提供两个宏 `Py_INCREF` 和 `Py_DECREF` 来管理引用计数。
 
 前文中申请的 pObj1/pObj2/pObj3 对象如果需要释放，应该如何处理？
-
-<!--more-->
 
 不能直接 `free/delete`，必须使用 `Py_DECREF(pObj1)`，然后 `pObj1 = NULL` 即可。
 

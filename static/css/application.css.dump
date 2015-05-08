@@ -27,7 +27,7 @@ pre {
 h1,
 h2,
 h3 {
-  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "妤蜂綋", "妤蜂綋_GB2312", serif;
 }
 .page-container {
   max-width: 1000px;
@@ -102,7 +102,7 @@ h3 {
 }
 .page-header h2 {
   font-weight: 500;
-  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "妤蜂綋", "妤蜂綋_GB2312", serif;
 }
 .page-content {
   border-bottom: 2px solid #ccc;/*1px dashed #aaa;*/
@@ -119,7 +119,7 @@ h3 {
   line-height: 1.15em;
   padding-bottom: .5em;
   padding-top: 12px;
-  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "妤蜂綋", "妤蜂綋_GB2312", serif;
 }
 .page-content .post-heading a {
   color: #3498DB;
@@ -179,7 +179,7 @@ h3 {
 }
 .page-list h3 {
   color: #428bca;
-  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "妤蜂綋", "妤蜂綋_GB2312", serif;
 }
 .page-list ul {
   font-size: 15px;
@@ -196,7 +196,7 @@ h3 {
   line-height: 1.2em;
 }
 .page-list ul li span:after {
-  content: "»";
+  content: "禄";
   margin: 0 10px;
 }
 .page-list ul li a {

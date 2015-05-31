@@ -45,7 +45,6 @@ tags: Spark
 
 >b. 解压到一个目录（E:\spark-learn\spark-1.3.1）
 
->
     E:\spark-learn\spark-1.3.1>ls
     CHANGES.txt      build   examples              pom.xml                streaming
     CONTRIBUTING.md  conf    external              project                target

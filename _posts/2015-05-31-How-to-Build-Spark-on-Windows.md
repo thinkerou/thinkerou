@@ -247,7 +247,7 @@ tags: Spark
 
 对于前面的测试代码，SparkUI 展示的内容详情，请看下图吧。
 
-![Alt text](/image/sparkui.png) 
+![Alt text](/static/image/sparkui.png) 
 
 从上面的测试代码，至少说明环境搭建成功了，后续可以尽情的玩了。同时，对于示例代码，可以根据函数名以及变量名知道大概完成了什么功能。详细的说明，后续慢慢说明。
 

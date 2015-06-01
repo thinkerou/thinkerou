@@ -225,31 +225,40 @@ tags: Spark
 那下面开始我们的测试吧，直接看代码：
 
 	scala> val textFile = sc.textFile("README.md")
-	textFile: org.apache.spark.rdd.RDD[String] = README.md MapPartitionsRDD[1] at te
-	xtFile at <console>:21
+	textFile: org.apache.spark.rdd.RDD[String] = README.md MapPartitionsRDD[1] at textFile at <console>:21
 	
 	scala> textFile.first()
 	res1: String = # Apache Spark
 	
 	scala> val linesWithSpark = textFile.filter(line => line.contains("Spark"))
-	linesWithSpark: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[2] at filter
-	 at <console>:23
+	linesWithSpark: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[2] at filter at <console>:23
 	
 	scala> linesWithSpark.count()
 	res2: Long = 19
 
 	scala>
 
+在前面的众多 `INFO` 信息中，有这样一行 `INFO` 信息：
+
+	15/05/31 21:05:58 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+	15/05/31 21:05:58 INFO SparkUI: Started SparkUI at http://10.129.156.184:4040
+
+也就是说，可以在浏览器中访问 `http://10.129.156.184:4040` 来查看 SparkUI 展示的信息。这里端口号默认都是 `4040`，IP 地址为你的主机地址，注意修改。
+
+对于前面的测试代码，SparkUI 展示的内容详情，请看下图吧。
+
+![Alt text](image/sparkui.png) 
+
 从上面的测试代码，至少说明环境搭建成功了，后续可以尽情的玩了。同时，对于示例代码，可以根据函数名以及变量名知道大概完成了什么功能。详细的说明，后续慢慢说明。
 
 ## 六、参考文献
 
-> [Spark](https://spark.apache.org/docs/latest/)
+> [spark 官方说明文档](https://spark.apache.org/docs/latest/)
 
-> [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+> [java sdk 下载页面](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-> [Git](https://git-scm.com/)
+> [git 官方网站](https://git-scm.com/)
 
-> [Scala](http://www.scala-lang.org/)
+> [scala 官方网站](http://www.scala-lang.org/)
 
-> [sbt](http://www.scala-sbt.org/)
+> [sbt 官方网站](http://www.scala-sbt.org/)

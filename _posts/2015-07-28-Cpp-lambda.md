@@ -10,7 +10,7 @@ tags: lambda
 C++ lambda 表达式规范有如下几种形式：
 
 | 编号 | 表达式 | 
-|:-------:|:------|
+| --- | ---------- |
 | (1) | [capture] (params) mutable exception attribute -> return {body} | 
 | (2) | [capture] (params) -> return {body}	|	 
 | (3) | [capture] (params) {body} |	 
@@ -38,6 +38,7 @@ C++ lambda 表达式规范有如下几种形式：
 **return**： 用来指定 lambda 表达式的返回类型。
 
 **capture**： 指定了在可见域范围内 lambda 表达式的代码内可见的外部变量的列表，具体格式说明如下：
+
   * [a, &b]： 变量 a 以值的方式被捕获， 变量 b 以引用的方式被捕获；
   * [this]： 以值的方式捕获 this 指针；
   * [&]： 以引用的方式捕获所有的外部自动变量；

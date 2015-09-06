@@ -40,7 +40,11 @@ Flask 是一个微型 web 开发框架，微型（"mirco"）的意思保持内�
 ## 四、参考文献
 
 [Flask 英文介绍](http://flask.pocoo.org/)
+
 [Flask 中文介绍](https://dormousehole.readthedocs.org/en/latest/)
+
 [Flask 示例：flask-website](https://github.com/mitsuhiko/flask-website)
+
 [Flask 示例：minitwit](https://github.com/mitsuhiko/flask/tree/master/examples/minitwit/)
+
 [Flask 入门介绍](https://pythonspot.com/python-flask-tutorials/)

@@ -70,32 +70,13 @@ tags: log
 
 #### 3. 其它简要说明
 
-Easyloggingpp 也支持配置文件方式来定义输出格式，默认的配置文件内容为：
-
-	* GLOBAL:
-	    FORMAT                  =   "%datetime | %level | %msg"
-	    FILENAME                =   "/tmp/logs/myeasylog-configuration.cpp.log"
-	    ENABLED                 =   true
-	    TO_FILE                 =   true
-	    TO_STANDARD_OUTPUT      =   true
-	    MILLISECONDS_WIDTH      =   3
-	    PERFORMANCE_TRACKING    =   false
-	    MAX_LOG_FILE_SIZE       =   2097152 ## Throw log files away after 2MB
-	* DEBUG:
-	    FILENAME                =   "/tmp/logs/myeasylog-configuration.cpp-debug.log"
-	    TO_STANDARD_OUTPUT      =   true
-	    ENABLED                 =   true ## We will set it to false after development completed
-	* WARNING:
-	    FILENAME                =   "/tmp/logs/filename-with-time-%datetime{%H:%m}"
-	* TRACE:
-	    TO_FILE                 =   true ## Unnecessary configuration cuz its already true in GLOBAL but doing it anyway!
-	* VERBOSE:
-	    FORMAT                  =   "%datetime{%d/%M/%y} | %level-%vlevel | %msg"
-	## Error logs
-	* ERROR:
-	    ENABLED                 =   false
-	    FILENAME                =   "/tmp/logs/myeasylog-configuration.cpp-error.log"
-	* FATAL:
-	    ENABLED                 =   false
+Easyloggingpp 也支持配置文件方式来定义输出格式。
 
 关于 Easyloggingpp 的更多详细内容请阅读其 Github 上的说明，以及在实际项目或自己的小程序中使用以体会。
+
+## 三、参考文献
+
+> [Eaysloggingpp Github 地址](https://github.com/easylogging/easyloggingpp)
+
+> [在单元测试中使用 Easyloggingpp 示例](https://github.com/thinkerou/gtest-dll-test)
+

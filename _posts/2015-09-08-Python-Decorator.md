@@ -55,7 +55,7 @@ tags: 装饰器
 
 <!--more-->
 
-## 三、参考文献
+## 三、参考文档
 
 > [Stackoverflow: How can I make a chain of function decorators in Python?](http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484)
 

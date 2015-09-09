@@ -38,7 +38,7 @@ Flask 是一个微型 web 开发框架，微型（"mirco"）的意思保持内�
 ## 二、Jinja2 模板引擎
 
 
-## 三、参考文献
+## 三、参考文档
 
 [Flask 英文介绍](http://flask.pocoo.org/)
 

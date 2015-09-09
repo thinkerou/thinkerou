@@ -189,7 +189,7 @@ tags: 全角半角
   3. 设置方法：右键工程 —— Properties —— Configuration Manager，在 Platform 列点 New，然后在 New platform 选择 x64，保存即可。 
 
 
-## 七、参考文献
+## 七、参考文档
 
 >+ [使用 C/C++ 扩展 Python](http://thinkerou.com/2015-04/Using-CandCPP-Extension-Python)
 

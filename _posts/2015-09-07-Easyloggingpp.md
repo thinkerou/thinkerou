@@ -74,7 +74,7 @@ Easyloggingpp 也支持配置文件方式来定义输出格式。
 
 关于 Easyloggingpp 的更多详细内容请阅读其 Github 上的说明，以及在实际项目或自己的小程序中使用以体会。
 
-## 三、参考文献
+## 三、参考文档
 
 > [Eaysloggingpp Github 地址](https://github.com/easylogging/easyloggingpp)
 

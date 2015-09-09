@@ -208,6 +208,6 @@ tags: gtest
 
 运行结果依然如预期。
 
-## 四、参考文献
+## 四、参考文档
 
 > * [示例源码](https://github.com/thinkerou)

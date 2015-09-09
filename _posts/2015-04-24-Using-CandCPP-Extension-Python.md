@@ -215,7 +215,7 @@ Python 提供了扩展接口的打包接口，先看代码（其他扩展接口�
 	6
 
 
-## 八、参考文献
+## 八、参考文档
 
 > * [官方文档](https://docs.python.org/2/c-api/index.html)
 > * [示例源码](https://github.com/thinkerou/CPythonExample/blob/master/extPyUsingC/DBC_SBC.cpp)

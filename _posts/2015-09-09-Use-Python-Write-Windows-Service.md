@@ -136,9 +136,17 @@ tags: Service
 
 > 1. 在执行程序的时候，将相应的代码复制到 pywin32 安装目录下；
 
-> 2. 设置路径。
+> 2. 设置路径，也即是每次读取绝对路径来解决。
 
-方案1是下策，方案2才是上策！
+设置路径的代码(感谢[@hiro-protagonist](http://stackoverflow.com/users/4954037/hiro-protagonist))如下:
+
+	import os
+	HERE = os.path.abspath(os.path.dirname(__file__))
+	RESTORE_INI = os.path.join(HERE, 'restore.ini')
+
+然后在使用 `restore.ini` 的地方更改为 `RESTORE_INI` 即可。
+
+可以看出，方案1是下策，方案2才是上策！
 
 ## 三、参考文档
 

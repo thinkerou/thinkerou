@@ -68,6 +68,29 @@ tags: log
 
 正如注释所说，需要使用宏 **ELPP_AS_DLL** 告诉 easylogging++ 是以 DLL 方式在使用它。
 
+**摘要一些常用的设置**
+
+> 1. 如何读取配置文件？
+
+> 2. 如何通过代码设置某项配置文件？
+
+对于问题1，可以参考如下代码：
+
+	// Load configuration from file
+	el::Configurations conf("/path/to/config.conf");
+    // Reconfigure single logger
+    el::Loggers::reconfigureLogger("default", conf);
+
+而对于问题2，则可以参考如下代码：
+
+	el::Configurations defaultConf;
+	defaultConf.setToDefault();
+	// Values are always std::string
+	defaultConf.set(el::Level::Info, el::ConfigurationType::ToStandardOutput, "false");
+	el::Loggers::reconfigureLogger("default", defaultConf);
+
+上面的代码是设置不要在命令行下打印出日志来，而是直接写到日志文件里去。
+
 #### 3. 其它简要说明
 
 Easyloggingpp 也支持配置文件方式来定义输出格式。

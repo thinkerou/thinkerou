@@ -36,9 +36,7 @@ tags: 装饰器
 
         @parameter(lst=testlist, round=testround)
         def testAction(self, e, i):
-
             print e, i
-
 
         def tearDown(self):
             pass

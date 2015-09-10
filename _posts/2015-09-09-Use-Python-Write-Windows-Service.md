@@ -110,7 +110,7 @@ tags: Service
 
   * 停止服务　　　　python service_test.py stop
 
-  * 删除\卸载服务　 python service_test.py remove
+  * 删除\卸载服务　  python service_test.py remove
 
 如果需要设置开机自启动，则须要使用命令 `python service_test.py --startup auto install`，切记需要使用该命令才能设置开机自启动。
 

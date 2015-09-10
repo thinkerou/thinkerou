@@ -148,6 +148,10 @@ tags: Service
 
 可以看出，方案1是下策，方案2才是上策！
 
+**`总之`**:
+
+> 只要在服务程序里涉及到跟`路径`相关的操作，都需要格外小心处理！
+
 ## 三、参考文档
 
 > [pywin32](http://sourceforge.net/projects/pywin32/)

@@ -79,7 +79,8 @@ h3 {
   position: relative;
 }
 .page-navbar .page-navbar-container .page-nav a {
-  color: #eee;
+  /*color: #eee;*/
+  background: #428bca;
   display: block;
   line-height: 3.5em;
   padding: 0 1.25em;

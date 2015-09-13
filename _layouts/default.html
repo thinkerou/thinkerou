@@ -26,12 +26,12 @@
         <div class="page-navbar">
             <div class="page-navbar-container">
                 <ul class="page-nav">
-                    <li><a href="/">主 页</a></li>
-                    <li><a href="/archive.html">归 档</a></li>
-                    <li><a href="/tags.html">标 签</a></li>
-<!--                    <li><a href="/categories.html">分 类</a></li>-->
-                    <li><a href="/links.html">链 接</a></li>
-                    <li><a href="/about.html">关 于</a></li>
+                    <li id="nav_home"><a href="/">主 页</a></li>
+                    <li id="nav_cid_1"><a href="/archive.html">归 档</a></li>
+                    <li id="nav_cid_2"><a href="/tags.html">标 签</a></li>
+<!--                    <li id=nav_cid_3"><a href="/categories.html">分 类</a></li>-->
+                    <li id="nav_cid_4"><a href="/links.html">链 接</a></li>
+                    <li id="nav_cid_5"><a href="/about.html">关 于</a></li>
                 </ul>
             </div>
         </div>
@@ -57,6 +57,19 @@
             $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
             prettyPrint();
         });
+    </script>
+    <script type="text/javascript">
+        function highlightNav(id) {
+            if (id==="") {
+                return;
+            }
+            var nav = $("#"+id);
+            nav.addClass("active");
+            // 如果是子菜单，向上寻找主菜单并高亮
+            if (nav.parent("").length > 0) {
+                nav.parent().parent().addClass("active");
+            }
+        }
     </script>
     {% include google_analysis.md %}
 </body>

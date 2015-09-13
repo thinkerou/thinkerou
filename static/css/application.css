@@ -85,8 +85,6 @@ h3 {
   padding: 0 1.25em;
   text-decoration: none;
 }
-
-.page-navbar .page-navbar-container .page-nav .active > a,
 .page-navbar .page-navbar-container .page-nav a:hover,
 .page-navbar .page-navbar-container .page-nav a:focus {
   color: #fff;

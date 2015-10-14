@@ -40,7 +40,7 @@ tags: typedef
     {
         int a;
     };
-　　　　
+
 这样就定义了结构体类型 TestS ，声明变量时直接 **TestS test；** 即可。
 
 <!--more-->
@@ -51,12 +51,12 @@ tags: typedef
     {   
         int a;   
     }test; // test是一个变量  
-　　　　
+
     typedef   struct   TestS2   
     {   
         int a;   
-    }test2; // test2是一个结构体类型 == struct TestS2 
-　
+    }test2; // test2是一个结构体类型 == struct TestS2
+
 使用时可以直接访问 **test.a**，但是 test2 则必须先声明 **test2 s2;**，然后才可操作，如  **s2.a=10;** 。
 
 ## 三、使用 typedef 声明别名
@@ -80,21 +80,21 @@ tags: typedef
 
 而实际上，上面的语句把 a 声明为具有 10 个 int 元素的数组的类型别名，pf 是一种函数指针的类型别名。虽然在功能上，typedef 可以看作一个跟 int INT 分离的动作，但语法上 typedef 属于存储类声明说明符，因此严格来说，typedef int INT 是一个完整的声明。
 
-**如何定义一个函数指针类型？**
+> **如何定义一个函数指针类型？**
 
-如原函数是：
+> 如原函数是：
 
-    void f(int);
+>    void f(int);
 
-那么定义的函数指针类型就是：
+>那么定义的函数指针类型就是：
 
-    typedef void (*pf)(int);
+>    typedef void (*pf)(int);
 
-然后用此类型生成一个指向函数的指针：
+>然后用此类型生成一个指向函数的指针：
 
-    pf func;
+>    pf func;
 
-当 func 获取函数地址之后，就可以像调用原函数那样来使用这个函数指针：**func(int);** 。
+>当 func 获取函数地址之后，就可以像调用原函数那样来使用这个函数指针：**func(int);** 。
 
 ## 四、深入理解 typedef
 

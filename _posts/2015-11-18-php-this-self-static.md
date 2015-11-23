@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 在 PHP 类中 self 和 static 的区别 
+title: 在 PHP 类中 self 、this 和 static 的区别 
 categories: PHP
-tags: PHP
+tags: self static
 ---
 
 ## 一、问题缘由
@@ -50,14 +50,15 @@ tags: PHP
     }
     
 那么，代码段 **static::$apps[$name])** 是什么意思呢？为什么是关键字 **static** 而不是 **self** 呢？甚至是 **$this->apps[$name]** 呢？接下来就讲讲在 PHP 的类里 **this**、**self** 和 **static** 的区别。
+
+<!--more-->
     
 ## 二、
 
 ## 三、参考资料
 
-> [PHP手册 -> 语言参考](http://php.net/manual/zh/language.oop5.late-static-bindings.php)
+> [PHP Manual](http://php.net/manual/en/index.php) -> [Language Reference](http://php.net/manual/en/langref.php) -> [Class and Objects](http://php.net/manual/en/language.oop5.php) -> [Late Static Bingings](http://php.net/manual/en/language.oop5.late-static-bindings.php)
 
-> [New self vs. new static](http://stackoverflow.com/questions/5197300/new-self-vs-new-static)
+> StackOverflow: [New self vs. new static](http://stackoverflow.com/questions/5197300/new-self-vs-new-static)
 
-> [When to use self vs $this?](http://stackoverflow.com/questions/151969/when-to-use-self-vs-this)
-> 
+> StackOverflow: [When to use self vs $this?](http://stackoverflow.com/questions/151969/when-to-use-self-vs-this)

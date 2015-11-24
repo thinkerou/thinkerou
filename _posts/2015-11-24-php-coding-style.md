@@ -350,5 +350,5 @@ PHP 所有[关键字](http://php.net/manual/en/reserved.keywords.php)**必须**�
 ## 七、参考资料
 
 > [PHP-FIG](http://www.php-fig.org/)
-> 
+
 > [Github PSR 中文版](https://github.com/PizzaLiu/PHP-FIG)

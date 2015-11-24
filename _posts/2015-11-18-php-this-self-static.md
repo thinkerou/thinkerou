@@ -59,6 +59,6 @@ tags: self static
 
 > [PHP Manual](http://php.net/manual/en/index.php) -> [Language Reference](http://php.net/manual/en/langref.php) -> [Class and Objects](http://php.net/manual/en/language.oop5.php) -> [Late Static Bingings](http://php.net/manual/en/language.oop5.late-static-bindings.php)
 
-> StackOverflow: [New self vs. new static](http://stackoverflow.com/questions/5197300/new-self-vs-new-static)
+> [stackoverflow: New self vs. new static](http://stackoverflow.com/questions/5197300/new-self-vs-new-static)
 
-> StackOverflow: [When to use self vs $this?](http://stackoverflow.com/questions/151969/when-to-use-self-vs-this)
+> [stackoverflow: When to use self vs $this?](http://stackoverflow.com/questions/151969/when-to-use-self-vs-this)

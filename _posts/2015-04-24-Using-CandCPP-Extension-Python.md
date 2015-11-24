@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 使用 C/C++ 扩展 Python
-categories: 编程语言
-tags: Python
+categories: Python
+tags: 扩展
 ---
 
 ## 一、需求背景
@@ -215,7 +215,8 @@ Python 提供了扩展接口的打包接口，先看代码（其他扩展接口�
 	6
 
 
-## 八、参考文档
+## 八、参考资料
 
-> * [官方文档](https://docs.python.org/2/c-api/index.html)
-> * [示例源码](https://github.com/thinkerou/CPythonExample/blob/master/extPyUsingC/DBC_SBC.cpp)
+> [编写 Python 扩展官方文档](https://docs.python.org/2/c-api/index.html)
+
+> [示例源码](https://github.com/thinkerou/CPythonExample/blob/master/extPyUsingC/DBC_SBC.cpp)

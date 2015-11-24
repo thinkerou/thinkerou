@@ -152,7 +152,7 @@ tags: Service
 
 > 只要在服务程序里涉及到跟`路径`相关的操作，都需要格外小心处理！
 
-## 三、参考文档
+## 三、参考资料
 
 > [pywin32](http://sourceforge.net/projects/pywin32/)
 

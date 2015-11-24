@@ -89,3 +89,8 @@ tags: 同步
 	* 给一个结构体加上 volatile 限定符等于给结构体中的所有成员都加 volatile 限定符，这样可以确保任何一个成员始终都是从内存中读取的。
 
 ## 三、关键段 
+
+
+## 四、参考资料
+
+> [windows 核心编程](http://book.douban.com/subject/3106542/)

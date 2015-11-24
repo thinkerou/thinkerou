@@ -249,13 +249,13 @@ tags: Spark
 
 从上面的测试代码，至少说明环境搭建成功了，后续可以尽情的玩了。同时，对于示例代码，可以根据函数名以及变量名知道大概完成了什么功能。详细的说明，后续慢慢说明。
 
-## 六、参考文档
+## 六、参考资料
 
 > [spark 官方说明文档](https://spark.apache.org/docs/latest/)
 
 > [java sdk 下载页面](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-> [git 官方网站](https://git-scm.com/)
+> [git-scm 官方网站](https://git-scm.com/)
 
 > [scala 官方网站](http://www.scala-lang.org/)
 

@@ -192,3 +192,12 @@ typedef 还有另一个重要用途：定义机器无关的类型，如可以定
     pint s1, s2;  // s1和s2都是int型指针
     PINT s3, s4;  // 相当于int * s3，s4；只有一个是指针
 
+## 六、参考资料
+
+> [wikipedia: typedef](https://en.wikipedia.org/wiki/Typedef)
+
+> [The Typedef Keyword in C and C++](http://www.cprogramming.com/tutorial/typedef.html)
+
+> [Other data types](http://www.cplusplus.com/doc/tutorial/other_data_types/)
+
+> [stackoverflow: typedef struct vs struct definitions](http://stackoverflow.com/questions/1675351/typedef-struct-vs-struct-definitions)

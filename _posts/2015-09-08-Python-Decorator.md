@@ -2,7 +2,7 @@
 layout: post
 title: Python 装饰器
 categories: Python
-tags: 装饰器
+tags: 装饰器 Decorator
 ---
 
 ## 一、介绍
@@ -53,7 +53,7 @@ tags: 装饰器
 
 <!--more-->
 
-## 三、参考文档
+## 三、参考资料
 
 > [Stackoverflow: How can I make a chain of function decorators in Python?](http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484)
 

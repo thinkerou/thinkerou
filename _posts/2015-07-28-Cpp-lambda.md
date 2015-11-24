@@ -144,8 +144,6 @@ C++ lambda 表达式规范有如下几种形式：
 	};
 
 
-## 三、参考文档
+## 三、参考资料
 
 > [Lambda Functions in C++11 - the Definitive Guide](http://www.cprogramming.com/c++11/c++11-lambda-closures.html)
-
-

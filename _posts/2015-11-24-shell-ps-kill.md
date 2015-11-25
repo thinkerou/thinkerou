@@ -195,6 +195,56 @@ tags: ps kill
   
 ## 三、kill 命令
 
+在使用 `kill` 命令来终止某个进程前，需要先使用 `ps`、`pstree`、`top`等命令获取进程ID（PID）。
+
+命令 kill 终止进程是通过向进程发送特定信号来完成的。
+
+> 常见信号有：
+
+> SIGHUP，代号为 1 ：重新启动
+
+> SIGINT，代号为 2 ：等同于使用 ctrl+c 来中断进程的运行
+
+> SIGKILL，代号为 9 ：强制中断
+
+> SIGTERM，代号为 15 ：正常结束，如果进程已经发生问题，则无效
+
+> SIGSTOP，代号为 19 ：等同于使用 ctrl+z 来暂停进程的运行
+
+#### 1. 命令参数
+
+命令 kill 的参数有：
+
+> -l : 信号，若不加信号代号，则显示所有信号名
+
+> -a : 不限制命令名和进程号的对应关系
+
+> -p : 只打印相关进程号，而不发送任何信号
+
+> -s : 指定发送信号
+
+> -u : 指定用户
+
+#### 2. 使用示例
+
+**杀掉指定进程**
+
+> ps -ef | grep nginx #获取到nginx进程的PID为1234
+
+> kill 1234 
+
+**彻底结束一个进程**
+
+> kill -9 1234
+
+**杀掉指定用户所有进程**
+
+> kill -9 $(ps -ef | grep nginx)
+
+> kill -u nginx
+
+**说明：**init 进程是不可杀的。
+
 ## 四、参考资料
 
 >[How to use ps, kill and nice to manage processes in linux](https://kyup.com/tutorials/use-ps-kill-nice-manage-processes-linux/)

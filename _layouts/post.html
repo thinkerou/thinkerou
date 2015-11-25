@@ -12,13 +12,14 @@ layout: default
             <a href="{{ page.url }}">{{ page.date | date:"%Y年%m月%d日" }}</a>
         </span>
         <span><i class="fa fa-ellipsis-v"></i></span>
+        <!--去掉分类组信息
         <span>
             分类:
             {% for cat in page.categories %}
             <a href="/categories.html#{{ cat }}-ref">{{ cat }}</a>
             {% endfor %}
         </span>
-        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span><i class="fa fa-ellipsis-v"></i></span>-->
         <span>
             标签:
             {% for tag in page.tags %}

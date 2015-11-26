@@ -5,7 +5,7 @@ categories: PHP
 tags: PHP CGI FastCGI PHP-CGI PHP-FPM
 ---
 
-## 一、概览
+## 一、概念总结
 
 刚开始学习的 PHP 的时候，就会被几个词搞混：`CGI`、`FastCGI
 `、`PHP-CGI`、`PHP-FPM`，它们都是干什么活的？之间又有些什么联系和区别呢？接下来就先介绍它们的概念。
@@ -18,6 +18,8 @@ tags: PHP CGI FastCGI PHP-CGI PHP-FPM
 
 顾名思义，是 CGI 的改进版，也是一种协议，实现上是一个常驻进程，它会一直运行着，在请求到来时不会重新启新进程去处理（ CGI 为 fork-and-execute 模式）。
 
+FastCGI 把 PHP 语言和 Web 服务器分开，故 Nginx 和 PHP 通常可以部署在不同机器上，以减轻 Nginx 和后端的压力。
+
 > FastCGI 的主要特点有：
 
 > 语言无关的、可伸缩架构的 CGI 开放扩展
@@ -26,7 +28,9 @@ tags: PHP CGI FastCGI PHP-CGI PHP-FPM
 
 > 不依赖任何 web 服务器内部架构
 
-**FastCGI 的工作原理：**（markdown画图有问题，等解决后画出流程图会更清晰）
+> 平滑重新加载配置文件
+
+**FastCGI 的工作原理：**（*markdown画图有问题，等解决后画出流程图会更清晰*）
 
 > Web 服务器启动时载入 FastCGI 进程管理器（运行在 Web 服务器中）；
 
@@ -67,9 +71,8 @@ PHP-FPM 是一个 PHP FastCGI 管理器，是只用于 PHP 的，它提供了更
 
 > PHP-FPM ：是一个只用于 PHP 的进程管理器，提供更好的 PHP 进程管理方式，可以有效控制进程，平滑地加载 PHP 配置文件。
 
-## 二、
 
-## 三、参考资料
+## 二、参考资料
 
 > [FastCGI](http://www.fastcgi.com/drupal/)
 

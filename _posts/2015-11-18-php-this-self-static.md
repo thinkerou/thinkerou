@@ -2,7 +2,7 @@
 layout: post
 title: 在 PHP 类中 self 、this 和 static 的区别 
 categories: PHP
-tags: self static
+tags: PHP this self static
 ---
 
 ## 一、问题缘由

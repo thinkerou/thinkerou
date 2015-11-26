@@ -2,7 +2,7 @@
 layout: post
 title: Flask 介绍
 categories: Python
-tags: flask
+tags: Python Flask
 ---
 
 ## 一、Flask 入门

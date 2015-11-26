@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 如何在 Windows 上安装编译 Spark 环境
-categories: 大数据
-tags: Spark
+categories: Spark
+tags: Spark windows scala
 ---
 
 ## 一、写在前面的话

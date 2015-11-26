@@ -2,7 +2,7 @@
 layout: post
 title: PHP 代码规范摘记
 categories: PHP
-tags: 规范
+tags: PHP 规范
 ---
 
 ## 一、概览

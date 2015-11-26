@@ -2,7 +2,7 @@
 layout: post
 title: Windows 线程同步（用户态）
 categories: windows
-tags: 同步
+tags: windows 线程 同步
 ---
 
 ## 一、基本概念

@@ -2,7 +2,7 @@
 layout: post
 title: 使用 Python 编写 Windows 服务程序
 categories: Python
-tags: Service
+tags: Python  windows Service
 ---
 
 ## 一、前言

@@ -2,7 +2,7 @@
 layout: post
 title: 一个超简单的 C++ 日志文件
 categories: C++
-tags: log
+tags: C++ log
 ---
 
 ## 一、介绍

@@ -39,6 +39,8 @@ tags: PHP CGI FastCGI PHP-CGI PHP-FPM
 
 使用 FastCGI 的好处很明显：解析 PHP 配置文件、载入扩展、初始化数据结构，只在进程启动时发生一次，同时，持久数据库连接（persistent database connection）可以使用。
 
+<!--more-->
+
 > FastCGI 的缺点有：
 
 > 多进程模式，会比 CGI 多线程模式消耗更多服务器内存
@@ -56,6 +58,14 @@ PHP-CGI 是 PHP 自带的 FastCGI 管理器。
 #### 4. PHP-FPM
 
 PHP-FPM 是一个 PHP FastCGI 管理器，是只用于 PHP 的，它提供了更好的 PHP 进程管理方式，可以有效控制内存和进程、可以平滑重载 PHP 配置。
+
+**总结：**
+
+> CGI & FastCGI ：是一种通信标准，是协议；
+
+> PHP-CGI ：是一个程序，用来解释 PHP 脚本；
+
+> PHP-FPM ：是一个只用于 PHP 的进程管理器，提供更好的 PHP 进程管理方式，可以有效控制进程，平滑地加载 PHP 配置文件。
 
 ## 二、
 

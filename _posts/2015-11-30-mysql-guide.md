@@ -2,7 +2,7 @@
 layout: post
 title: MySQL 快速入门
 categories: Database
-tags: MySQL
+tags: MySQL Shell
 ---
 
 ## 一、概览
@@ -58,6 +58,8 @@ tags: MySQL
 
 使用 `mysqld` 或 `mysqld_safe` 命令启动服务时，是在 `console` 模式下运行的，而使用 `sudo mysql.server start` 命令启动服务时，则是在后台无控制台窗口下运行。
 
+<!--more-->
+
 > mysqld 或 mysqld --console
 
 > mysqld_safe 执行该命令后出现如下信息：
@@ -70,7 +72,7 @@ tags: MySQL
 
 > 使用 `mysql.server start` 命令会更加友好
 	
-	thinkerou:~ baidu$ mysql.server start
+	MacBook-Pro:~ thinkerou$ mysql.server start
 	Starting MySQL
 	. SUCCESS!
 	
@@ -82,4 +84,34 @@ tags: MySQL
 
 前面说了三种启动服务的方式，那么这三种方式又有何联系与区别呢？一种直观的区别是：`mysql.server` 和 `mysqld_safe` 是 `shell` 脚本， 而 `mysqld` 是二进制可执行文件。
 
+首先看看 mysql.server 脚本里都有些什么信息，在脚本的开头有注释： `MySQL daemon start/stop script.` 清楚的说明了脚本的作用是启动、停止 MySQl 守护进程。同时，在前面已经看到使用 mysql.server 命令操控服务时需要带参数 start、stop 等，那么在 shell 脚本里就应该有所体现，看看具体怎么做的（*摘录 case 语句中匹配 start 的部分*）：
+
+	case "$mode" in
+	  'start')
+	    # Start daemon
+       
+       # Safeguard (relative paths, core dumps..)
+       cd $basedir
+       
+       echo $echo_n "Starting MySQL"
+       if test -x $bindir/mysqld_safe
+       then
+         # Give extra arguments to mysqld with the my.cnf file. This script
+         # may be overwritten at next upgrade.
+         $bindir/mysqld_safe --datadir="$datadir" --pid-file="$mysqld_pid_file_path" $other_args >/dev/null 2>&1 &
+         wait_for_pid created "$!" "$mysqld_pid_file_path"; return_value=$?
+         
+         # Make lock for RedHat / SuSE
+         if test -w "$lockdir"
+         then
+           touch "$lock_file_path"
+         fi
+         
+         exit $return_value
+       else
+         log_failure_msg "Couldn't find MySQL server ($bindir/mysqld_safe)"
+       fi
+       ;;
+       
+       
 ## 二、参考资料

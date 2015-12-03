@@ -235,10 +235,83 @@ tags: MySQL Shell
 
 #### 2. 表操作
 
-> show tables;
-> 
->  
-> 
+> show tables[ like "pattern"]; # 显示当前数据库有哪些表
+
+	mysql> show tables;
+	+---------------------------+
+	| Tables_in_mysql           |
+	+---------------------------+
+	| columns_priv              |
+	| db                        |
+	| engine_cost               |
+	| event                     |
+	| func                      |
+	| general_log               |
+	| gtid_executed             |
+	| help_category             |
+	| help_keyword              |
+	| help_relation             |
+	| help_topic                |
+	| innodb_index_stats        |
+	| innodb_table_stats        |
+	| ndb_binlog_index          |
+	| plugin                    |
+	| proc                      |
+	| procs_priv                |
+	| proxies_priv              |
+	| server_cost               |
+	| servers                   |
+	| slave_master_info         |
+	| slave_relay_log_info      |
+	| slave_worker_info         |
+	| slow_log                  |
+	| tables_priv               |
+	| time_zone                 |
+	| time_zone_leap_second     |
+	| time_zone_name            |
+	| time_zone_transition      |
+	| time_zone_transition_type |
+	| user                      |
+	+---------------------------+
+	31 rows in set (0.00 sec)> 
+
+> show tables from dbname; # 查看某个表，结果同 use dbname; show tables;
+
+> show create table tablename; # 查看表结构
+
+> desc tablename /describe tablename /explain tablename /show columns from talbename[ like "pattern"]; # 查看表结构
+
+> show table status[ from dbname] [like "pattern"]; # 查看表结构
+
+	mysql> desc db;
+	+-----------------------+---------------+------+-----+---------+-------+
+	| Field                 | Type          | Null | Key | Default | Extra |
+	+-----------------------+---------------+------+-----+---------+-------+
+	| Host                  | char(60)      | NO   | PRI |         |       |
+	| Db                    | char(64)      | NO   | PRI |         |       |
+	| User                  | char(32)      | NO   | PRI |         |       |
+	| Select_priv           | enum('N','Y') | NO   |     | N       |       |
+	| Insert_priv           | enum('N','Y') | NO   |     | N       |       |
+	| Update_priv           | enum('N','Y') | NO   |     | N       |       |
+	| Delete_priv           | enum('N','Y') | NO   |     | N       |       |
+	| Create_priv           | enum('N','Y') | NO   |     | N       |       |
+	| Drop_priv             | enum('N','Y') | NO   |     | N       |       |
+	| Grant_priv            | enum('N','Y') | NO   |     | N       |       |
+	| References_priv       | enum('N','Y') | NO   |     | N       |       |
+	| Index_priv            | enum('N','Y') | NO   |     | N       |       |
+	| Alter_priv            | enum('N','Y') | NO   |     | N       |       |
+	| Create_tmp_table_priv | enum('N','Y') | NO   |     | N       |       |
+	| Lock_tables_priv      | enum('N','Y') | NO   |     | N       |       |
+	| Create_view_priv      | enum('N','Y') | NO   |     | N       |       |
+	| Show_view_priv        | enum('N','Y') | NO   |     | N       |       |
+	| Create_routine_priv   | enum('N','Y') | NO   |     | N       |       |
+	| Alter_routine_priv    | enum('N','Y') | NO   |     | N       |       |
+	| Execute_priv          | enum('N','Y') | NO   |     | N       |       |
+	| Event_priv            | enum('N','Y') | NO   |     | N       |       |
+	| Trigger_priv          | enum('N','Y') | NO   |     | N       |       |
+	+-----------------------+---------------+------+-----+---------+-------+
+	22 rows in set (0.01 sec)
+
 
 #### 3. 导出导入
 

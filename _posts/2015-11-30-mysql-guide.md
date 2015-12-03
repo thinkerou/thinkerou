@@ -113,5 +113,136 @@ tags: MySQL Shell
        fi
        ;;
        
-       
-## 二、参考资料
+从摘录的 shell 脚本可以知道，mysql.server 最终是去调用了 mysqld_safe 脚本，同时传入 `--datadir` 和 `--pid-file` 以及 `$other_args` 等参数，也即是 mysql.server 是为了方便操控 myslq 服务而存在的脚本，真正操控 mysql 服务的并不是它。
+
+而在 mysql_safe 脚本里，启动、监控 mysql 服务是通过调用 mysqld 来实现，也就是说最终真正在干活的是通过可执行文件 mysqld 来完成的。
+
+## 二、MySQL 基础语句
+
+经过上一部分介绍，使用命令 `mysql.server start` 启动 mysql 服务后，就可以开始介绍基础的 MySQL 语句了，使用如下命令启动 mysql 命令行模式：
+
+> mysql -h address -P port -u username -p password
+
+> mysql -u root -p
+
+> 回车后提示输入密码，默认密码为空，直接回车即可
+
+成功后，会出现如下内容：
+
+	MacBook-Pro:bin thinkerou$ mysql -u root -p
+	Enter password:
+	Welcome to the MySQL monitor.  Commands end with ; or \g.
+	Your MySQL connection id is 3
+	Server version: 5.7.9 Homebrew
+	
+	Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+	
+	Oracle is a registered trademark of Oracle Corporation and/or its
+	affiliates. Other names may be trademarks of their respective
+	owners.
+	
+	Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+	
+	mysql>
+	
+然后，就可以在这里做操作，比如：
+
+> show processlist; # 查看哪些进程在运行
+
+	mysql> show processlist; # test
+	+----+------+-----------+------+---------+------+----------+------------------+
+	| Id | User | Host      | db   | Command | Time | State    | Info             |
+	+----+------+-----------+------+---------+------+----------+------------------+
+	|  3 | root | localhost | NULL | Query   |    0 | starting | show processlist |
+	+----+------+-----------+------+---------+------+----------+------------------+
+	1 row in set (0.00 sec)
+
+> show variables like "port"; # 查看端口号
+
+	mysql> show variables like "port";
+	+---------------+-------+
+	| Variable_name | Value |
+	+---------------+-------+
+	| port          | 3306  |
+	+---------------+-------+
+	1 row in set (0.00 sec)
+
+#### 1. 数据库操作
+
+> show databases[ like "pattern"]; # 查看当前有哪些数据库
+
+	mysql> show databases;
+	+--------------------+
+	| Database           |
+	+--------------------+
+	| information_schema |
+	| mobile             |
+	| mysql              |
+	| performance_schema |
+	| sys                |
+	+--------------------+
+	5 rows in set (0.00 sec)
+	
+> use dbname; # 使用 dbname 数据库
+
+	mysql> use mysql;
+	Reading table information for completion of table and column names
+	You can turn off this feature to get a quicker startup with -A
+
+	Database changed
+
+> show create database dbname; # 查看当前数据库信息
+
+	mysql> show create database mysql;
+	+----------+----------------------------------------------------------------+
+	| Database | Create Database                                                |
+	+----------+----------------------------------------------------------------+
+	| mysql    | CREATE DATABASE `mysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
+	+----------+----------------------------------------------------------------+
+	1 row in set (0.00 sec)
+
+> select database(); # 查看当前数据库
+
+	mysql> select database();
+	+------------+
+	| database() |
+	+------------+
+	| mysql      |
+	+------------+
+	1 row in set (0.00 sec)
+	
+> select now(), user(), version(); # 查看当前时间、用户名及数据库版本
+
+	mysql> select now(), user(), version();
+	+---------------------+----------------+-----------+
+	| now()               | user()         | version() |
+	+---------------------+----------------+-----------+
+	| 2015-12-02 23:38:45 | root@localhost | 5.7.9     |
+	+---------------------+----------------+-----------+
+	1 row in set (0.00 sec)	
+
+> create database[ if not exists] dbname dboption; # 创建数据库
+
+> - 数据库选项 dboption 有：
+
+> - CHARACTER SET charset_name
+
+> - COLLATE collation_name
+
+> alter database dbname option; # 修改数据库选项信息
+
+> drop database[ if exists] dbname; # 删除数据库，同时删除相关目录及内容
+
+#### 2. 表操作
+
+> show tables;
+> 
+>  
+> 
+
+#### 3. 导出导入
+
+
+
+
+## 三、参考资料

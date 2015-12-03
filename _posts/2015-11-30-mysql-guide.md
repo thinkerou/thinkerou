@@ -312,10 +312,78 @@ tags: MySQL Shell
 	+-----------------------+---------------+------+-----+---------+-------+
 	22 rows in set (0.01 sec)
 
+> create [temporary] table [if not exists] [dbname.]tablename (table define) [option]; # 创建表
 
-#### 3. 导出导入
+> 临时表 temporary 在会好结束后自动消失
 
+> 每个字段必须有类型，且最后一个字段后不能有逗号
 
+表结构定义中字段定义为：
+
+> 字段名 类型 [not null | null] [default default_value] [auto_increment] [unique [key] | [primary] key] [comment "string"]
+
+表选项（option）主要有：
+
+> 字符集：charset=charset_name
+
+> 存储引擎：engine=engine_name，通常为 InnoDB
+
+> 表注释：comment="string"
+
+示例如下：
+
+	  CREATE TABLE `read_status` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	      `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户Id',
+	      `source` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '信息来源',
+	      `read_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '当前读取信息中最新操作时间',
+	      `db_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '记录更新时间',
+	      PRIMARY KEY(`id`),
+	      UNIQUE KEY `idx_user_id_source` (`user_id`, `source`)
+	  ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gbk;
+ 
+> alter table tablename option; #修改表
+
+> rename table old_table_name to new_table_name; # 重命名表名
+
+> drop table [if exists] tablename; # 删除表
+
+> truncate [table] tablename; # 清空表数据
+
+> create table tablename like src_table_name; # 复制表结构
+
+> create table tablename [as] select * from src_table_name; # 复制表结构和数据
+
+#### 3. 数据操作（*增删改查*）
+
+> insert [info] tablename [(字段列表)] value (值列表)[, (值列表), ...]
+
+> select 字段列表 from tablename[ 其他子句]
+
+> delete from tablename[ 删除条件子句]
+
+> update tablename set 字段名=新值[, 字段名=新值] [更新条件]
+
+#### 4. 导出导入
+
+数据导出需要使用命令 `mysqldump` 来完成：
+
+> mysqldump -u username -p password dbname tablename > filename.sql # 导出表
+
+> mysqldump -u username -p password -B dbname > filename.sql # 导出数据库
+
+而数据的导入则需要使用命令 `source` 来完成：
+
+> source backup.sql # 需要登录 mysql 控制台后完成
+
+> mysql -u username -p password dbname < backup.sql # 不需要登录 mysql 控制台
 
 
 ## 三、参考资料
+
+> [MySQL tutorial 官方手册](http://dev.mysql.com/doc/refman/5.7/en/tutorial.html)
+
+> [MySQL tutorial](http://www.mysqltutorial.org/)
+
+> [A Beginner’s Guide to SQL: A MySQL Tutorial](https://blog.udemy.com/beginners-guide-to-sql/)
+
+> [tutorialspoint](http://www.tutorialspoint.com/mysql/)

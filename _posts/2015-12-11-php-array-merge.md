@@ -140,7 +140,7 @@ tags: PHP Array array_merge
 又如：
 
 	<?php
-   // PHP 5.6.15
+    // PHP 5.6.15
 	$a = array(10 => 1, 'world' => 2);
 	$b = array('hi' => 1, 10 => 3);
 	

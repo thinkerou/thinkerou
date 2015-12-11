@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 那些踩过的() PHP 坑之 array_merge 函数
+title: 那些踩过的 PHP 坑之 array_merge 函数
 categories: PHP
 tags: PHP Array array_merge
 ---

@@ -1,5 +1,4 @@
 root: /
-relative_permalinks: true
 permalink: /:year-:month/:title/
 markdown: kramdown 
 pygments: true

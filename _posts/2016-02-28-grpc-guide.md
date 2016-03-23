@@ -5,39 +5,44 @@ categories: rpc
 tags: RPC
 ---
 
-## 一、问题背景
+## 一、开始 grpc 
 
-对于 C++ STL 中的 `map` 都不陌生，但是对其 `erase` 操作后的迭代器使用是否遇到过问题呢？看如下代码：
+最近准备开始看看 [grpc](https://github.com/grpc/grpc) 相关代码，那首先得让其跑起来，以下记录安装步骤：
 
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for( ; it != m.end(); ++it)
-    {
-        m.erase(it);
-    }
-    
-这样操作会引起程序崩溃，因为 `erase` 后迭代器就实效了，再根据迭代器进行操作当然就会导致程序崩溃。
+注：系统为 mac
 
-## 二、解决方案
+### 1. 安装 grpc core
 
-解决这个问题的方法也很简单，如果熟悉 `it++` 操作的含义，就会瞬间想到该怎么做，代码如下：
+主要是修改 url 路径，否则会被强。
 
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for( ; it != m.end(); )
-    {
-        m.erase(it++);
-    }
-    
-这样操作就不会导致迭代器实效了，前面代码等同于如下代码：
+> clone 代码
 
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for(; it != m.end(); )
-    {
-        map<string, int>::iterator tmp = it;
-        ++it;
-        m.erase(tmp);
-    }
-    
-即在 `erase` 操作前先将其迭代器保存起来，然后递增后再操作，这些步骤组合在一起也即是 `it++` 的含义。
+> 修改 .gitmodules 和 .git/config 里 boringssl 的url为：https://github.com/google/boringssl.git
+
+> 运行 git submodule update --init 下载 third_party 文件
+
+> make
+
+> sudo make install
+
+如此，会在 `/usr/local/lib/` 目录下产生 `libgrpc.a` 和 `libgrpc.dylib` 等文件。
+
+### 2. 安装 cpp example
+
+验证安装 grpc 核心库成功。
+
+> cd examples/cpp/route_guide
+
+> make
+
+> ./route_guide_server
+
+> ./route_guide_client
+
+## 二、参考资料
+
+> [grpc Github 主页](https://github.com/grpc/grpc)
+
+> [grpc 文档](http://www.grpc.io/docs/)
+
+

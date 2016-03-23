@@ -27,7 +27,7 @@ tags: RPC
 
 如此，会在 `/usr/local/lib/` 目录下产生 `libgrpc.a` 和 `libgrpc.dylib` 等文件。
 
-<!-- more -->
+<!--more-->
 
 ### 2. 安装 cpp example
 

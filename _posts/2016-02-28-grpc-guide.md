@@ -27,6 +27,8 @@ tags: RPC
 
 如此，会在 `/usr/local/lib/` 目录下产生 `libgrpc.a` 和 `libgrpc.dylib` 等文件。
 
+<!-- more -->
+
 ### 2. 安装 cpp example
 
 验证安装 grpc 核心库成功。

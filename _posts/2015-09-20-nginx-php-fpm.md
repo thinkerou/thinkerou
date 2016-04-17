@@ -2,7 +2,7 @@
 layout: post
 title: Nginx 与 PHP 环境搭建 
 categories: PHP
-tags: PHP Nginx php-fpm
+tags: PHP Nginx
 ---
 
 ## 一、基础工具

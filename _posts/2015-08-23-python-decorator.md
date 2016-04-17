@@ -2,7 +2,7 @@
 layout: post
 title: Python 装饰器
 categories: Python
-tags: Python 装饰器 Decorator
+tags: Python
 ---
 
 ## 一、介绍

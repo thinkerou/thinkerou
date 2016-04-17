@@ -2,7 +2,7 @@
 layout: post
 title: 命令行艺术之 ps 与 kill
 categories: Shell
-tags: Shell ps kill
+tags: Shell
 ---
 
 ## 一、概览

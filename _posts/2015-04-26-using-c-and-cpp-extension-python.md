@@ -2,7 +2,7 @@
 layout: post
 title: 使用 C/C++ 扩展 Python
 categories: Python
-tags: Python 扩展
+tags: Python
 ---
 
 ## 一、需求背景

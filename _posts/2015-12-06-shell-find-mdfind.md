@@ -2,7 +2,7 @@
 layout: post
 title: 命令行艺术之 find 与 mdfind
 categories: Shell
-tags: Shell find mdfind
+tags: Shell
 ---
 
 ## 一、概览

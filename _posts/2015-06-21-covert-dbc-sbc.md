@@ -2,7 +2,7 @@
 layout: post
 title: 全角半角转换（Python 接口）
 categories: Python
-tags: Python 全角 半角 扩展
+tags: Python
 ---
 
 ## 一、背景介绍

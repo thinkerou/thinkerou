@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 如何对模板类进行单元测试
-categories: 测试
-tags: 测试 gtest 模板
+categories: gtest
+tags: gtest
 ---
 
 ## 一、背景介绍

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 更新 PHP5 扩展到 NG 记录
-categories: PHP
-tags: PHP
+title: Git submodule 使用记录
+categories: Git
+tags: Git
 ---
 
 ## 一、问题背景
@@ -22,22 +22,3 @@ tags: PHP
 
 解决这个问题的方法也很简单，如果熟悉 `it++` 操作的含义，就会瞬间想到该怎么做，代码如下：
 
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for( ; it != m.end(); )
-    {
-        m.erase(it++);
-    }
-    
-这样操作就不会导致迭代器实效了，前面代码等同于如下代码：
-
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for(; it != m.end(); )
-    {
-        map<string, int>::iterator tmp = it;
-        ++it;
-        m.erase(tmp);
-    }
-    
-即在 `erase` 操作前先将其迭代器保存起来，然后递增后再操作，这些步骤组合在一起也即是 `it++` 的含义。

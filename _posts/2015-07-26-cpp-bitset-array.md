@@ -2,7 +2,7 @@
 layout: post
 title: C++ bitset 和 array 介绍
 categories: C++
-tags: C++ bitset array
+tags: C++
 ---
 
 ## 一、介绍说明

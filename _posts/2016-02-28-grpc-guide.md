@@ -2,7 +2,7 @@
 layout: post
 title: grpc 入门
 categories: rpc
-tags: RPC
+tags: RPC C
 ---
 
 ## 一、开始 grpc 

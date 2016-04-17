@@ -2,7 +2,7 @@
 layout: post
 title: C++ Lambda 介绍
 categories: C++
-tags: C++ lambda
+tags: C++
 ---
 
 ## 一、C++ lambda 表达式格式

@@ -2,7 +2,7 @@
 layout: post
 title: 关键字 typedef 深入了解
 categories: C
-tags: C typedef
+tags: C
 ---
 
 ## 一、引子：几行代码

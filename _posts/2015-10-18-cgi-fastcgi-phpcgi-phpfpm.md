@@ -2,7 +2,7 @@
 layout: post
 title: 细说 CGI、FastCGI、PHP-CGI 和 PHP-FPM 的关系
 categories: PHP
-tags: PHP CGI FastCGI PHP-CGI PHP-FPM
+tags: PHP
 ---
 
 ## 一、概念总结

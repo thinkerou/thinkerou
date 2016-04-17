@@ -7,18 +7,17 @@ tags: Git
 
 ## 一、问题背景
 
-对于 C++ STL 中的 `map` 都不陌生，但是对其 `erase` 操作后的迭代器使用是否遇到过问题呢？看如下代码：
+最近在阅读 [**grpc**](http://www.grpc.io/) 相关的代码，在阅读前需要先让代码跑起来，然后跟着 **INSTALL** 里的说明进行编译，里面有这样的步骤：
 
-    map<string, int> m;
-    map<string, int>::iterator it = m.begin();
-    for( ; it != m.end(); ++it)
-    {
-        m.erase(it);
-    }
+    git submodule update --init
     
-这样操作会引起程序崩溃，因为 `erase` 后迭代器就实效了，再根据迭代器进行操作当然就会导致程序崩溃。
+这是第一次遇见 `git` 的 `submoduel` 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必要认真阅读 `git` 的 `submoduele` 参数相关的资料来了解其使用。
+
 
 ## 二、解决方案
 
 解决这个问题的方法也很简单，如果熟悉 `it++` 操作的含义，就会瞬间想到该怎么做，代码如下：
+
+## 三、参考资料
+
 

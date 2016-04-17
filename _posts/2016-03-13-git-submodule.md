@@ -27,6 +27,16 @@ tags: Git
     or: git submodule [--quiet] summary [--cached|--files] [--summary-limit <n>] [commit] [--] [<path>...]
     or: git submodule [--quiet] foreach [--recursive] <command>
     or: git submodule [--quiet] sync [--recursive] [--] [<path>...]
+    
+接下来就以 `grpc` 代码来作为示例，在 `grpc` 源代码目录下有这样一个特殊的文件：
+
+    thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ ls -la
+    -rw-r--r--   1 baidu  staff     665  3 22 20:27 .gitmodules 
+
+从文件名可以看出是跟本文讨论的 `submodule` 相关的。
+
+<!--more-->
+
 
 
 ## 三、参考资料

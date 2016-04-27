@@ -15,17 +15,17 @@ tags: Git
 
 通过前述查阅可知，要解决 **Fork 项目后如何同步源项目的更新？**的问题，需要如下几个步骤：
 
-#### 1. 使用 git remote -v 命令查看远程状态
+#### 1. 使用 `git remote -v` 命令查看远程状态
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v
     origin	https://github.com/thinkerou/grpc.git (fetch)
     origin	https://github.com/thinkerou/grpc.git (push)
 
-#### 2. 使用 git remote add upstream 命令给 Fork 的项目添加上游仓库
+#### 2. 使用 `git remote add upstream` 命令给 Fork 的项目添加上游仓库
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote add upstream https://github.com/grpc/grpc.git
     
-#### 3. 再次使用 git remote -v 查看远程状态
+#### 3. 再次使用 `git remote -v` 查看远程状态
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v
     origin	https://github.com/thinkerou/grpc.git (fetch)
@@ -33,23 +33,25 @@ tags: Git
     upstream	https://github.com/grpc/grpc.git (fetch)
     upstream	https://github.com/grpc/grpc.git (push)
     
-#### 4. 使用 git fetch upstream 命令从上游仓库 fetch 分支到本地
+#### 4. 使用 `git fetch upstream` 命令从上游仓库 fetch 分支到本地
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git fetch upstream
      
-> 5. 使用 git checkout master 命令切换到本地主干
+#### 5. 使用 `git checkout master` 命令切换到本地主干
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git checkout master
     
-> 6. 使用 git merge upstream/master 命令进行合并
+#### 6. 使用 `git merge upstream/master` 命令进行合并
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git merge upstream/master
     
-> 7. 使用 git push origin master 命令提交到 Github 项目下
+#### 7. 使用 `git push origin master` 命令提交到 Github 项目下
 
     thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git push origin master
 
 至此，就完美解决了 **Fork 项目后如何同步源项目的更新？**的问题！
+
+<!--more-->
 
 ## 三、参考资料
 

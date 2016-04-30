@@ -3,6 +3,7 @@ permalink: /:year-:month/:title/
 markdown: kramdown 
 pygments: true
 paginate: 5
+highlighter: rouge
 
 title: thinkerou
 

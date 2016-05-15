@@ -1,6 +1,6 @@
 ---
 layout: post
-title: grpc 入门
+title: GRPC 入门
 categories: rpc
 tags: RPC C
 ---

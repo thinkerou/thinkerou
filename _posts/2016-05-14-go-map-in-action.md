@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【译】Go map [译] 
+title: 【译】Go maps in action 
 categories: Golang
 tags: Golang
 ---

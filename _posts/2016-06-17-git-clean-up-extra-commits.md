@@ -53,6 +53,44 @@ tags: Git
 
 保存文本后退出编辑，如果有冲突需要根据提示进行冲突处理。
 
+当有冲突时，在保存文本文件退出后会有提示，然后运行 `git rebase --continue` 命令就会出现哪些文件产生了冲突：
+
+    thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git rebase -i fa9b7c1bc6488be17d18007f45c57dac39ea5b79
+
+    It seems that there is already a rebase-merge directory, and
+    I wonder if you are in the middle of another rebase.  If that is the
+    case, please try
+	    git rebase (--continue | --abort | --skip)
+    If that is not the case, please
+	    rm -fr "/Users/thinkerou/Documents/opensource/grpc/.git/rebase-merge"
+    and run me again.  I am stopping in case you still have something
+    valuable there.
+    
+    thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git rebase --continue
+    src/core/lib/surface/server.c: needs merge
+    You must edit all merge conflicts and then
+    mark them as resolved using git add
+
+然后打开提示有冲突的文件，搜索 `<<<<` 或 `>>>>` 就能找到冲突的地方，进行合并处理后保存文件，并使用命令 `git add file-name` 进行文件添加。
+
+然后继续运行 `git rebase --continue` 命令，这时会弹出文本信息，将刚刚修改的文件提交信息前的 `#` 去掉后保存。
+
+重复上面的步骤，直到提示成功为止。
+
+> 核心步骤：
+
+> git rebase --continue
+
+> 修改冲突文件并保存
+
+> git add filename
+
+> git rebase --continue
+
+> 修改弹出的文本信息里关于 filename 文件提交信息前的 `#`
+
+> 重复上述步骤直到提示成功方可进行正式提交
+
 #### 3. 使用命令 `git push -f origin branch-name`
 
 将更新提交到 `Github` 上，但是这里跟平常的 `push` 有所区别的是，需要参数 `-f` 执行强制提交，是因为当前本地的历史和远端的历史已经出现的分歧。

@@ -10,9 +10,11 @@ tags: Git
 最近在学习 [gRPC](https://github.com/grpc/grpc) 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说**提交代码时应该把无关的提交历史给删除**，具体回复是这样的：
 
 @murgatroid99 [这么回复的](https://github.com/grpc/grpc/pull/6848)：
+
 > Can you please send this PR without all of the irrelevant commits? All of the changes for this PR are in the second-to-last commit.
 
 @ctiller [这么回复的](https://github.com/grpc/grpc/pull/6932)：    
+
 > I'm not sure we want this to be blanket turned on for all platforms.
 
 > Also, it'd be good to clean up some of the spurious unrelated commits here.

@@ -20,6 +20,8 @@ tags: sonar
     
 必须准备的是 `java` 环境，因为 `sonar` 是用 Java 编写的；数据库支持多种，本文使用 MySQL 作为示例；而 `ruby` 和 `gem` 并不是必须要的，如果在安装、运行过程中，根据日志记录，或许需要安装它们以解决错误问题。
 
+<!--more-->
+
 详细需要准备的环境，请见[官方说明](http://docs.sonarqube.org/display/SONAR/Requirements)。
     
 ### 2. 启动服务
@@ -67,9 +69,13 @@ tags: sonar
 2. 修改 `sonar.properties` 中数据库的登录名和密码配置为：
 
      # User credentials.
+     
      # Permissions to create tables, indices and triggers must be granted to JDBC user.
+     
      # The schema must be created first.
+     
      sonar.jdbc.username=root
+     
      sonar.jdbc.password=
     
   其中 `sonar.jdbc.username` 和 `sonar.jdbc.password` 分别为数据库的登录名和密码，这里使用 MySQL 的默认配置。
@@ -77,8 +83,11 @@ tags: sonar
 3. 修改 `sonar.properties` 中数据库访问链接为：
      
      #----- MySQL 5.6 or greater
+     
      # Only InnoDB storage engine is supported (not myISAM).
+     
      # Only the bundled driver is supported. It can not be changed.
+     
      sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
      
   其中 `sonar` 即为数据库名，如果前面创建的数据库名不为 `sonar` 则这里需要做相应的修改。

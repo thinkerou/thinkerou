@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 【译】Go maps in action 
-categories: Golang
-tags: Golang
+categories: Go
+tags: Go
 ---
 
 > 注：译文都不会严格按照中英文对等翻译来做，而主要记录核心要点及个人理解！

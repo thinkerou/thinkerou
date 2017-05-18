@@ -85,3 +85,21 @@ Singleton 类实现：
 **注意：**构造函数是保护型的，如果直接实例化 Singleton 的客户将会得到编译时错误信息，这也就保证了仅有一个实例可以被创建。
 
 因为变量 _instance 是一个指向 Singleton 对象的指针， Instance 成员函数可以将一个指向 Singleton 的子类的指针赋给这个变量。
+
+### 8. 双检测锁模式
+
+实现线程安全的 Instance 一种方式是：**每次判断是否为 NULL 前加锁**，但加锁是很慢的。
+
+事实上，只有第一次实例创建时才需要加锁，即双检测锁：
+
+    Singleton* Singleton::Instance() {
+        if(_instance == 0) {
+            Lock lock;
+            if(_instance == 0) {
+                _instance = new Singleton;
+            }
+        }
+        return _instance;
+    }
+
+在 C++11 中关于双检测锁可以阅读[《Double-Checked Locking is Fixed In C++11》](http://preshing.com/20130930/double-checked-locking-is-fixed-in-cpp11/)

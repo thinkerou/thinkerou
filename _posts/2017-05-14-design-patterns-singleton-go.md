@@ -78,9 +78,8 @@ tags: 设计模式 Go
             if instance == nil {
                 instance = &Singleton{}
             }
-            
-            return instance
         }
+        return instance
     }
 
 这种实现方式中，编译器会优化没有检查实例存储状态。如果使用 `sync/atomic` 包可以自动加载和标记状态，如下实现：

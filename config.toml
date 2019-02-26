@@ -1,0 +1,62 @@
+baseurl         = "http://thinkerou.com"
+title		= "thinkerou"
+theme           = "casper-two"
+languageCode    = "en-US"
+disqusShortname = "thinkerou"
+paginate        = 6
+canonifyurls    = true
+
+[params]
+  title       = "thinkerou"
+  subtitle    = "Live! and Learn!"
+  copyright   = "© 2019"
+
+  cover       = "img/blog-cover.jpg"
+  description = "Here is a description of your site."
+  metaDescription = ""
+  googleAnalytics = "UA-42425385-1"
+  customCSS = []
+  RSSLink = ""
+
+  twitterName = "thinkerou"
+  fbName = ""
+  githubName = "thinkerou"
+  linkedinName = ""
+  mediumName = ""
+
+  logo = "img/android-chrome-512x512.png"
+  orgName = "thinkerou"
+  orgWebsite = "http://thinkerou.com"
+  orgDescription = "Here is a description placeholder for your org"
+
+  showSupport = false
+
+  author = "thinkerou"
+  authorAvatar = "img/thinkerou-avatar.jpg"
+  authorLocation = "Bandung, ID"
+  authorWebsite = "http://thinkerou.com"
+  authorDescription = "Your description here"
+
+  pageNotFoundTitle = "404 - Page not found"
+
+  #casper or caspertwo
+  singleViewStyle = "casper"
+
+[permalinks]
+  post = "/post/:slug/"
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 200
+
+[[menu.main]]
+  name = "Go"
+  url = "/tags/golang/"
+  weight = 100
+
+[[menu.main]]
+  name = "Categories"
+  url = "/categories/"
+  weight = 99
+

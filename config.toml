@@ -51,12 +51,7 @@ canonifyurls    = true
   weight = 200
 
 [[menu.main]]
-  name = "Tags"
-  url = "/tags/"
-  weight = 100
-
-[[menu.main]]
   name = "Categories"
   url = "/categories/"
-  weight = 99
+  weight = 100
 

@@ -12,7 +12,7 @@ canonifyurls    = true
   copyright   = "© 2019"
 
   cover       = "img/blog-cover.jpg"
-  description = "Here is a description of your site."
+  description = "Live and Learn."
   metaDescription = ""
   googleAnalytics = "UA-42425385-1"
   customCSS = []
@@ -27,15 +27,15 @@ canonifyurls    = true
   logo = "img/android-chrome-512x512.png"
   orgName = "thinkerou"
   orgWebsite = "http://thinkerou.com"
-  orgDescription = "Here is a description placeholder for your org"
+  orgDescription = "The Harder, The Luckier."
 
   showSupport = false
 
   author = "thinkerou"
   authorAvatar = "img/thinkerou-avatar.jpg"
-  authorLocation = "Bandung, ID"
+  authorLocation = "Beijing, China"
   authorWebsite = "http://thinkerou.com"
-  authorDescription = "Your description here"
+  authorDescription = "Coding makes me happy!"
 
   pageNotFoundTitle = "404 - Page not found"
 
@@ -51,8 +51,8 @@ canonifyurls    = true
   weight = 200
 
 [[menu.main]]
-  name = "Go"
-  url = "/tags/golang/"
+  name = "Tags"
+  url = "/tags/"
   weight = 100
 
 [[menu.main]]

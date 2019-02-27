@@ -1,4 +1,4 @@
-baseurl         = "http://thinkerou.com"
+baseurl         = "https://thinkerou.com"
 title		= "thinkerou"
 theme           = "casper-two"
 languageCode    = "en-US"

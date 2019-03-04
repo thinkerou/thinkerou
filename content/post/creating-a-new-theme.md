@@ -10,7 +10,7 @@ prev: /tutorials/automated-deployments
 title: Creating a New Theme
 weight: 10
 image: img/welcome.jpg
-authorAvatar: hugo-logo.png
+#authorAvatar: hugo-logo.png
 ---
 
 

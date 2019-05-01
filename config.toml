@@ -46,12 +46,12 @@ canonifyurls    = true
   post = "/post/:slug/"
 
 [[menu.main]]
-  name = "Home"
+  name = "主页"
   url = "/"
   weight = 200
 
-[[menu.main]]
-  name = "Categories"
-  url = "/categories/"
-  weight = 100
+#[[menu.main]]
+#  name = "目录"
+#  url = "/categories/"
+#  weight = 100
 

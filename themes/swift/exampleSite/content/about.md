@@ -1,7 +1,6 @@
 +++
 title = "About Hugo"
 date = "2014-04-09"
-tags = ["hugo"]
 image = 'read.jpg'
 +++
 

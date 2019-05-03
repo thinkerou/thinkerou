@@ -1,57 +1,14 @@
-baseURL         = "https://thinkerou.com"
-title		= "thinkerou"
-theme           = "casper-two"
-languageCode    = "en-US"
-disqusShortname = "thinkerou"
-paginate        = 6
-canonifyurls    = true
+baseURL = "https://thinkerou.com"
+languageCode = "en-us"
+title = "thinkerou"
+theme = "swift"
+author = "thinkerou"
+canonifyurls = true
+paginate = 4
 
 [params]
-  title       = "thinkerou"
-  subtitle    = "Live! and Learn!"
-  copyright   = "© 2019"
-
-  cover       = "img/blog-cover.jpg"
-  description = "Live and Learn."
-  metaDescription = ""
-  googleAnalytics = "UA-42425385-1"
-  customCSS = []
-  RSSLink = ""
-
-  twitterName = "thinkerou"
-  fbName = ""
-  githubName = "thinkerou"
-  linkedinName = ""
-  mediumName = ""
-
-  logo = "img/android-chrome-512x512.png"
-  orgName = "thinkerou"
-  orgWebsite = "http://thinkerou.com"
-  orgDescription = "The Harder, The Luckier."
-
-  showSupport = false
-
-  author = "thinkerou"
-  authorAvatar = "img/thinkerou-avatar.jpg"
-  authorLocation = "Beijing, China"
-  authorWebsite = "http://thinkerou.com"
-  authorDescription = "Coding makes me happy!"
-
-  pageNotFoundTitle = "404 - Page not found"
-
-  #casper or caspertwo
-  singleViewStyle = "casper"
-
-[permalinks]
-  post = "/post/:slug/"
-
-[[menu.main]]
-  name = "主页"
-  url = "/"
-  weight = 200
-
-#[[menu.main]]
-#  name = "目录"
-#  url = "/categories/"
-#  weight = 100
+staticman = false
+googleAnalytics = "UA-42425385-1"
+description = "在路上，永远年轻，永远热泪盈眶。"
+disqusShortname = "thinkerou"
 

@@ -1,4 +1,4 @@
-baseURL = "https://thinkerou.com"
+baseURL = "https://thinkerou.com/"
 languageCode = "en-us"
 title = "thinkerou"
 theme = "swift"

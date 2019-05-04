@@ -4,7 +4,7 @@ title = "thinkerou"
 theme = "swift"
 author = "thinkerou"
 canonifyurls = true
-paginate = 4
+paginator = 8
 
 [params]
 staticman = false

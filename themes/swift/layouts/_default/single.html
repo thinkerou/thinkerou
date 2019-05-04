@@ -15,11 +15,12 @@
 <div class = 'post'>
   <article class='post_content' itemprop='articleBody'>
     {{ .Content }}
-    {{ partial "disqus.html" . }}
   </article>
+  <hr style="border:none;padding:0.75px;background:#f1f3f1;margin:1.5rem 0;"/>
+  {{ partial "disqus.html" . }}
   {{ if eq .Site.Params.staticman true }}{{ partial "comments.html" . }}{{ end }}
   <aside>
-    <h3><span class = 'pretty'>Recent Posts</span></h3>
+    <!--<h3><span class = 'pretty'>Recent Posts</span></h3>-->
     <ul class='flex post_aside'>
       {{ range first 2 .Site.RegularPages }}
        {{ partial "excerpt.html" . }}

@@ -2,3 +2,4 @@ _site
 .git
 .DS_Store
 public
+resources

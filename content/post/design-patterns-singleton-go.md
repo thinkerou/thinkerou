@@ -11,7 +11,7 @@ tags: [
 ]
 author: "thinkerou"
 date: 2017-05-14
-image: 'fast-lane.jpg'
+image: 'posts/mill-4166018_1280.jpg'
 ---
 
 有关单例模式的相关内容可以参考[《设计模式之单例模式》](http://thinkerou.com/2017-02/design-patterns-singleton/)

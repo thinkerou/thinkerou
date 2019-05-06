@@ -7,7 +7,7 @@ tags: [
   "IPC"
 ]
 date: 2017-04-23
-image: "read.jpg"
+image: "posts/jetty-4155214_1280.jpg"
 ---
 
 ### 1. socket 描述符

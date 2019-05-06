@@ -7,7 +7,7 @@ tags: [
   "Go"
 ]
 date: 2017-05-07
-image: "frustrated.jpg"
+image: "posts/tixall-gateway-4167373_1280.jpg"
 ---
 
 ### 1. 基础概念

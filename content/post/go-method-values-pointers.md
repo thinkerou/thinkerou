@@ -7,7 +7,7 @@ tags: [
   "Go"
 ]
 date: 2017-06-12
-image: "artist.jpg"
+image: "posts/park-4174278_1280.jpg"
 ---
 
 在 Go 语言中 struct 方法可以使用 `pointer` 或 `value` 两种形式进行传值：

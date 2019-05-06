@@ -7,7 +7,7 @@ tags: [
   "Go"
 ]
 date: 2017-04-15
-image: "fast-lane.jpg"
+image: "posts/nuclear-4168906_1280.jpg"
 ---
 
 在 Go 语言中 `sync` 包提供了互斥锁、读写锁等基本同步原语，除了 `Once` 和 `WaitGroup` 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 `channel` 来完成。

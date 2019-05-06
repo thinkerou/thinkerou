@@ -9,7 +9,7 @@ categories: [
 ]
 author: "thinkerou"
 date: 2019-03-10
-image: 'artist.jpg'
+image: 'posts/candy-bomber-4166906_1280.jpg'
 ---
 
 ## What?

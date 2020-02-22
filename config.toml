@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "thinkerou"
 theme = "swift"
 author = "thinkerou"
+description = "在路上，永远年轻，永远热泪盈眶。"
 canonifyurls = true
 paginate = 4
 pygmentsCodefences = true
@@ -11,6 +12,5 @@ pygmentsCodefencesGuessSyntax = true
 [params]
 staticman = false
 googleAnalytics = "UA-42425385-1"
-description = "在路上，永远年轻，永远热泪盈眶。"
 disqusShortname = "thinkerou"
 

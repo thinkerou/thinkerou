@@ -1,56 +1,103 @@
-## Swift Theme
-This theme is designed for blogging purposes. That said, it's extendable for other use cases.
+# Swift Theme
 
-![](https://github.com/onweru/hugo-swift-theme/blob/master/images/tn.png)
+This theme is designed for blogging purposes. Feel free to extend it for other
+use cases though.
+
+At its core, it's minimalistic; it doesn't rely on monolithic libraries such e.g
+jquery, bootstrap. Instead, it uses *grid css*, *flexbox* & *vanilla js* to
+facilitate the `features` outlined below:
+
+![Hugo Swift Theme](https://github.com/onweru/hugo-swift-theme/blob/master/images/screenshot.png)
 
 ## Features
+
 * Blog
 * Pagination
 * Responsive
-* Staticman
+* Deeplinks
+* Dark Mode
+* Syntax Highlighting
+* [Staticman](#staticman-comments)
+  * [reCAPTCHA](https://developers.google.com/recaptcha/docs/display)
 
 ## Installation
-Run the following inside your Hugo site folder:
+
+Add this theme as a Git submodule inside your Hugo site folder:
 
 ```bash
-$ mkdir themes
-$ cd themes
-$ git clone https://github.com/onweru/hugo-swift-theme
+git submodule add https://github.com/onweru/hugo-swift-theme.git themes/hugo-swift-theme
 ```
 
 > Theme hugo sass and hugo-extended version.
 
 ## Configuration
-You can configure the site using as follows: 
-1. **General Information**
 
-  Use **config.toml** file
+You can configure the site using as follows:
 
-2. **menu**, **staticman**, **footer**
+1. ### General Information** and **Staticman config
 
-See the **data** files inside the data directory
+    Use the file `config.toml`.
+2. ### menu, footer
 
-> Follow the exampleSite
+    See the **data** files inside the `data/` directory.
 
-This theme is designed to work with data files. Feel free to extend/alter as you would like.
+    > Follow the `exampleSite/`.
+3. Customize Theme colors
+    You can do so easily in the [variables sass partial](https://github.com/onweru/hugo-swift-theme/blob/e5af8a1414cd8e1ec5a0817f8e5eb8c8c98e2676/assets/sass/_variables.sass#L13-L21). Use names (e.g red, blue, darkgoldenrod), rgb, rgba, hsla or hex values.
+    
 
 ## Staticman Comments
-By default, staticman comments are disabled. If you would like to enable them,
 
-1. Toggle the *staticman* param inside the config.toml to ```true``` like so
+By default, [Staticman](https://staticman.net) comments are disabled.
+To enable them, you may refer to the
+[Staticman config Wiki](https://github.com/onweru/hugo-swift-theme/wiki/staticman-config).
 
-```yaml
-+++
-...
-[params]
-  staticman = true
-...
-+++
-```
+## Written By Block
 
-Then proceed to setup staticman in **staticman.yml**. See the example site and the [staticman docs](https://staticman.net/docs/) for reference.
+### How do I include a `written by` ?
 
-This [Binary Mist article](https://binarymist.io/blog/2018/02/24/hugo-with-staticman-commenting-and-subscriptions/) could also be quite helpful :)
+  1. Copy [this authors yaml file](https://github.com/onweru/hugo-swift-theme/blob/master/exampleSite/data/authors.yml) from the `exampleSite` to your data directory.
+
+  ```yaml
+  - name: "yourName"
+    photo: "myAvatar.jpg"
+    url: "https://myURLofChoice.domain"
+    bio: "It's time to flex. Write a short or not-so-short summary about yourself."
+  ```
+
+  2. Specify the name in your content files
+
+  ```markdown
+  ...
+  author: "yourName"
+  ...
+  ```
+### What if I want to exclude the `written by` from some articles?
+
+Don't include an `author` in your article front matter.
+
+The *authors.yml* file helps yoy:
+
+  1. Write all your author information in one place. This way, you only specify the author name on your content files (posts). The rest of the data i.e photo, url & bio are automatically pulled from the data file.
+
+  2. In certain situations, you may have different people publishing articles on your blog. For example, you could have someone guest blog. Or may be you have a blog co-author.
+
+
+## Deeplinks
+
+For all content published using markdown, deeplinks will be added to the pages
+so that you can share with precision :smiley: Just   hover on a heading and the
+link button will pop. Click it to copy.
+
+## Dark Mode
+
+Today most operating systems & browsers support dark mode. Like twitter, which
+automatically turns into dark mode when the user chooses darkmode, this theme
+does the same thing.
+
+![Dark Mode](https://github.com/onweru/hugo-swift-theme/blob/master/images/darkmode.jpg)
 
 ## License
-The code is available under the [MIT license](https://github.com/onweru/hugo-swift-theme/blob/master/LICENSE.md).
+
+The code is available under the
+[MIT license](https://github.com/onweru/hugo-swift-theme/blob/master/LICENSE.md).

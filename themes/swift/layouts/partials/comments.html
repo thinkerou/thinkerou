@@ -1,37 +1,42 @@
 <h3>Comments</h3>
 <div class = 'comments'>
-  {{ $comments := readDir "data/comments" }}
-  {{ $.Scratch.Add "hasComments" 0 }}
-  {{ $entryId := .UniqueID }}
-
-  {{ range $comments }}
-    {{ if eq .Name $entryId }}
-      {{ $.Scratch.Add "hasComments" 1 }}
-      {{ range $index, $comments := (index $.Site.Data.comments $entryId ) }}
-        <div class = 'comment'>
-          <img src = 'https://www.gravatar.com/avatar/{{ .email }}?s=100' alt = 'user icon' class = 'comment_user'>
-          <div class = 'comment_body'>
+  {{- $entryId := md5 .File.Path -}}
+  {{ if .Site.Data.comments }}
+    {{- $comments := index $.Site.Data.comments $entryId -}}
+    {{ if not $comments }}
+      <p>{{ i18n "noComment" }}</p>
+    {{ else }}
+      {{ range $comments }}
+        {{ if not .replyThread }}
+          {{ $.Scratch.Set "threadID" ._id }}
+          <div id = '{{ ._id }}' class = 'comment'>
+            <img src = 'https://www.gravatar.com/avatar/{{ .email }}?s=100' alt = 'user icon' class = 'comment_pic'>
             <div class = 'comment_meta'>
-              <div class = 'comment_author'>{{ .name }}</div>
-              <div class = 'comment_time' data-time = '{{ .date }}'></div>
+              <a href='#{{ ._id }}'><div class = 'comment_heading pale' data-time = '{{ .date }}'></div></a>
+              <div class = 'comment_author comment_name'><span class="comment_name_span">{{ .name }}</span></div>
             </div>
-            {{ .comment | markdownify }}
+            <p class = 'solo comment_bio pale'>{{ .comment | markdownify }}</p>
+            <div class = 'comment_thread hidden'>{{ ._id }}</div>
+            <div class = 'reply_btn icon'></div>
           </div>
-        </div>
-      {{ end }}
-    {{ end }}
-  {{ end }}
 
-  {{ if eq ($.Scratch.Get "hasComments") 0 }}
-    <p>Nothing yet.</p>
-  {{ end }}
-
-  {{ partial "comments-form.html" . }}
-  <article class = 'modal'>
-    <div class = 'modal_inner'>
-      <h2 class = 'modal_title'></h2>
-      <div class = 'modal_text'></div>
-      <button class = 'modal_close'>Close</button>
-    </div>
-  </article>
-</div>
+          {{ range $comments }}
+            {{ if eq .replyThread ($.Scratch.Get "threadID") }}
+              <div id = '{{ ._id }}' class = 'comment comment_reply'>
+                <img src = 'https://www.gravatar.com/avatar/{{ .email }}?s=100' alt = 'user icon' class = 'comment_pic'>
+                  <div class = 'comment_meta'>
+                  <a href='#{{ ._id }}'><div class = 'comment_heading pale' data-time = '{{ .date }}'></div></a>
+                  <div class = 'comment_author comment_name'><span class = 'comment_name_span'>{{ .name }}</span><span> ↷ </span><a href='#{{ .replyID }}' class='reply_target'>{{ .replyName }}</a></div>
+                </div>
+                <p class = 'solo comment_bio pale'>{{ .comment | markdownify }}</p>
+                <div class = 'comment_thread hidden'>{{ .replyThread }}</div>
+                <div class = 'reply_btn icon'></div>
+              </div>
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- partial "comments-form" . }}
+</div> 

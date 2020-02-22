@@ -1,33 +1,31 @@
-{{ define "main" }}
-<section class = 'post_header' style = 'background-image:url({{ .Site.BaseURL }}images/{{ .Params.image }});'>
-  <h1 class='post_title' itemprop='name headline'>{{ .Title }}</h1>
-  {{ $author := (lower .Params.author) }}
-  {{ $reading := .ReadingTime }}
-  {{ range .Site.Data.authors }}
-  {{ if eq .name $author }}
-  <a class = 'flex-in' href = '{{ .url }}' target = '_blank' rel = 'nonopener' target = "{{ $author }}'s profile">
-    <img class = 'gravatar' src = '{{ $.Site.BaseURL }}images/{{ $author }}.jpg' alt = ''></a>
-    <p class = 'post_meta center mute'>{{ $reading }} min read . Posted by <a href = '{{ .url }}' target = '_blank' rel = 'nonopener' title = "{{ $author }}'s Profile">{{ $author }}</a>
-  {{ end }}
-  {{ end }}
-  </p>
+{{- define "main" }}
+{{- $scratch := newScratch }}
+{{- if isset .Params "image" }}
+  {{- $scratch.Set "image" .Params.image }}
+{{- else }}
+  {{ $scratch.Set "image" "thumbnail.svg" }}
+{{- end }}
+{{- $image := $scratch.Get "image" }}
+{{- $bg := (path.Join "images" $image | absLangURL) }}
+<section class = 'post_header' style = 'background-image:url({{ $bg }});'>
+  <h1 class='post_title'>{{ .Title }}</h1>
 </section>
 <div class = 'post'>
-  <article class='post_content' itemprop='articleBody'>
-    {{ .Content }}
+  <article class='post_content'>
+    {{- .Content }}
+    <div class = 'post_extra'>
+      {{- partial "copy" . }}
+    </div>
+    {{- partial "author" . }}
   </article>
-  <hr style="border:none;padding:0.75px;background:#f1f3f1;margin:1.5rem 0;"/>
-  {{ partial "disqus.html" . }}
-  {{ if eq .Site.Params.staticman true }}{{ partial "comments.html" . }}{{ end }}
+  {{- if .Site.Params.Staticman }}
+    {{- partial "comments" . }}
+  {{- end }}
   <aside>
-    <!--<h3><span class = 'pretty'>Recent Posts</span></h3>-->
-    <ul class='flex post_aside'>
-      {{ range first 2 .Site.RegularPages }}
-       {{ partial "excerpt.html" . }}
-      {{ end }}
-    </ul>
+    {{- partial "aside" . }}
   </aside>
 </div>
-<script src = '{{ "js/autosize.min.js" | absURL }}'></script>
-<script src = '{{ "js/timeago.js" | absURL }}'></script>
-{{ end }}
+<script src = '{{ absURL "js/autosize.min.js" }}'></script>
+{{- $timeagoScr := resources.Get "js/timeago.js" | resources.ExecuteAsTemplate "js/timeago.js" . }}
+<script src = '{{ $timeagoScr.Permalink }}'></script>
+{{- end }}

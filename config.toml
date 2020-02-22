@@ -4,7 +4,9 @@ title = "thinkerou"
 theme = "swift"
 author = "thinkerou"
 canonifyurls = true
-paginator = 8
+paginate = 4
+pygmentsCodefences = true
+pygmentsCodefencesGuessSyntax = true
 
 [params]
 staticman = false

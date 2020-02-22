@@ -5,7 +5,6 @@ theme = "swift"
 author = "thinkerou"
 canonifyurls = true
 paginator = 8
-menu = ["a", "b"]
 
 [params]
 staticman = false

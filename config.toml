@@ -5,7 +5,7 @@ theme = "swift"
 author = "thinkerou"
 description = "在路上，永远年轻，永远热泪盈眶。"
 canonifyurls = true
-paginate = 8
+paginate = 6
 pygmentsCodefences = true
 pygmentsCodefencesGuessSyntax = true
 

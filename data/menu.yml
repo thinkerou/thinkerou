@@ -1,3 +1,5 @@
+- item: Home
+  url: /
 - item: About
   url: about/
 - item: Blog

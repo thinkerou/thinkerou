@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>P h p 的 empty 函数 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'PHP 的 empty 函数' />
+<meta name="description" content="问题是这样的 描述问题现象前，先上代码：
+// $ret[&#39;errno&#39;] 的值由更新 update 数据库返回 // update 操作会把 affected_rows 值返回 if (empty($ret[&#39;errno&#39;])) { // update 不成功则 insert }  根据代码看，问题已经很明显了：
+  …">
+<meta property = 'og:description' content = '问题是这样的 描述问题现象前，先上代码：
+// $ret[&#39;errno&#39;] 的值由更新 update 数据库返回 // update 操作会把 affected_rows 值返回 if (empty($ret[&#39;errno&#39;])) { // update 不成功则 insert }  根据代码看，问题已经很明显了：
+  …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/php-empty/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/speakers.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'PHP 的 empty 函数' />
+<meta property = 'twitter:description'  content = '问题是这样的 描述问题现象前，先上代码：
+// $ret[&#39;errno&#39;] 的值由更新 update 数据库返回 // update 操作会把 affected_rows 值返回 if (empty($ret[&#39;errno&#39;])) { // update 不成功则 insert }  根据代码看，问题已经很明显了：
+  …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/speakers.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/php-empty/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/speakers.jpg);'>
+  <h1 class='post_title'>PHP 的 empty 函数</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="问题是这样的">问题是这样的</h2>
+<p>描述问题现象前，先上代码：</p>
+<pre><code>// $ret['errno'] 的值由更新 update 数据库返回
+// update 操作会把 affected_rows 值返回
+if (empty($ret['errno'])) {
+    // update 不成功则 insert
+}
+</code></pre>
+<p>根据代码看，问题已经很明显了：</p>
+<blockquote>
+<p>如果 affected_rows 等于 0，$ret[&lsquo;errno&rsquo;] 就等于 0，那么它会就是 empty 的吗？</p>
+</blockquote>
+<blockquote>
+<p>熟悉 PHP 的你，肯定觉得是个小儿科的问题了，但是对于刚看 PHP 两天的我来说，这个问题还是值得记录下。</p>
+</blockquote>
+<p>接下来就记录下，在 PHP 里什么内容会被认为是 empty 的？！</p>
+<h2 id="empty-函数判断的是什么">empty 函数判断的是什么</h2>
+<p>函数 empty 检查一个变量是否为空，函数原型如下：</p>
+<blockquote>
+<p>bool empty(mixed $var)</p>
+</blockquote>
+<blockquote>
+<p>当变量 $var 不存在或者它的值等同于 <code>false</code> 时，那么就会被认为是空的。</p>
+</blockquote>
+<blockquote>
+<p>没有警告产生，即使变量不存在，意味着 empty() 本质上与下列语句等价：</p>
+</blockquote>
+<blockquote>
+<p><code>!isset($var) || $var === false</code></p>
+</blockquote>
+<p>当 $var 存在且是一个<code>非空非零</code>的值时返回 <code>false</code>，否则返回<code>true</code>。</p>
+<p>那么，在 PHP 里哪些东西会被认为是空的呢？如下：</p>
+<blockquote>
+<p>&quot;&rdquo; 空字符串</p>
+</blockquote>
+<blockquote>
+<p>0 整数0</p>
+</blockquote>
+<blockquote>
+<p>0.0 浮点数0</p>
+</blockquote>
+<blockquote>
+<p>&ldquo;0&rdquo; 字符串0</p>
+</blockquote>
+<blockquote>
+<p>null</p>
+</blockquote>
+<blockquote>
+<p>false</p>
+</blockquote>
+<blockquote>
+<p>array() 空数组</p>
+</blockquote>
+<blockquote>
+<p>$var 已声明但没有值的变量</p>
+</blockquote>
+<p>再回到开始的问题，想当然的以为 $ret[&lsquo;errno&rsquo;]) 被设置为 0 后，empty 就会为 false，或许这跟 isset 函数搞混了。</p>
+<blockquote>
+<p>bool isset(mixed $var [, mixed $&hellip;])</p>
+</blockquote>
+<blockquote>
+<p>检查变量是否设置，且不是 null</p>
+</blockquote>
+<blockquote>
+<p>如果使用 unset 释放变量后，它将不再是 isset</p>
+</blockquote>
+<blockquote>
+<p>如果使用 isset 测试一个被设置为 null 的变量，将返回 false</p>
+</blockquote>
+<blockquote>
+<p>注意：null 字节（&quot;\0&rdquo;）并不等同于 null 常数</p>
+</blockquote>
+<p>同时需要注意的是，另外一个函数 <code>is_null</code> ：</p>
+<blockquote>
+<p>bool is_null(mixed $var)</p>
+</blockquote>
+<blockquote>
+<p>如果 $var 是 null 则返回 true，否则返回 false</p>
+</blockquote>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://php.net/manual/en/function.empty.php">PHP 手册：empty</a></p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/2216052/how-to-tell-if-a-php-array-is-empty">stackoverflow: How to tell if a PHP array is empty?</a></p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/718986/checking-if-the-string-is-empty">stackoverflow: Checking if the string is empty</a></p>
+</li>
+<li>
+<p><a href="https://www.virendrachandak.com/techtalk/php-isset-vs-empty-vs-is_null/">PHP isset() vs empty() vs is_null()</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-to-php7/' title = '更新 PHP5 扩展到 PHP7(NG) 记录' style = 'background-image: url(https://thinkerou.com/images/artist.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-to-php7/'>更新 PHP5 扩展到 PHP7(NG) 记录</a>
+    </h3>
+    <p class = 'pale'>升级扩展到 PHP7 记录 最近在学习 PHP 、grpc 以及 PHP(PHP7) 扩展编写，但是由于 PHP7 内核更新，扩展接口也有很大变动，先前基于 PHP5 编写的扩展并 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-guide/' title = '编写 PHP 扩展入门' style = 'background-image: url(https://thinkerou.com/images/simple.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-guide/'>编写 PHP 扩展入门</a>
+    </h3>
+    <p class = 'pale'>环境 文中示例 PHP 扩展的环境为：
+ Mac OS PHP7  在开始编写 PHP 扩展前需要准备如下环境：
+ PHP7 源码 使用 brew 安装 libtool  编写 环 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

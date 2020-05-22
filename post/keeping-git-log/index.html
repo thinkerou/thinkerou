@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Keeping log of git | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'Keeping log of Git' />
+<meta name="description" content="What? I recently migrated the examples of Gin to one separate repository named gin-gonic/examples and built another separate website repository for Gin web …">
+<meta property = 'og:description' content = 'What? I recently migrated the examples of Gin to one separate repository named gin-gonic/examples and built another separate website repository for Gin web …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/keeping-git-log/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/posts/candy-bomber-4166906_1280.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'Keeping log of Git' />
+<meta property = 'twitter:description'  content = 'What? I recently migrated the examples of Gin to one separate repository named gin-gonic/examples and built another separate website repository for Gin web …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/posts/candy-bomber-4166906_1280.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/keeping-git-log/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/posts/candy-bomber-4166906_1280.jpg);'>
+  <h1 class='post_title'>Keeping log of Git</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="what">What?</h2>
+<p>I recently migrated <a href="https://github.com/gin-gonic/gin/tree/master/examples">the examples of Gin</a> to one separate repository named <a href="https://github.com/gin-gonic/examples">gin-gonic/examples</a> and built another separate <a href="https://gin-gonic.com/">website</a> repository for <a href="https://github.com/gin-gonic/gin">Gin</a> web framework by migrating the <a href="https://github.com/gin-gonic/gin/blob/master/README.md">README.md</a> of <a href="https://github.com/gin-gonic/gin">Gin</a>.</p>
+<p>For keeping log of old Git to new repository, how to do it?</p>
+<p>we need to slove two cases:</p>
+<ul>
+<li>migrated subdirectory</li>
+<li>migrated root file</li>
+</ul>
+<h2 id="how">How?</h2>
+<p>First, we define the below information:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">OLD-REPO: https://github.com/thinkerou/gin.git
+
+MIGRATED-REPO-SUB-DIR-NAME: examples
+
+NEW-REPO-SUB-DIR: https://github.com/gin-gonic/examples.git 
+
+NEW-REPO-ROOT-FILE-NAME: website
+
+NEW-REPO-ROOT-FILE: https://github.com/gin-gonic/website.git
+</code></pre></div><p>Second, we use the following command to keeping log of Git:</p>
+<ul>
+<li>Cloning old repository and removing origin remote</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git clone OLD-REPO NEW-REPO-SUB-DIR-NAME
+cd NEW-REPO-SUB-DIR-NAME
+git remote rm origin 
+</code></pre></div><ul>
+<li>(Important!) Filtrating the specially history of Git</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git filter-branch --tag-name-filter cat --prune-empty --subdirectory-filter MIGRATED-REPO-SUB-DIR-NAME -- --all
+</code></pre></div><ul>
+<li>Cleaning the object of .git direcotry</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git reset --hard
+git for-each-ref --format=&#34;%(refname)&#34; refs/original/ | xargs -n 1 git update-ref -d
+git reflog expire --expire=now --all
+git gc --aggressive --prune=now
+</code></pre></div><ul>
+<li>Pushing the local repository to origin</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git remote add origin NEW-REPO-SUB-DIR
+git push -u origin master
+</code></pre></div><p>If the origin repository is empty, the above command is right. Otherwise, we need to use the below command again to push the local repository to <code>dev</code> branch.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git push origin master:dev
+</code></pre></div><ul>
+<li>Merging dev branch to master branch</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git merge origin/dev --allow-unrelated-histories
+git push origin master
+</code></pre></div><p>But, I encounter one new trouble:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">fatal: refusing to merge unrelated histories
+Error redoing merge 1234deadbeef1234deadbeef
+</code></pre></div><p>According to &laquo;<a href="https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase">Git refusing to merge unrelated histories on rebase</a>&raquo;, we solve the issue:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git pull origin master --allow-unrelated-histories
+git push origin master
+</code></pre></div><p>As was mentioned above, we can keep log of Git when migrate subdirectory. But migrate root file?</p>
+<p>According to <a href="https://stackoverflow.com/questions/5998987/splitting-a-set-of-files-within-a-git-repo-into-their-own-repository-preserving">the StackOverflow question</a>, we can perfect solve it using the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git filter-branch --prune-empty --index-filter &#39;git ls-tree -r --name-only --full-tree $GIT_COMMIT | grep -v &#34;^README.md$&#34; |grep -v &#34;^git-changelog&#34; | xargs git rm --cached -r&#39; -- --all
+</code></pre></div><p>We use <code>--index-filter</code> parameter not <code>--tag-name-filter</code> here.</p>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+  <div class = 'author'>
+    <a href = 'https://github.com/thinkerou' target = "thinkerou's profile" class = 'author_pic'>
+      <img src = 'https://thinkerou.com/images/thinkerou.jpg' alt = ''>
+    </a>
+    <div class = 'author_meta'>
+      <a class = 'author_name' href = 'https://github.com/thinkerou' title = "map[Count:thinkerou]&#39;s profile">thinkerou</a>
+      <p class = 'pale author_bio solo'>活到老学到老</p>
+    </div>
+  </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/simplicite/' title = '《简单的艺术》读书笔记' style = 'background-image: url(https://thinkerou.com/images/posts/landscape-4129533_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0' class = 'post_tag'>读书笔记
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/simplicite/'>《简单的艺术》读书笔记</a>
+    </h3>
+    <p class = 'pale'>简单，就是拥有极少，把空间留给必需和精华。简单，让生活摆脱使人精力分散、紧张不安的偏见、拘束和压力，为我们提供很多问题的解决办法。
+  不要再拥有过多的东西，你将省出更多时间来关注 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-method-values-pointers/' title = 'Go 语言 struct 方法该使用 pointer 还是 value 传值？' style = 'background-image: url(https://thinkerou.com/images/posts/park-4174278_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-method-values-pointers/'>Go 语言 struct 方法该使用 pointer 还是 value 传值？</a>
+    </h3>
+    <p class = 'pale'>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

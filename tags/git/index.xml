@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on thinkerou</title>
+    <link>https://thinkerou.com/tags/git/</link>
+    <description>Recent content in Git on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Keeping log of Git</title>
+      <link>https://thinkerou.com/post/keeping-git-log/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/keeping-git-log/</guid>
+      <description>What? I recently migrated the examples of Gin to one separate repository named gin-gonic/examples and built another separate website repository for Gin web framework by migrating the README.md of Gin.
+For keeping log of old Git to new repository, how to do it?
+we need to slove two cases:
+ migrated subdirectory migrated root file  How? First, we define the below information:
+OLD-REPO: https://github.com/thinkerou/gin.git MIGRATED-REPO-SUB-DIR-NAME: examples NEW-REPO-SUB-DIR: https://github.com/gin-gonic/examples.git NEW-REPO-ROOT-FILE-NAME: website NEW-REPO-ROOT-FILE: https://github.</description>
+    </item>
+    
+    <item>
+      <title>Github 上给开源项目提交 PR 前如何清理无关的提交信息</title>
+      <link>https://thinkerou.com/post/git-clean-up-extra-commits/</link>
+      <pubDate>Fri, 17 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-clean-up-extra-commits/</guid>
+      <description>背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回复的：
+ Can you please send this PR without all of the irrelevant commits? All of the changes for this PR are in the second-to-last commit.
+ @ctiller 这么回复的：
+ I&amp;rsquo;m not sure we want this to be blanket turned on for all platforms.
+  Also, it&amp;rsquo;d be good to clean up some of the spurious unrelated commits here.
+ 我能看懂他们说的是什么，就是说我提交代码时有太多的无关的提交历史应该清理了再提交，像这样的：
+这确实是个问题，那该如何清理呢？
+解决方案 1. 使用命令 git checkout branch-name 切换到待清理的分支：</description>
+    </item>
+    
+    <item>
+      <title>Github 上 Fork 项目后如何提交 PR</title>
+      <link>https://thinkerou.com/post/git-commit-open-source/</link>
+      <pubDate>Mon, 02 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-commit-open-source/</guid>
+      <description>问题描述 在 Github 上 Fork 项目后如何同步源项目的更新 一文中已经介绍了 Fork 别人项目后如何同步其更新，本文要介绍的是 Fork 别人项目后如何提交 PR？
+解决方案 在修改 Fork 的项目前需要先同步源项目的更新，然后再修改 Fork 的项目并提交。
+ 这里提交是指提交到 Fork 到自己名下的项目
+ 接下来就开始解决 Fork 别人项目后如何提交 PR？，需要如下几个步骤：
+1. 进入 Fork 的项目的 Github 页面   如：https://github.com/thinkerou/grpc  2. 点击页面的 New pull request   会有一些支线选择，请根据源项目的贡献说明来选择，如：选择 master  3. 编写相关说明并提交 4. 如果是第一次提交 PR 需要 CLA 认证   根据提示申请 CLA 认证后，回复 I signed it! 之后，就会出现 cla: yes 标签，如果没有 CLA 认证该标签为 cla: no  5.</description>
+    </item>
+    
+    <item>
+      <title>Github 上 Fork 项目后如何同步源项目的更新</title>
+      <link>https://thinkerou.com/post/git-fork-sync/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-fork-sync/</guid>
+      <description>问题背景 最近 Fork 了 grpc 到我的 Github 帐号grpc下，以学习之然后记录点笔记上传，但是过段时间后发现原来的项目已经有了很多代码提交，那么我该如何将这些新提交的更新同步到我的帐号下的项目里呢？
+通过查阅 Github 帮助文档并通过关键字 sync fork 可以找到相应的解决方案。
+解决方案 通过前述查阅可知，要解决 **Fork 项目后如何同步源项目的更新？**的问题，需要如下几个步骤：
+1. 使用 git remote -v 命令查看远程状态   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v origin	https://github.com/thinkerou/grpc.git (fetch) origin	https://github.com/thinkerou/grpc.git (push)  2. 使用 git remote add upstream 命令给 Fork 的项目添加上游仓库   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote add upstream https://github.com/grpc/grpc.git  3. 再次使用 git remote -v 查看远程状态   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v origin	https://github.com/thinkerou/grpc.git (fetch) origin	https://github.</description>
+    </item>
+    
+    <item>
+      <title>Git submodule 使用记录</title>
+      <link>https://thinkerou.com/post/git-submodule/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-submodule/</guid>
+      <description>问题背景 最近在阅读 grpc 相关的代码，在阅读前需要先让代码跑起来，然后跟着 INSTALL 里的说明进行编译，里面有这样的步骤：
+git submodule update --init  这是第一次遇见 git 的 submoduel 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必要认真阅读 git 的 submoduele 参数相关的资料来了解其使用。
+使用详情 先来看看命令 git submodule help 输出的信息：
+thinkerou@MacBook-Pro-thinkerou:~/Documents/thinkerou.github.io$ git submodule help usage: git submodule [--quiet] add [-b &amp;lt;branch&amp;gt;] [-f|--force] [--name &amp;lt;name&amp;gt;] [--reference &amp;lt;repository&amp;gt;] [--] &amp;lt;repository&amp;gt; [&amp;lt;path&amp;gt;] or: git submodule [--quiet] status [--cached] [--recursive] [--] [&amp;lt;path&amp;gt;...] or: git submodule [--quiet] init [--] [&amp;lt;path&amp;gt;...] or: git submodule [--quiet] deinit [-f|--force] [--] &amp;lt;path&amp;gt;... or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--reference &amp;lt;repository&amp;gt;] [--recursive] [--] [&amp;lt;path&amp;gt;.</description>
+    </item>
+    
+  </channel>
+</rss>

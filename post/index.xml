@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on thinkerou</title>
+    <link>https://thinkerou.com/post/</link>
+    <description>Recent content in Posts on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Keeping log of Git</title>
+      <link>https://thinkerou.com/post/keeping-git-log/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/keeping-git-log/</guid>
+      <description>What? I recently migrated the examples of Gin to one separate repository named gin-gonic/examples and built another separate website repository for Gin web framework by migrating the README.md of Gin.
+For keeping log of old Git to new repository, how to do it?
+we need to slove two cases:
+ migrated subdirectory migrated root file  How? First, we define the below information:
+OLD-REPO: https://github.com/thinkerou/gin.git MIGRATED-REPO-SUB-DIR-NAME: examples NEW-REPO-SUB-DIR: https://github.com/gin-gonic/examples.git NEW-REPO-ROOT-FILE-NAME: website NEW-REPO-ROOT-FILE: https://github.</description>
+    </item>
+    
+    <item>
+      <title>《简单的艺术》读书笔记</title>
+      <link>https://thinkerou.com/post/simplicite/</link>
+      <pubDate>Tue, 01 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/simplicite/</guid>
+      <description>简单，就是拥有极少，把空间留给必需和精华。简单，让生活摆脱使人精力分散、紧张不安的偏见、拘束和压力，为我们提供很多问题的解决办法。
+  不要再拥有过多的东西，你将省出更多时间来关注自己的身体。当对自己的身体感觉良好时，就能忘记肉体的存在，专注于精神发展，达到充满意义的生命状态。你将感到更加幸福！
+  &amp;ndash; 来源于《简单的艺术》封面
+ 在书的扉页上有这样一句日本著名俳（pái）句诗人小林一茶的俳句：
+ &amp;ldquo;春至陋室中，无一物中万物足。&amp;rdquo;
+ 苏东坡在《东坡禅喜诗》中也有类似的诗句：
+ 无一物中无尽藏，有花有月有楼台。
+ 看到这里，是不是会想起著名的《菩提偈》呢？
+ 菩提本无树，明镜亦非台，本来无一物，何处惹尘埃。
+ 没错，作者多米尼克·洛罗就是运用禅宗和道家的思想去解释极简主义对人身心的净化。
+米兰·昆德拉在《生命不能承受之轻》中对&amp;quot;简单&amp;quot;是这么写的：
+ 我把简单当做生命中的统一原则。我下决心只保留最低限度的物品。在这种苦行和斯巴达式做法的某个角落中藏着某种赐福，我将冥思苦想，直到这种赐福变成我自己的。
+ 今天在公司把这本去年读完的《简单的艺术》整理成读书笔记，分享给&amp;quot;一切希望过更简单的生活，改善物质、身体、心理和精神状况的人，帮助他们发掘自身具有的巨大潜能。&amp;rdquo;
+第一章 物质主义和极简主义 物质主义的过度 我们不应该追求完美，而是更充实地生活。简单本身就能解决很多问题，再者，简单是美的，因为它藏着令人赞叹的妙处。
+拥有造成的负担  积聚的需求  很多东西都是多余的，但我们总是在失去的时候才明白。我们因为拥有而使用那些东西，而不是因为它们是必需的。有多少东西是我们看到别人有而去买来的呢？
+ 犹豫不决和积累不止  &amp;ldquo;知识的世界足以充盈我们的生活，不必再添加无用的小摆设，这些东西只会霸占我们的精神和闲暇时光。&amp;rdquo;
+要达到简单境界，必须做出选择，但选择又十分困难。因为放不下过去、祖先和记忆，却忘记现在，也想不到将来。
+ 害怕改变  记忆能让我们像今天这样幸福或者更幸福吗？眷恋过去能以侵占未来为代价吗？应该让现在陷入停顿吗？
+ 奉行极简主义  梭罗在《瓦尔登湖》里这样写到：&amp;ldquo;一个人越是有许多事情能够放得下，他越是富有。&amp;rdquo;
+在生活的艺术中，节省是一种使用哲学，因为极简朴的生活可以提高生活品质。我们应该静下来想一想所有能做的，让生活变得简单的事情。（列出清单有助于清楚生活中的障碍）
+ 使用尽量少的物品  别再重视物品而轻视人的价值，轻视你的劳动、平静、美、自由和所有具有生命力的东西。
+有太多东西侵占了我们、裹挟了我们、从根本上改变了我们，我们的头脑像一个渐渐堆满旧物的谷仓一样被塞满，使我们根本无法动弹、无法前进。然而，生活就是要向前走。
+ 不要被拥有  每个人都有获得自己喜欢物品的自由，但最重要的我们对待物品的态度，是认识到自身需求的限度，以及自己对生活的期待：知道自己想要什么？什么能带给我们发自内心的快乐？
+住宅：不要塞满 身体守护着精神，就如住宅守护着身体，我们的精神应该获得释放，这样才能得到发展。家给我们能量、生命、平静和愉悦，它是物质和心理上、身体和精神上的庇护。
+理想的居室需要最少的维护、整理和劳动付出，却能给人舒适、宁静和生活的快乐。
+我们住在什么样的空间中，就是什么样的人。因为所处的环境形成我们的个性，影响我们的选择。看到一个人生活的地方或生活过的地方，我们能更好地了解他。
+不要容忍任何无用之物，保持干净整洁、清理陈旧过期的东西，才能给居室注入能量。
+物品：清理哪些，留下哪些 人的第一需求是生活得健康安定且有尊严，然后是追求衣服饮食和环境质量。但非常不幸，生活本身的质量却成为奢求！
+把余生沉侵于思维、精神、奥义、美和情感的世界中，趁着一个快乐和充满生机的日子，重新安排你的生活。
+梭罗在《瓦尔登湖》中写到：&amp;ldquo;保持质朴的生活，随时如临大敌，能在几分钟内几乎两手空空地离家而去。&amp;rdquo; 告诉我们拥有求小之心、过轻便生活，达到简单境界。</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 struct 方法该使用 pointer 还是 value 传值？</title>
+      <link>https://thinkerou.com/post/go-method-values-pointers/</link>
+      <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-method-values-pointers/</guid>
+      <description>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // method on pointer func (s MyStruct) valueMethod() {} // method on value  但是，这两种方式都在什么场景下使用呢？
+先看一段示例代码：
+package main import &amp;quot;fmt&amp;quot; type Person struct { Name string Age uint } func (c Person) GetAge() { fmt.Println(&amp;quot;age: &amp;quot;, c.Age) } func main() { c := &amp;amp;Person{&amp;quot;thinkerou&amp;quot;, 30} c.GetAge() }  执行代码后的结果也很直接：
+age: 30  如果需要动态更新 Age 值，则可以新增 UpdateAge 方法：</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 HTTP Server 源码学习</title>
+      <link>https://thinkerou.com/post/go-http-server-learn/</link>
+      <pubDate>Tue, 23 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-http-server-learn/</guid>
+      <description>1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。
+在 Go 中一个简单 HTTP 服务实现如下：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;net/http&amp;quot; ) // step3. 处理请求并返回结果 func Hello(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, &amp;quot;Hello world!&amp;quot;) } func HelloUser(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, &amp;quot;Hello thinkerou!&amp;quot;) } func main() { // step1. 注册路由 http.HandleFunc(&amp;quot;/&amp;quot;, Hello) http.HandleFunc(&amp;quot;/user/&amp;quot;, HelloUser) // step2. 监听服务 http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil) }  这就是一个完整的简单的 Go HTTP Server 程序，运行该程序后，在浏览器输入 http://127.</description>
+    </item>
+    
+    <item>
+      <title>如何在 Go 语言中实现单例模式</title>
+      <link>https://thinkerou.com/post/design-patterns-singleton-go/</link>
+      <pubDate>Sun, 14 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/design-patterns-singleton-go/</guid>
+      <description>有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // something } var instance *Singleton func GetInstance() *Singleton { if instance == nil { instance = &amp;amp;Singleton{} } return instance } 这种写法对应着 CPP 中的实现方式。
+2. 线程锁方式 在 Go 语言中提供了包 sync/mutex 用于构建多个 goroutine 间的同步逻辑。
+在 Go 中使用线程锁实现的单例模式，如下：
+type Singleton struct { // something } var ( instance *Singleton mtx Sync.Mutex ) func GetInstance() *Singleton { mtx.Lock() defer mtx.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 net 包使用记录</title>
+      <link>https://thinkerou.com/post/go-net-package/</link>
+      <pubDate>Sun, 07 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-net-package/</guid>
+      <description>1. 基础概念 关于网络IPC（套接字）相关的知识点，可以参考相关《学习笔记》。
+在 Go 语言中，包 net 封装了关于网络套接字的所有接口。
+对于服务端，使用 Listen 进行监听，使用 Accept 响应连接请求；
+对于客户端，使用 Dial 进行服务连接请求，使用包 fmt 里的函数 Fprint 可以进行数据发送。
+2. 使用示例 服务端程序 tcp-server.go 为：
+package main import ( &amp;quot;bufio&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;log&amp;quot; &amp;quot;net&amp;quot; &amp;quot;strings&amp;quot; ) func main() { fmt.Println(&amp;quot;Launching server ...&amp;quot;) // listen on all interfaces ln, err := net.Listen(&amp;quot;tcp&amp;quot;, &amp;quot;:8081&amp;quot;) if err != nil { log.Fatal(&amp;quot;listen tcp error&amp;quot;) } // run loop forever or until ctrl-c for { // accept connection on port conn, err := ln.</description>
+    </item>
+    
+    <item>
+      <title>网络IPC（套接字）学习笔记</title>
+      <link>https://thinkerou.com/post/ipc/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/ipc/</guid>
+      <description>1. socket 描述符 socket 主要用于运行在不同服务器上的进程之间通信，也可以用于在同一服务器上的进程之间通信。
+socket 描述符则是 socket 的唯一标识，其本质是一种特殊的文件描述符。
+创建 socket 描述符的函数原型为：
+int socket(int domain, int type, int protocol);  参数说明：
+  domain 参数决定了通信的性质，即地址格式等
+ AF_INET: IPv4因特网域 AF_INET6: IPv6因特网域 AF_UNIX: UNIX域 AF_UNSPEC: 未指定，可以表达任何域的通配符    type 参数指定类型
+ SOCK_DGRAM: 固定长度，无连接，不可靠的消息 SOCK_RAW: IP协议的数据报接口 SOCK_SEQPACKET: 固定长度，顺序式，面向连接的，可靠的消息 SOCK_STREAM：顺序式，面向连接的，双向的，可靠的字节流    protocol 参数代表协议号
+ 0: 使用对于给定 domain 和 type 下的默认协议，在 AF_INET 通信域下， SOCK_STREAM 类型的默认协议是 TCP协议，而对于 SOCK_DGRAM 类型的默认协议则是 UDP协议。    2.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 sync 包使用记录</title>
+      <link>https://thinkerou.com/post/go-sync-package/</link>
+      <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-sync-package/</guid>
+      <description>在 Go 语言中 sync 包提供了互斥锁、读写锁等基本同步原语，除了 Once 和 WaitGroup 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 channel 来完成。
+更多更全的信息和使用说明请见官网文档
+1. Mutex 类型 一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构的一部分，Mutex 的零值是一个未上锁的互斥锁。
+Mutex 类定义为：
+// A Mutex is a mutual exclusion lock. // Mutexes can be created as part of other structures; // the zero value for a Mutex is an unlocked mutex. // // A Mutex must not be copied after first use. type Mutex struct { state int32 sema uint32 }  Mutex 类实现了 Locker 接口：</description>
+    </item>
+    
+    <item>
+      <title>设计模式之单例模式</title>
+      <link>https://thinkerou.com/post/design-patterns-singleton/</link>
+      <pubDate>Sun, 26 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/design-patterns-singleton/</guid>
+      <description>1. 目的 保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+2. 动机 如何才能保证一个类只有一个实例，并且这个实例易于被访问？
+一个全局变量使得一个对象可以被访问，但它不能防止实例化多个对象。
+ 更好的办法是：让类自身负责保存它的唯一实例。
+ 这个类可以保证没有其它实例可以被创建，并且它可以提供一个访问该实例的方法，这就是单例（Singleton）模式。
+3. 适用性 单例模式适用于如下情况：
+ 当类只能有一个实例，且客户可以从一个众所周知的访问点访问它时； 当这个唯一实例应该是通过子类化扩展的，且客户应该无需更改代码就能使用一个扩展的实例时。  4. 参与者 定义一个 Instance 操作，允许客户访问它的唯一实例，Instance 是 C++ 中的一个静态成员函数；负责创建它自己的唯一实例。
+5. 协作 客户只能通过 Singleton 的 Instance 操作访问一个 Singleton 的实例。
+6. 效果   对唯一实例的受控访问
+ 因为 Singleton 类封装它的唯一实例，所以它可以严格的控制客户怎样以及何时访问它。    缩小名空间
+ 单例模式是对全局变量的改进，避免了哪些存储唯一实例的全局变量污染名空间。    允许对操作和表示的精化
+ Singleton 类可以有子类，且用这个扩展类的实例来配置一个应用是很容易的。    7. 实现 单例模式使得这个唯一实例是类的一般实例，但该类被写成只有一个实例能被创建，为了做到这的常用方法是：将创建这个实例的操作隐藏在一个类操作（即一个静态成员函数或是一个类方法）后面， 由它保证只有一个实例被创建。这个操作可以访问保存唯一实例的变量，而且它可以保证这个变量在返回值之前用这个唯一实例初始化。这种方法保证了单例在它首次使用前被创建和使用。
+在 C++ 中可以用 Singleton 类的静态成员函数 Instance 来定义这个类操作， Singleton 还定义一个静态成员变量 _instance，它包含一个指向它的唯一实例的指针。</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 reflect 包使用记录</title>
+      <link>https://thinkerou.com/post/go-reflect-package/</link>
+      <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-reflect-package/</guid>
+      <description>在 Go 语言中 reflect 包有两个数据类型是必须要知道的：
+ Type：定义的类型的数据类型 Value：定义的类型的值的类型  更多更全的信息和使用说明请见官网文档
+先看一段示例代码：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) type MyStruct struct { name string } func (my *MyStruct) GetName() string { return my.name } func main() { s := &amp;quot;Hello world!&amp;quot; fmt.Println(reflect.TypeOf(s)) fmt.Println(reflect.ValueOf(s)) m := new(MyStruct) m.name = &amp;quot;thinkerou&amp;quot; fmt.Println(reflect.TypeOf(m)) fmt.Println(reflect.ValueOf(m)) fmt.Println(reflect.TypeOf(m).NumMethod()) t := reflect.ValueOf(m).MethodByName(&amp;quot;GetName&amp;quot;).Call([]reflect.Value{}) fmt.Println(t[0]) }  运行程序后的输出结果为：
+string Hello world! *main.MyStruct &amp;amp;{thinkerou} 1 thinkerou  程序说明：
+ TypeOf 和 ValueOf 分别是获取 Type 和 Value 的方法 Call 方法实现了类似于 php 中的根据字符串到方法的调用 如果需要输出 main.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 http 包使用记录</title>
+      <link>https://thinkerou.com/post/go-http-package/</link>
+      <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-http-package/</guid>
+      <description>1. 基础概念 在 Go 语言中，编写一个 http web 服务器有两种方法：
+ 使用 net 包的 net.Listen 来对端口进行监听； 使用 net/http 包的 ListenAndServve 来对端口进行监听，事实上，该包是基于 net 包进行封装的，即底层仍是 net 包相关的知识。  所以，使用 net/http 会更方便快捷，减少了很多不必要的封装和处理。
+2. http 客户端 基于 net/http 包实现 http 客户端通常的代码书写是：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;io/ioutil&amp;quot; ) func main() { response, err := http.Get(&amp;quot;http://www.baidu.com&amp;quot;) if err != nil { // handle error } defer response.Body.Close() body, err := ioutil.ReadAll(response.Body) if err != nil { // handle error } fmt.</description>
+    </item>
+    
+    <item>
+      <title>小心使用 STL 的 erase 函数</title>
+      <link>https://thinkerou.com/post/stl-iterator/</link>
+      <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/stl-iterator/</guid>
+      <description>1. 基础概念 在 STL 中，容器按照存储方式分为两大类：
+ 以数组形式存储的序列容器，如vector、deque等； 以非连续的节点形式存储的关联容器，如list、set、map等  对于不同类型的容器，在使用 erase 方法来进行元素删除时，需要格外小心，针对 map 的使用注意，请见map 迭代器实效问题
+2. 序列容器之vector/deque 对于序列型容器，erase 迭代器不仅使所有指向被删除元素的迭代器失效，还使被删除元素之后的所有迭代器失效。
+所以正确的代码书写是：
+std::vector&amp;lt;int&amp;gt; vec; std::vector&amp;lt;int&amp;gt;::iterator it; for(it =vec.begin(); it != vec.end();) { if(doDelete(*it) { it = vec.erase(it); } else { it++; } }  通过 erase 方法的返回值来获取下一个元素的位置。
+3. 关联容器之list/set/map 而关联容器的 erase 迭代器只是被删除元素的迭代器失效，但返回值是 void，因此不能使用序列容器的书写方式，而是使用这样的书写方式：
+std::map&amp;lt;std::string, int&amp;gt; m; std::map&amp;lt;std::string, int&amp;gt;::iterator it; for(it = m.begin(); it != m.end();) { if(canDelete) { m.erase(it++); } }  在调用 erase 方法前先使用后置自加来获取下一个元素的位置。</description>
+    </item>
+    
+    <item>
+      <title>常见 C 语言宏使用记录</title>
+      <link>https://thinkerou.com/post/c-macro/</link>
+      <pubDate>Sat, 30 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/c-macro/</guid>
+      <description>1. 使用宏防止头文件被重复包含 #ifndef COMMON_DEFINE_H #define COMMON_DEFINE_H // 头文件相关内容 #endif  2. 使用宏来注释代码 #if 0 // 被注释的代码段，可以包含 //、/**/ 这样的注释代码 #endif  3. 使用小括号防止宏错误 #define MAX(a, b) (((a) &amp;gt; (b)) ? (a) : (b)) #define MIN(a, b) (((a) &amp;lt; (b)) ? (a) : (b))  4. 字符、字符串转换  使用 ## 连接两个字符串 使用 # 转换为字符串（加双引号） 使用 #@ 转换为字符（加单引号）  示例代码：
+#define CON(x, y) x##y #define STR(x) #x #define CHR(x) #@x CON(hi, 123) // hi123 STR(helloworld) // &amp;quot;helloworld&amp;quot; CHR(1) // &#39;1&#39;  5.</description>
+    </item>
+    
+    <item>
+      <title>Github 上给开源项目提交 PR 前如何清理无关的提交信息</title>
+      <link>https://thinkerou.com/post/git-clean-up-extra-commits/</link>
+      <pubDate>Fri, 17 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-clean-up-extra-commits/</guid>
+      <description>背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回复的：
+ Can you please send this PR without all of the irrelevant commits? All of the changes for this PR are in the second-to-last commit.
+ @ctiller 这么回复的：
+ I&amp;rsquo;m not sure we want this to be blanket turned on for all platforms.
+  Also, it&amp;rsquo;d be good to clean up some of the spurious unrelated commits here.
+ 我能看懂他们说的是什么，就是说我提交代码时有太多的无关的提交历史应该清理了再提交，像这样的：
+这确实是个问题，那该如何清理呢？
+解决方案 1. 使用命令 git checkout branch-name 切换到待清理的分支：</description>
+    </item>
+    
+    <item>
+      <title>【面试题】判断字符串列表是否能构造成首尾相连的循环列表</title>
+      <link>https://thinkerou.com/post/interview-is-circle-string/</link>
+      <pubDate>Tue, 07 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/interview-is-circle-string/</guid>
+      <description>问题描述 给定一系列单词，如：
+ grep, pip, echo, open, net, tag, pre
+ 然后判断这些单词是否能构造成这样的循环列表：
+ grep -&amp;gt; pip -&amp;gt; pre -&amp;gt; echo -&amp;gt; open -&amp;gt; net -&amp;gt; tag -&amp;gt; grep
+ 即前一个单词的尾字符是后一个单词的首字符。
+问题就是：给定单词列表，判断是否能够构成这样的列表。
+解决问题 思路1：根据深度遍历或广度遍历判断 1. 从某个单词开始 2. 然后在剩下的单词中寻找以该单词尾字符开始的单词 2.1 如果没找到而列表又没有遍历完，那就不能构造成循环列表了 2.2 如果找到一个，则重复步骤2 2.3 如果找到多个，则随机选择一个，重复步骤2 2.3.1 如果某个能走通整个流程，则能构成循环列表 2.3.1 如果某个不能走通，则返回步骤2.3使用剩下的单词的某一个，重复步骤2  整个思路就是深度遍历或广度遍历。
+思路2：根据首字符和尾字符个数判断 看到这个问题时，我最新想到的就是这个方法，然后我想了下说：思路是这样的，根据首尾字符个数来判断，如果个数不相等一定不能构造成循环列表。但是这时面试官问了这样个问题：
+ 如果字符列表是 ab 和 ab 呢？
+ 其实他已经误解了我的首尾字符个数相等的思路，但是当时我也蒙逼了，所以我就继续想，然后试探性的问了下面试官，我的整个解题思路是没有问题的吧？！，你猜他怎么说？思路偏差太远了！！！那么我就只能想其他方法了，也就是思路1的笨方法。（或许他的题集里该题的标准答案应该就是思路1吧）
+然后我回来后，继续想我的首尾字符个数相等的思路，同时在谷歌百度里搜索这道题的解题思路，居然没有这道题，好吧，那我还是自己好好想想这个思路。
+整理后，思路是这样的：
+1. 构建两个map，分别为first记录首字符出现的次数，last记录尾字符出现的次数 2. 遍历first，然后在last里找该字符为key的元素 2.1 如果没找到，则不能构造循环列表 2.2 如果找到，但是它的次数和first对应字符的次数不一样，则不能构造循环列表 3. 循环，直到结束，则说明可以构造循环列表  核心代码如下：</description>
+    </item>
+    
+    <item>
+      <title>从开源项目中悟到了什么？</title>
+      <link>https://thinkerou.com/post/think-essay-1/</link>
+      <pubDate>Wed, 18 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/think-essay-1/</guid>
+      <description>最近业余时间都在学习 grpc 相关的东西，由于本身对 RPC 的了解还很浅显，所以本文不谈 grpc 相关的东西，聊聊从中体会到的个人感受。
+1. 如何参与到开源项目中来？ 要参与进来首先得保持一定的兴趣，兴趣是最好的老师嘛，虽然我是刚刚参与并且没有任何有质量的 Pull Request 被接受，但还是总结下个人的做法：
+ 学习项目的架构，通常都有详细的文档  如果没有详细的文档，这里其实就可以做些事情，弄懂后写份文档，项目是英文就用英文写，这也是很大的能力提供。   学会项目的使用，通常都有 example 代码  同样，没有的话，就可以编写，然后提交   读代码，然后提 Pull Request  通常从简单的、依赖少的代码开始 如果有 TODO 的话，可以尝试完成，测试通过后提交   反复读代码，读懂代码  在这基础上，记录自己的思考，并提 issue 跟别人沟通 如果想法有用，尝试实现并提交 沟通别人提的 issue 并尝试解决    个人觉得能按这种步骤来的话，还是对个人成长有帮助的。
+2. 从开源项目中悟到了什么？ 结合对 grpc 的了解和我在地铁路上的随想，记录下个人的想法，虽然想法在公司内部项目实施起来不太靠谱。
+不管是 Facebook（Facebook是如何做自动化测试的？） 也好 Badoo（Badoo 告诉你切换到 PHP7 节省了 100 万美元）也罢，在项目升级过程中都强调单元测试、自动化测试用例有多少条、覆盖率达到了多少等，说明测试用例的积累的重要性可见一般，在后续的回归、升级过程中起到强有力的保证作用。
+在看看 grpc 等开源项目也是有大量的单元测试、自动化测试用例，也只有这样才能做到让更多的开发者参与的同时保证代码的质量和正确性。
+由此，联想到的公司项目的一种参与方式：
+ 编写大量的初始单元测试、自动化测试用例  至于谁来编写可以根据项目组来定   将用例放入持续集成平台进行定时、条件触发执行 项目组所有人参与代码提交  模块负责人负责审阅提交 对于QA来说也可以参与进来   将代码在公司范围内开源  在 KPI 满天飞的年代可能别人不愿意提交 要是有奖励措施了可能就失去了开源的本意了    这些都是我个人的想法，或许你们赞同或不赞同，一看而过吧！</description>
+    </item>
+    
+    <item>
+      <title>RPC 原理初尝</title>
+      <link>https://thinkerou.com/post/rpc-guide/</link>
+      <pubDate>Sun, 15 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/rpc-guide/</guid>
+      <description>背景 在很早以前就了解过点 RPC 相关的概念，就仅此而已，写的那点网络示例程序也都是本机调用的，直到最近学习 gRPC 才发现还有好多知识需要学习，或许部分原因也是由于以前的工作内容主要是客户端的吧。
+现在接触的是服务端相关的东西，所以有必要好好学习下 RPC 等相关知识，公司系统涉及很多服务且都部署在不同的地域不同的机器上，维护也是由不同的团队维护的。
+所以就需要学习如何编写、部署、搭建新的服务？如何依赖、调用其他服务？如何发布新服务给其他团队使用？等等。
+RPC 介绍 1. RPC 简介  RPC 是 Remote Procedure Call 的缩写, 即远程过程/函数调用 RPC 用于进程间或跨网络通讯 RPC 具有很好的横向扩展能力, 更适合网络/分布式环境通讯  2. RPC 原理 RPC 主要涉及到的角色有：
+ Client Client Stub Server Server Stub  详细原理请原理图进行查看(注：图片来源于参考资料4)。
+根据该原理图可知，完成一次 RPC 需要经历这样几个步骤：
+ 1）Client 以本地调用方式调用服务
+  2）Client Stub 接收调用后将方法、参数等组装成能够进行网络传输的消息体（编码）
+  3）Client Stub 找到服务地址，并将消息发送到服务端
+  4）Server Stub 收到消息后进行解析（解码）
+  5）Server Stub 根据解码结果调用本地的服务
+  6）本地服务执行并将结果返回给 Server Stub</description>
+    </item>
+    
+    <item>
+      <title>Github 上 Fork 项目后如何提交 PR</title>
+      <link>https://thinkerou.com/post/git-commit-open-source/</link>
+      <pubDate>Mon, 02 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-commit-open-source/</guid>
+      <description>问题描述 在 Github 上 Fork 项目后如何同步源项目的更新 一文中已经介绍了 Fork 别人项目后如何同步其更新，本文要介绍的是 Fork 别人项目后如何提交 PR？
+解决方案 在修改 Fork 的项目前需要先同步源项目的更新，然后再修改 Fork 的项目并提交。
+ 这里提交是指提交到 Fork 到自己名下的项目
+ 接下来就开始解决 Fork 别人项目后如何提交 PR？，需要如下几个步骤：
+1. 进入 Fork 的项目的 Github 页面   如：https://github.com/thinkerou/grpc  2. 点击页面的 New pull request   会有一些支线选择，请根据源项目的贡献说明来选择，如：选择 master  3. 编写相关说明并提交 4. 如果是第一次提交 PR 需要 CLA 认证   根据提示申请 CLA 认证后，回复 I signed it! 之后，就会出现 cla: yes 标签，如果没有 CLA 认证该标签为 cla: no  5.</description>
+    </item>
+    
+    <item>
+      <title>使用 Go vendor</title>
+      <link>https://thinkerou.com/post/go-vendor/</link>
+      <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-vendor/</guid>
+      <description>Go vendor 介绍 Go 语言在发布 1.5 版本时，就说可以使用自身提供的 vendor 特性，但是需要设置如下环境变量：
+GO15VENDOREXPERIMENT=1  在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 go env 命令查看。
+根据官方的说法，在发布 1.7 版本时，将去掉该环境变量，默认开启 vendor 特性。
+现在也有很多包管理工具，比如 Godep、govendor、gvt 等等，并且也都支持语言本身提供的 vendor 特性，那么我的问题是：
+ 不使用第三方包管理工具，如何使用 vendor 特性呢？
+ 一开始 google 了好多文档都没有符合要求的，最后就在 stackover flow 上求问才找到解决方法。
+1. 设置环境变量  GOPATH=&amp;rdquo;/Users/thinkerou/xyz/&amp;rdquo;
+ 2. 建立测试需要的目录   thinkerou@MacBook-Pro-thinkerou:~/xyz$ pwd /Users/thinkerou/xyz thinkerou@MacBook-Pro-thinkerou:~/xyz$ ls src thinkerou@MacBook-Pro-thinkerou:~/xyz$ cd src thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ ls ou thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ cd ou thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls main.go vendor thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ cd vendor/ thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ ls vendor.</description>
+    </item>
+    
+    <item>
+      <title>Github 上 Fork 项目后如何同步源项目的更新</title>
+      <link>https://thinkerou.com/post/git-fork-sync/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-fork-sync/</guid>
+      <description>问题背景 最近 Fork 了 grpc 到我的 Github 帐号grpc下，以学习之然后记录点笔记上传，但是过段时间后发现原来的项目已经有了很多代码提交，那么我该如何将这些新提交的更新同步到我的帐号下的项目里呢？
+通过查阅 Github 帮助文档并通过关键字 sync fork 可以找到相应的解决方案。
+解决方案 通过前述查阅可知，要解决 **Fork 项目后如何同步源项目的更新？**的问题，需要如下几个步骤：
+1. 使用 git remote -v 命令查看远程状态   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v origin	https://github.com/thinkerou/grpc.git (fetch) origin	https://github.com/thinkerou/grpc.git (push)  2. 使用 git remote add upstream 命令给 Fork 的项目添加上游仓库   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote add upstream https://github.com/grpc/grpc.git  3. 再次使用 git remote -v 查看远程状态   thinkerou@MacBook-Pro-thinkerou:~/opensource/grpc$ git remote -v origin	https://github.com/thinkerou/grpc.git (fetch) origin	https://github.</description>
+    </item>
+    
+    <item>
+      <title>Git submodule 使用记录</title>
+      <link>https://thinkerou.com/post/git-submodule/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/git-submodule/</guid>
+      <description>问题背景 最近在阅读 grpc 相关的代码，在阅读前需要先让代码跑起来，然后跟着 INSTALL 里的说明进行编译，里面有这样的步骤：
+git submodule update --init  这是第一次遇见 git 的 submoduel 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必要认真阅读 git 的 submoduele 参数相关的资料来了解其使用。
+使用详情 先来看看命令 git submodule help 输出的信息：
+thinkerou@MacBook-Pro-thinkerou:~/Documents/thinkerou.github.io$ git submodule help usage: git submodule [--quiet] add [-b &amp;lt;branch&amp;gt;] [-f|--force] [--name &amp;lt;name&amp;gt;] [--reference &amp;lt;repository&amp;gt;] [--] &amp;lt;repository&amp;gt; [&amp;lt;path&amp;gt;] or: git submodule [--quiet] status [--cached] [--recursive] [--] [&amp;lt;path&amp;gt;...] or: git submodule [--quiet] init [--] [&amp;lt;path&amp;gt;...] or: git submodule [--quiet] deinit [-f|--force] [--] &amp;lt;path&amp;gt;... or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--reference &amp;lt;repository&amp;gt;] [--recursive] [--] [&amp;lt;path&amp;gt;.</description>
+    </item>
+    
+    <item>
+      <title>更新 PHP5 扩展到 PHP7(NG) 记录</title>
+      <link>https://thinkerou.com/post/php-ext-to-php7/</link>
+      <pubDate>Sun, 06 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-ext-to-php7/</guid>
+      <description>升级扩展到 PHP7 记录 最近在学习 PHP 、grpc 以及 PHP(PHP7) 扩展编写，但是由于 PHP7 内核更新，扩展接口也有很大变动，先前基于 PHP5 编写的扩展并不能直接基于 PHP7 进行编译安装，需要修改一定代码才能编译通过。
+在更新 grpc php 扩展到 PHP7 过程中记录的接口变化，以 GitHub 项目形式来记录。
+参考资料   GitHub: 更新 PHP 扩展到 PHP7
+  Upgrading PHP extensions from PHP5 to NG
+  Internal value representation in PHP 7 - Part 1
+  Internal value representation in PHP 7 - Part 2
+  </description>
+    </item>
+    
+    <item>
+      <title>GRPC 入门</title>
+      <link>https://thinkerou.com/post/grpc-guide/</link>
+      <pubDate>Sun, 28 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/grpc-guide/</guid>
+      <description>开始 grpc 最近准备开始看看 grpc 相关代码，那首先得让其跑起来，以下记录安装步骤：
+注：系统为 mac
+1. 安装 grpc core 主要是修改 url 路径，否则会被强。
+ clone 代码
+  修改 .gitmodules 和 .git/config 里 boringssl 的url为：https://github.com/google/boringssl.git
+  运行 git submodule update &amp;ndash;init 下载 third_party 文件
+  make
+  sudo make install
+ 如此，会在 /usr/local/lib/ 目录下产生 libgrpc.a 和 libgrpc.dylib 等文件。
+2. 安装 cpp example 验证安装 grpc 核心库成功。
+ cd examples/cpp/route_guide
+  make
+  ./route_guide_server
+  .</description>
+    </item>
+    
+    <item>
+      <title>Python 深浅拷贝</title>
+      <link>https://thinkerou.com/post/python-copy-deepcopy/</link>
+      <pubDate>Sun, 21 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/python-copy-deepcopy/</guid>
+      <description>Python 拷贝现象 先看一段代码：
+&amp;gt;&amp;gt;&amp;gt; a = [1, 2, 3] &amp;gt;&amp;gt;&amp;gt; b = a &amp;gt;&amp;gt;&amp;gt; b.append(4) &amp;gt;&amp;gt;&amp;gt; b [1, 2, 3, 4] &amp;gt;&amp;gt;&amp;gt; a [1, 2, 3, 4] &amp;gt;&amp;gt;&amp;gt;  代码的原意是，变量 b 从变量 a 处拷贝后，然后修改 b 而不改变原来的变量 a 的值；但事实是，原变量的值却变了！
+问题现象所涉及到的点就是：Python 的对象赋值和深浅拷贝。
+ 在 Python 中赋值语句总是建立对象的引用值，而不是复制对象，这样看来 Python 变量更像是指针而不是数据存储区域。
+ 继续看如下代码：
+&amp;gt;&amp;gt;&amp;gt; a = [1, 2, 3] &amp;gt;&amp;gt;&amp;gt; a[1] = a &amp;gt;&amp;gt;&amp;gt; a [1, [...], 3] &amp;gt;&amp;gt;&amp;gt;  这段代码的本意是想给 a[1] 重新赋值为 [1, 2, 3]，但是却死循环了（[.</description>
+    </item>
+    
+    <item>
+      <title>编写 PHP 扩展入门</title>
+      <link>https://thinkerou.com/post/php-ext-guide/</link>
+      <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-ext-guide/</guid>
+      <description>环境 文中示例 PHP 扩展的环境为：
+ Mac OS PHP7  在开始编写 PHP 扩展前需要准备如下环境：
+ PHP7 源码 使用 brew 安装 libtool  编写 环境准备好以后，就可以开始编写 Hello world 程序了，需要经历如下步骤：
+1. 进入 PHP 源码文件 $ cd php-7.0.5/ext  2. 创建扩展骨架 $ ./ext_skel --extname=helloworld Creating directory helloworld Creating basic files: config.m4 config.w32 .gitignore helloworld.c php_helloworld.h CREDITS EXPERIMENTAL tests/001.phpt helloworld.php [done]. To use your new extension, you will have to execute the following steps: 1. $ cd .</description>
+    </item>
+    
+    <item>
+      <title>一句 awk 获取 ini 文件的值</title>
+      <link>https://thinkerou.com/post/awk-ini/</link>
+      <pubDate>Sun, 10 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/awk-ini/</guid>
+      <description>问题背景 使用脚本语言操作 ini 文件已经有很多现有的方案了，比如 python 的 ConfigParser 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 awk 和 sed 这样的 shell 脚本来搞定呢？
+解决方案 假设 ini 文件 test.ini 为如下：
+[section1] ip=10.11.12.13 port=1234 [section2] ip=10.21.22.23 port=5678  为了能够获取 section2 下 ip 的值，需要如下几个步骤：
+  以 = 分隔每行 找到 [section2] 满足 1 以后，从此开始找到第一个 ip 打印 ip 对应的值，停止，退出   1. 分隔每行 在 awk 里可以使用 -F 来指定每行的分隔符号，如下：
+awk -F &#39;=&#39; &#39;{print $1}&#39; test.ini # 打印结果 ip port [section2] ip port  2.</description>
+    </item>
+    
+    <item>
+      <title>map 迭代器实效问题</title>
+      <link>https://thinkerou.com/post/stl-map-iterator/</link>
+      <pubDate>Sun, 03 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/stl-map-iterator/</guid>
+      <description>问题背景 对于 C++ STL 中的 map 都不陌生，但是对其 erase 操作后的迭代器使用是否遇到过问题呢？看如下代码：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for( ; it != m.end(); ++it) { m.erase(it); }  这样操作会引起程序崩溃，因为 erase 后迭代器就实效了，再根据迭代器进行操作当然就会导致程序崩溃。
+解决方案 解决这个问题的方法也很简单，如果熟悉 it++ 操作的含义，就会瞬间想到该怎么做，代码如下：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for( ; it != m.end(); ) { m.erase(it++); }  这样操作就不会导致迭代器实效了，前面代码等同于如下代码：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for(; it != m.end(); ) { map&amp;lt;string, int&amp;gt;::iterator tmp = it; ++it; m.</description>
+    </item>
+    
+    <item>
+      <title>那些踩过的 PHP 坑之 array_merge 函数</title>
+      <link>https://thinkerou.com/post/php-array-merge/</link>
+      <pubDate>Sun, 27 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-array-merge/</guid>
+      <description>函数 array_merge 坑在哪里 最近在使用函数 array_merge 合并两个数组时，得到的结果总是不确定，代码如这样：
+$arrResult = array_merge($arrInput1, $arrInput2);  如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变量 $arrResult 的值会根据函数 array_merge 的两个参数的类型及值而变化，如：键为数字的字典、null 等，详细问题解释说明请继续往下看！
+函数 array_merge 说明 来自 PHP 官方网站的array_merge函数说明
+ 函数功能：合并一个或多个数组
+  函数原型：
+ array array_merge(array $array1[, array $...])  函数 array_merge 将一个或多个数组的单元合并，后一个数组中的值追加到前一个数组的后面，并作为函数结果返回。
+ 示例场景1：如果输入数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值，如：
+ &amp;lt;?php // PHP 5.6.15 $a = array(&#39;hello&#39; =&amp;gt; 1, &#39;world&#39; =&amp;gt; 2); $b = array(&#39;hi&#39; =&amp;gt; 1, &#39;world&#39; =&amp;gt; 3); $c = array_merge($a, $b); var_dump($c); $d = array_merge($b, $a); var_dump($d);  执行脚本后的结果为：</description>
+    </item>
+    
+    <item>
+      <title>命令行艺术之 scp</title>
+      <link>https://thinkerou.com/post/shell-scp/</link>
+      <pubDate>Sun, 20 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/shell-scp/</guid>
+      <description>概览 在 linux 服务器上工作，免不了有这样的场景：
+ 从远程服务器上拷贝文件（文件夹）到本地或者另一台远程服务器上
+ 如果是远程服务器跟本地相关的文件下载、上传操作，可以使用 sz 和 rz 即可完成，但是在两个远程服务器之间就得另寻他法了，这时就是命令 scp 该上场了。
+命令详解 命令 scp 是 Secure copy 的缩写，类似的有 cp 命令，但它用于本机文件拷贝不能跨服务器，同时，命令 scp 是加密传输的。另外，命令 rsync 也能完成 scp 的工作，但当小文件较多时，rsync会导致磁盘 IO 过高。
+命令 scp 的主要工作是：
+ 在 linux 系统下基于 ssh 登录进行安全的远程文件拷贝命令
+  服务器之间的文件拷贝和目录拷贝
+ 1. 命令格式  scp [参数] [原始路径] [目的路径]
+ 在终端上直接输入 scp 则会有这样的帮助信息：
+usage: scp [-12346BCEpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [-l limit] [-o ssh_option] [-P port] [-S program] [[user@]host1:]file1 .</description>
+    </item>
+    
+    <item>
+      <title>MySQL 快速入门</title>
+      <link>https://thinkerou.com/post/mysql-guide/</link>
+      <pubDate>Sun, 13 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/mysql-guide/</guid>
+      <description>概览 最近开始在 LNMP 环境下进行工作，虽说对于 MySQL 这块内容暂时还排不上时间进行深入学习，比如阅读《高性能 MySQL》等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。
+1. 安装 MySQL  本文里的安装环境为：Mac OS X
+ 在《Nginx 与 PHP 环境搭建》一文里已经提到，在 Mac 上使用 brew 来进行安装包的管理，使用如下命令安装 mysql：
+ brew install mysql
+ 安装成功后，MySQL 的各种信息会出现在目录下：
+ /usr/local/Cellar/mysql/5.7.9
+ 该目录下有这样一些文件：
+COPYING	include INSTALL-BINARY	lib INSTALL_RECEIPT.json	mysql-test README	scripts bin	share homebrew.mxcl.mysql.plist	support-files  目录 bin 包括 mysql、mysqld 、mysql.server 等常见命令，具体包括：
+innochecksum	mysqladmin my_print_defaults	mysqlbinlog myisam_ftdump	mysqlcheck myisamchk	mysqld myisamlog	mysqld_multi myisampack	mysqld_safe mysql	mysqldump mysql.server	mysqldumpslow mysql_client_test	mysqlimport mysql_client_test_embedded	mysqlpump mysql_config	mysqlshow mysql_config_editor	mysqlslap mysql_embedded	mysqltest mysql_install_db	mysqltest_embedded mysql_plugin	perror mysql_secure_installation	replace mysql_ssl_rsa_setup	resolve_stack_dump mysql_tzinfo_to_sql	resolveip mysql_upgrade  2.</description>
+    </item>
+    
+    <item>
+      <title>PHP 的 empty 函数</title>
+      <link>https://thinkerou.com/post/php-empty/</link>
+      <pubDate>Sun, 08 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-empty/</guid>
+      <description>问题是这样的 描述问题现象前，先上代码：
+// $ret[&#39;errno&#39;] 的值由更新 update 数据库返回 // update 操作会把 affected_rows 值返回 if (empty($ret[&#39;errno&#39;])) { // update 不成功则 insert }  根据代码看，问题已经很明显了：
+ 如果 affected_rows 等于 0，$ret[&amp;lsquo;errno&amp;rsquo;] 就等于 0，那么它会就是 empty 的吗？
+  熟悉 PHP 的你，肯定觉得是个小儿科的问题了，但是对于刚看 PHP 两天的我来说，这个问题还是值得记录下。
+ 接下来就记录下，在 PHP 里什么内容会被认为是 empty 的？！
+empty 函数判断的是什么 函数 empty 检查一个变量是否为空，函数原型如下：
+ bool empty(mixed $var)
+  当变量 $var 不存在或者它的值等同于 false 时，那么就会被认为是空的。
+  没有警告产生，即使变量不存在，意味着 empty() 本质上与下列语句等价：
+  !isset($var) || $var === false</description>
+    </item>
+    
+    <item>
+      <title>细说 CGI、FastCGI、PHP-CGI 和 PHP-FPM 的关系</title>
+      <link>https://thinkerou.com/post/cgi-fastcgi-phpcgi-phpfpm/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cgi-fastcgi-phpcgi-phpfpm/</guid>
+      <description>概念总结 刚开始学习的 PHP 的时候，就会被几个词搞混：CGI、FastCGI、PHP-CGI、PHP-FPM，它们都是干什么活的？之间又有些什么联系和区别呢？接下来就先介绍它们的概念。
+1. CGI CGI 是 Common Gateway Interface 的缩写，可以使客户端从网页浏览器向执行在网络服务器上的程序请求数据，它描述了客户端与服务器程序之间进行数据传输的标准，是一种协议。
+2. FastCGI 顾名思义，是 CGI 的改进版，也是一种协议，实现上是一个常驻进程，它会一直运行着，在请求到来时不会重新启新进程去处理（ CGI 为 fork-and-execute 模式）。
+FastCGI 把 PHP 语言和 Web 服务器分开，故 Nginx 和 PHP 通常可以部署在不同机器上，以减轻 Nginx 和后端的压力。
+ FastCGI 的主要特点有：
+  语言无关的、可伸缩架构的 CGI 开放扩展
+  将 CGI 解释器进程保持在内存中以此获取高性能
+  不依赖任何 web 服务器内部架构
+  平滑重新加载配置文件
+ FastCGI 的工作原理：（markdown画图有问题，等解决后画出流程图会更清晰）
+ Web 服务器启动时载入 FastCGI 进程管理器（运行在 Web 服务器中）；
+  FastCGI 进程管理器自身初始化，启动多个 CGI 解释器进程（可以看见有多个 PHP-CGI 进程），等待 Web 服务器的连接请求；</description>
+    </item>
+    
+    <item>
+      <title>命令行艺术之 ps 与 kill</title>
+      <link>https://thinkerou.com/post/shell-ps-kill/</link>
+      <pubDate>Sun, 11 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/shell-ps-kill/</guid>
+      <description>概览 命令 ps 是 Process Status 的缩写，它是用来列出系统中当前运行的进程，列出的是它们的快照，也即是执行 ps 命令的那一刻的那些进程，如果需要动态的列出进程信息，则需要使用 top 命令。
+使用 ps 命令可以确定哪些进程正在运行及运行状态：是否结束、是否僵死、占用多少资源等。
+ Program 与 Process 区别与联系：
+  Program（程序）：通常为 binary program，放在存储介质中（硬盘等），以实体文档存在；
+  Process（进程）：程序被触发后，执行者的权限、属性、程序代码及所需资料都会被载入内存，作业系统会给这个内存内的单元一个唯一标识（PID），也即是进程就是一个正在运行中的程序。
+  更多、详细信息请阅读《鸟哥的 Linux 私房菜》。
+ 命令 ps 主要用于查看进程当前信息，而命令 kill 主要用于管理进程（杀死哪些进程）。
+在 Linux 系统中，进程有 5 种状态：
+ 运行：正在运行或在运行队列中等待
+  中断：休眠中，受阻，在等待某个条件的形成或接收到信号
+  不可中断：收到信号不唤醒和不可运行，必须等待直到中断发生
+  僵死：进程已经终止，但进程描述符还在，直到父进程调用wait4后才释放
+  停止：收到信号后停止运行
+ 对应的进程状态在 ps 命令中则使用如下标识来标记：
+ R ：运行，Running or runnable (on run queue)
+  S ：中断，Interruptible sleep (waiting for an event to complete)</description>
+    </item>
+    
+    <item>
+      <title>PHP 代码规范摘记</title>
+      <link>https://thinkerou.com/post/php-coding-style/</link>
+      <pubDate>Mon, 28 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-coding-style/</guid>
+      <description>概览   PHP 代码文件必须以 &amp;lt;?php 或 &amp;lt;?= 标签开始；
+  PHP 代码文件必须以 不带BOM的 UTF-8 编码；
+  PHP 代码中应该只定义类、函数、常量等声明，或其他会产生 从属效应 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一；
+  类的命名必须遵循 StudlyCaps 大写开头的驼峰命名规范；
+  类中的常量所有字母都必须大写，单词间用下划线分隔；
+  方法名称必须符合 camelCase 式的小写开头驼峰命名规范；
+  代码必须使用4个空格符而不是 tab键 进行缩进；
+  每个 namespace 命名空间声明语句和 use 声明语句块后面，必须插入一个空白行；
+  类的开始花括号({)必须写在函数声明后自成一行，结束花括号(})也必须写在函数主体后自成一行；
+  方法的开始花括号({)必须写在函数声明后自成一行，结束花括号(})也必须写在函数主体后自成一行；
+  类的属性和方法必须添加访问修饰符（private、protected 以及 public）， abstract 以及 final 必须声明在访问修饰符之前，而 static 必须声明在访问修饰符之后；
+  控制结构的关键字后必须要有一个空格符，而调用方法或函数时则一定不能有空格符；
+  控制结构的开始花括号({)必须写在声明的同一行，而结束花括号(})必须写在主体后自成一行；</description>
+    </item>
+    
+    <item>
+      <title>Nginx 与 PHP 环境搭建</title>
+      <link>https://thinkerou.com/post/nginx-php-fpm/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/nginx-php-fpm/</guid>
+      <description>基础工具 为了快速便捷的在本机（Mac OS）上搭建 Nginx+PHP 环境，首先安装 OS X 系统中最受欢迎的包管理工具 Homebrew。
+使用如下命令进行 Homebrew 安装：
+ ruby -e &amp;ldquo;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+ Homebrew 有如下常用的命令：
+ brew install &amp;lt;package_name&amp;gt; #安装一个包
+  brew update #更新 Homebrew 在服务端上的包目录
+  brew upgrade &amp;lt;package_name&amp;gt; #更新一个包
+  brew list &amp;ndash;versions #查看已安装的包列表（包括版本号）
+ Nginx 与 PHP 安装 1. PHP 与 PHP-FPM 环境设置 Mac 系统已经自带安装了 PHP 环境，所以这里不再安装，可以使用如下命令查看自带版本是否为需要的版本：
+ php -v
+  php-fpm -v
+ 验证版本满足需求后即可，否则使用 brew install 进行安装。</description>
+    </item>
+    
+    <item>
+      <title>关键字 typedef 深入了解</title>
+      <link>https://thinkerou.com/post/typedef-keyword/</link>
+      <pubDate>Sun, 06 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/typedef-keyword/</guid>
+      <description>引子：几行代码 为了不浪费时间，先来看看如下三行代码：
+typedef int arr[10]; typedef void (*pf)(); typedef int* (*pf)(int* (p*)(int*, int*), int*);  如果能准确知道上面三行代码的意义，我想就没有必要继续往下看了，当然，为了温习也可以快速阅读。
+定义 struct 时 typeder 的含义 1. 在 C 中定义一个结构体类型需要用 typedef 关键字: typedef struct TestS { int a; }Test;  于是在声明变量时就可以这样：Test test; 如果没有 typedef 就必须用 struct TestS test; 来声明，这里的 Test 实际上就是 struct TestS 的别名，即 Test == struct TestS。
+另外，这里也可以不写 TestS，也就不能 struct TestS test; 了，必须是 Test test;，如下：
+typedef struct { int a; }Test;  2. 在 C++ 中定义一个结构体类型不再需要用 typedef 关键字: 在 C++ 里定义一个结构体类型就很简单直接了：</description>
+    </item>
+    
+    <item>
+      <title>一个超简单的 C&#43;&#43; 日志文件</title>
+      <link>https://thinkerou.com/post/easyloggingpp/</link>
+      <pubDate>Sun, 16 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/easyloggingpp/</guid>
+      <description>介绍 在平时的工作和学习中，编写一些 C++ 程序时，为了调式通常都是使用类似 printf 的函数和打断点的方式。但是，调式程序或者程序发布测试版后，记录程序执行日志也是一种比较有效的调式和收集问题信息的手段。在现在这个开源的时代，并不需要我们自己去写一套日志库（C++版），开源的已经有很多了，如：
+ spdlog
+  log4cplus
+  boost log
+  glog
+ 在 Github 上以关键字 log 搜索就会出来很多相关的，但是这些库中以我的了解经验来看，要数 Easyloggingpp 最为简单了，使用无需其他任何外部依赖，仅有一个 easyloggin++.h 头文件。下文就对此做一些简要介绍，以作记录。
+示例 在编写 C++ 应用时，通常是以 EXE 或者 DLL 的形式存在，对于这两种不同形式，使用 Easyloggingpp 也有所区别。
+1. 在 EXE 工程中使用 Easyloggingpp 先看代码，如：
+#include &amp;quot;easylogging++.h&amp;quot; INITIALIZE_EASYLOGGINGPP int main(void) { LOG(INFO) &amp;lt;&amp;lt; &amp;quot;easylogging++ test!&amp;quot;; return 0; }  代码看起来很简单，主要做了三件事：
+ a. 引入 easylogging++.h 头文件
+  b. 使用初始化宏进行初始化
+  c.</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 元组介绍</title>
+      <link>https://thinkerou.com/post/cpp-tuple/</link>
+      <pubDate>Sun, 19 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cpp-tuple/</guid>
+      <description>介绍说明 对于熟悉 Python 语言者而言，如下这段代码相信你是熟悉的：
+&amp;gt;&amp;gt;&amp;gt; t = (1, &#39;hello&#39;, 3.14, 1, 3.14) &amp;gt;&amp;gt;&amp;gt; type(t) &amp;lt;type &#39;tuple&#39;&amp;gt; &amp;gt;&amp;gt;&amp;gt; t.count(3.14) 2 &amp;gt;&amp;gt;&amp;gt; t.index(&#39;hello&#39;) 1  对，没错，这就是 Python 提供的 tuple（元组）：一个元组可以定义至少一个元素，或者多个元素同时多个元素并不要求类型一致。函数 count 返回 tuple 中有多少个给定值的元素（注：当元素不在 tuple 中时返回 0），而函数 index 返回 tuple 中给定值的元素的下标（注：当元素不在 tuple 中时抛出异常）。
+对于 C++ 而言，也有类似的数据结构：pair 和 tuple，相信你对于 pair 一定是非常熟悉的，而 tuple 是 c++ 11 新添加的特性，后文将主要介绍这两种数据结构。
+pair 介绍 1. pair 基本概念 类型 pair 定义在头文件 utility 中。
+一个 pair 类型保存两个数据成员，它是用来生成特定类型的模板。当创建一个 pair 时，必须提供两个类型名，pair 的数据成员将具有对应的类型，两个数据类型并不要求一致。形如：
+std::pair&amp;lt;std::string, int&amp;gt; test1; // 保存一个 string 和一个 int std::pair&amp;lt;std::string, std::string&amp;gt; test2; // 保存两个 string std::pair&amp;lt;std::string, std::vector&amp;lt;int&amp;gt;&amp;gt; test3; // 保存一个 string 和一个 vector  pair 的默认构造函数对数据成员进行值初始化。故：test1 中的 string 被初始化为空，int 被初始化为 0；test2 是包含两个空 string 的pair；test3 则保存一个空 string 和一个空 vector。</description>
+    </item>
+    
+    <item>
+      <title>使用 gtest 给 DLL 工程编写单元测试</title>
+      <link>https://thinkerou.com/post/gtest-dll/</link>
+      <pubDate>Sun, 12 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/gtest-dll/</guid>
+      <description>背景说明 任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C++ 使用比较广泛的单元测试框架应该非 googletest 莫属了。
+通常在工程代码中，使用 gtest 比较广泛的方式是以 lib 的形式来做单元测试，这种方式使用也比较简单直接，本文就不再赘述。
+但是，对于大部分工程代码而言，并不是只有 EXE 文件，通常这些 EXE 文件都会依赖至少一个 DLL 文件，同时这些 DLL 文件并不会导出所有函数或类，而仅导出极少的东西给外部使用。（注：本文仅讨论 gtest 在 windows 上的应用）
+那么，问题来了，该如何使用 gtest 对 DLL 里没有导出的函数或类做单元测试呢？
+解决方案 做为示例，假设整个 Solution 包含如下三个 project：
+  coreTest 工程：一个被 mainTest 工程应用的 DLL 库；
+  mainTest 工程：整个 Solution 的 main 入口，调用 coreTest.dll 的 EXE 文件；
+  unitTest 工程：将 gtest 包装成 DLL 的工程。
+  详细的代码示例及工程属性设置请阅读完整的示例代码。
+为了使用 gtest 对 DLL 里没有导出的函数或类进行单元测试，或许会有如下两种方法：</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Lambda 介绍</title>
+      <link>https://thinkerou.com/post/cpp-lambda/</link>
+      <pubDate>Sun, 05 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cpp-lambda/</guid>
+      <description>C++ lambda 表达式格式 C++ lambda 表达式规范有如下几种形式：
+   编号 表达式     (1) [capture] (params) mutable exception attribute -&amp;gt; return {body}   (2) [capture] (params) -&amp;gt; return {body}   (3) [capture] (params) {body}   (4) [capture] {body}    表达式形式说明：
+ (1)： 完整的 lambda 表达式形式； (2)： const 类型的 lambda 表达式形式，该类型表达式不能更改 capture 列表中的变量的值； (3)： 没有返回值类型的 lambda 表达式，但是返回值类型可以推导出来，使用如下规则：  如果 body 包含 return 语句，则 lambda 表达式返回类型由 return 语句的返回类型确定； 如果没有 return 语句，则函数类似于 void func(params) 函数。   (4)： 没有参数列表的 lambda 表达式，类似于无参函数 func()。  mutable： 说明 lambda 表达式的 body 可以修改 capture 列表中的变量的值，并且可以访问被捕获对象的 non-const 方法；</description>
+    </item>
+    
+    <item>
+      <title>如何对模板类进行单元测试</title>
+      <link>https://thinkerou.com/post/how-test-template-using-gtest/</link>
+      <pubDate>Sun, 17 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/how-test-template-using-gtest/</guid>
+      <description>背景介绍 在对 C++ 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。
+具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对于模板类并没有进行测试，而是对其上层调用进行测试。
+现在的问题是，对于模板类需不需要进行单元测试或接口测试？被写成模板类，说明这个类是比较通用且很多地方都在使用它，所以我认为还是有必要进行测试的。
+如何测试单参数模板类 现有如下一个模板类：
+// 不用纠结于细节，只为说明。 template &amp;lt;typename E&amp;gt; class Queue { public: Queue() { } void Enqueue(const E&amp;amp; element) { } E* Dequeue() { } size_t size() const { return (size_t)123; } };  那么使用 gtest 该如何对该类进行测试呢？
+第一步：需要构建工厂类，用于创建被测试类： // 主模板类 template &amp;lt;class T&amp;gt; Queue&amp;lt;T&amp;gt;* CreateQueue(); // 全特化版本1 template &amp;lt;&amp;gt; Queue&amp;lt;int&amp;gt;* CreateQueue&amp;lt;int&amp;gt;() { return new Queue &amp;lt; int &amp;gt; ; } // 全特化版本2 template &amp;lt;&amp;gt; Queue&amp;lt;char&amp;gt;* CreateQueue&amp;lt;char&amp;gt;() { return new Queue &amp;lt; char &amp;gt; ; }  第二步，编写测试类： template &amp;lt;class T&amp;gt; class QueueTest : public testing::Test { protected: QueueTest() : queue(CreateQueue&amp;lt;T&amp;gt;()) { } virtual ~QueueTest() { delete queue; } Queue&amp;lt;T&amp;gt;* const queue; };  第三步，定义需要测试的类型列表： typedef ::testing::Types&amp;lt;int, char&amp;gt; Implementations;  第四步，编写测试用例： TYPED_TEST_CASE(QueueTest, Implementations); TYPED_TEST(QueueTest, DefaultConstructor) { EXPECT_EQ(123, this-&amp;gt;queue-&amp;gt;size()); }  第五步，运行用例，查看结果。 特别说明</description>
+    </item>
+    
+  </channel>
+</rss>

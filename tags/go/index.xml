@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GO on thinkerou</title>
+    <link>https://thinkerou.com/tags/go/</link>
+    <description>Recent content in GO on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go 语言 struct 方法该使用 pointer 还是 value 传值？</title>
+      <link>https://thinkerou.com/post/go-method-values-pointers/</link>
+      <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-method-values-pointers/</guid>
+      <description>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // method on pointer func (s MyStruct) valueMethod() {} // method on value  但是，这两种方式都在什么场景下使用呢？
+先看一段示例代码：
+package main import &amp;quot;fmt&amp;quot; type Person struct { Name string Age uint } func (c Person) GetAge() { fmt.Println(&amp;quot;age: &amp;quot;, c.Age) } func main() { c := &amp;amp;Person{&amp;quot;thinkerou&amp;quot;, 30} c.GetAge() }  执行代码后的结果也很直接：
+age: 30  如果需要动态更新 Age 值，则可以新增 UpdateAge 方法：</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 HTTP Server 源码学习</title>
+      <link>https://thinkerou.com/post/go-http-server-learn/</link>
+      <pubDate>Tue, 23 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-http-server-learn/</guid>
+      <description>1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。
+在 Go 中一个简单 HTTP 服务实现如下：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;net/http&amp;quot; ) // step3. 处理请求并返回结果 func Hello(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, &amp;quot;Hello world!&amp;quot;) } func HelloUser(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, &amp;quot;Hello thinkerou!&amp;quot;) } func main() { // step1. 注册路由 http.HandleFunc(&amp;quot;/&amp;quot;, Hello) http.HandleFunc(&amp;quot;/user/&amp;quot;, HelloUser) // step2. 监听服务 http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil) }  这就是一个完整的简单的 Go HTTP Server 程序，运行该程序后，在浏览器输入 http://127.</description>
+    </item>
+    
+    <item>
+      <title>如何在 Go 语言中实现单例模式</title>
+      <link>https://thinkerou.com/post/design-patterns-singleton-go/</link>
+      <pubDate>Sun, 14 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/design-patterns-singleton-go/</guid>
+      <description>有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // something } var instance *Singleton func GetInstance() *Singleton { if instance == nil { instance = &amp;amp;Singleton{} } return instance } 这种写法对应着 CPP 中的实现方式。
+2. 线程锁方式 在 Go 语言中提供了包 sync/mutex 用于构建多个 goroutine 间的同步逻辑。
+在 Go 中使用线程锁实现的单例模式，如下：
+type Singleton struct { // something } var ( instance *Singleton mtx Sync.Mutex ) func GetInstance() *Singleton { mtx.Lock() defer mtx.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 net 包使用记录</title>
+      <link>https://thinkerou.com/post/go-net-package/</link>
+      <pubDate>Sun, 07 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-net-package/</guid>
+      <description>1. 基础概念 关于网络IPC（套接字）相关的知识点，可以参考相关《学习笔记》。
+在 Go 语言中，包 net 封装了关于网络套接字的所有接口。
+对于服务端，使用 Listen 进行监听，使用 Accept 响应连接请求；
+对于客户端，使用 Dial 进行服务连接请求，使用包 fmt 里的函数 Fprint 可以进行数据发送。
+2. 使用示例 服务端程序 tcp-server.go 为：
+package main import ( &amp;quot;bufio&amp;quot; &amp;quot;fmt&amp;quot; &amp;quot;log&amp;quot; &amp;quot;net&amp;quot; &amp;quot;strings&amp;quot; ) func main() { fmt.Println(&amp;quot;Launching server ...&amp;quot;) // listen on all interfaces ln, err := net.Listen(&amp;quot;tcp&amp;quot;, &amp;quot;:8081&amp;quot;) if err != nil { log.Fatal(&amp;quot;listen tcp error&amp;quot;) } // run loop forever or until ctrl-c for { // accept connection on port conn, err := ln.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 sync 包使用记录</title>
+      <link>https://thinkerou.com/post/go-sync-package/</link>
+      <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-sync-package/</guid>
+      <description>在 Go 语言中 sync 包提供了互斥锁、读写锁等基本同步原语，除了 Once 和 WaitGroup 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 channel 来完成。
+更多更全的信息和使用说明请见官网文档
+1. Mutex 类型 一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构的一部分，Mutex 的零值是一个未上锁的互斥锁。
+Mutex 类定义为：
+// A Mutex is a mutual exclusion lock. // Mutexes can be created as part of other structures; // the zero value for a Mutex is an unlocked mutex. // // A Mutex must not be copied after first use. type Mutex struct { state int32 sema uint32 }  Mutex 类实现了 Locker 接口：</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 reflect 包使用记录</title>
+      <link>https://thinkerou.com/post/go-reflect-package/</link>
+      <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-reflect-package/</guid>
+      <description>在 Go 语言中 reflect 包有两个数据类型是必须要知道的：
+ Type：定义的类型的数据类型 Value：定义的类型的值的类型  更多更全的信息和使用说明请见官网文档
+先看一段示例代码：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;reflect&amp;quot; ) type MyStruct struct { name string } func (my *MyStruct) GetName() string { return my.name } func main() { s := &amp;quot;Hello world!&amp;quot; fmt.Println(reflect.TypeOf(s)) fmt.Println(reflect.ValueOf(s)) m := new(MyStruct) m.name = &amp;quot;thinkerou&amp;quot; fmt.Println(reflect.TypeOf(m)) fmt.Println(reflect.ValueOf(m)) fmt.Println(reflect.TypeOf(m).NumMethod()) t := reflect.ValueOf(m).MethodByName(&amp;quot;GetName&amp;quot;).Call([]reflect.Value{}) fmt.Println(t[0]) }  运行程序后的输出结果为：
+string Hello world! *main.MyStruct &amp;amp;{thinkerou} 1 thinkerou  程序说明：
+ TypeOf 和 ValueOf 分别是获取 Type 和 Value 的方法 Call 方法实现了类似于 php 中的根据字符串到方法的调用 如果需要输出 main.</description>
+    </item>
+    
+    <item>
+      <title>Go 语言 http 包使用记录</title>
+      <link>https://thinkerou.com/post/go-http-package/</link>
+      <pubDate>Sat, 04 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-http-package/</guid>
+      <description>1. 基础概念 在 Go 语言中，编写一个 http web 服务器有两种方法：
+ 使用 net 包的 net.Listen 来对端口进行监听； 使用 net/http 包的 ListenAndServve 来对端口进行监听，事实上，该包是基于 net 包进行封装的，即底层仍是 net 包相关的知识。  所以，使用 net/http 会更方便快捷，减少了很多不必要的封装和处理。
+2. http 客户端 基于 net/http 包实现 http 客户端通常的代码书写是：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;net/http&amp;quot; &amp;quot;io/ioutil&amp;quot; ) func main() { response, err := http.Get(&amp;quot;http://www.baidu.com&amp;quot;) if err != nil { // handle error } defer response.Body.Close() body, err := ioutil.ReadAll(response.Body) if err != nil { // handle error } fmt.</description>
+    </item>
+    
+    <item>
+      <title>使用 Go vendor</title>
+      <link>https://thinkerou.com/post/go-vendor/</link>
+      <pubDate>Sun, 10 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/go-vendor/</guid>
+      <description>Go vendor 介绍 Go 语言在发布 1.5 版本时，就说可以使用自身提供的 vendor 特性，但是需要设置如下环境变量：
+GO15VENDOREXPERIMENT=1  在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 go env 命令查看。
+根据官方的说法，在发布 1.7 版本时，将去掉该环境变量，默认开启 vendor 特性。
+现在也有很多包管理工具，比如 Godep、govendor、gvt 等等，并且也都支持语言本身提供的 vendor 特性，那么我的问题是：
+ 不使用第三方包管理工具，如何使用 vendor 特性呢？
+ 一开始 google 了好多文档都没有符合要求的，最后就在 stackover flow 上求问才找到解决方法。
+1. 设置环境变量  GOPATH=&amp;rdquo;/Users/thinkerou/xyz/&amp;rdquo;
+ 2. 建立测试需要的目录   thinkerou@MacBook-Pro-thinkerou:~/xyz$ pwd /Users/thinkerou/xyz thinkerou@MacBook-Pro-thinkerou:~/xyz$ ls src thinkerou@MacBook-Pro-thinkerou:~/xyz$ cd src thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ ls ou thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ cd ou thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls main.go vendor thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ cd vendor/ thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ ls vendor.</description>
+    </item>
+    
+  </channel>
+</rss>

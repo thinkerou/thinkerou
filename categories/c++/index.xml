@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on thinkerou</title>
+    <link>https://thinkerou.com/categories/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>小心使用 STL 的 erase 函数</title>
+      <link>https://thinkerou.com/post/stl-iterator/</link>
+      <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/stl-iterator/</guid>
+      <description>1. 基础概念 在 STL 中，容器按照存储方式分为两大类：
+ 以数组形式存储的序列容器，如vector、deque等； 以非连续的节点形式存储的关联容器，如list、set、map等  对于不同类型的容器，在使用 erase 方法来进行元素删除时，需要格外小心，针对 map 的使用注意，请见map 迭代器实效问题
+2. 序列容器之vector/deque 对于序列型容器，erase 迭代器不仅使所有指向被删除元素的迭代器失效，还使被删除元素之后的所有迭代器失效。
+所以正确的代码书写是：
+std::vector&amp;lt;int&amp;gt; vec; std::vector&amp;lt;int&amp;gt;::iterator it; for(it =vec.begin(); it != vec.end();) { if(doDelete(*it) { it = vec.erase(it); } else { it++; } }  通过 erase 方法的返回值来获取下一个元素的位置。
+3. 关联容器之list/set/map 而关联容器的 erase 迭代器只是被删除元素的迭代器失效，但返回值是 void，因此不能使用序列容器的书写方式，而是使用这样的书写方式：
+std::map&amp;lt;std::string, int&amp;gt; m; std::map&amp;lt;std::string, int&amp;gt;::iterator it; for(it = m.begin(); it != m.end();) { if(canDelete) { m.erase(it++); } }  在调用 erase 方法前先使用后置自加来获取下一个元素的位置。</description>
+    </item>
+    
+    <item>
+      <title>map 迭代器实效问题</title>
+      <link>https://thinkerou.com/post/stl-map-iterator/</link>
+      <pubDate>Sun, 03 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/stl-map-iterator/</guid>
+      <description>问题背景 对于 C++ STL 中的 map 都不陌生，但是对其 erase 操作后的迭代器使用是否遇到过问题呢？看如下代码：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for( ; it != m.end(); ++it) { m.erase(it); }  这样操作会引起程序崩溃，因为 erase 后迭代器就实效了，再根据迭代器进行操作当然就会导致程序崩溃。
+解决方案 解决这个问题的方法也很简单，如果熟悉 it++ 操作的含义，就会瞬间想到该怎么做，代码如下：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for( ; it != m.end(); ) { m.erase(it++); }  这样操作就不会导致迭代器实效了，前面代码等同于如下代码：
+map&amp;lt;string, int&amp;gt; m; map&amp;lt;string, int&amp;gt;::iterator it = m.begin(); for(; it != m.end(); ) { map&amp;lt;string, int&amp;gt;::iterator tmp = it; ++it; m.</description>
+    </item>
+    
+    <item>
+      <title>一个超简单的 C&#43;&#43; 日志文件</title>
+      <link>https://thinkerou.com/post/easyloggingpp/</link>
+      <pubDate>Sun, 16 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/easyloggingpp/</guid>
+      <description>介绍 在平时的工作和学习中，编写一些 C++ 程序时，为了调式通常都是使用类似 printf 的函数和打断点的方式。但是，调式程序或者程序发布测试版后，记录程序执行日志也是一种比较有效的调式和收集问题信息的手段。在现在这个开源的时代，并不需要我们自己去写一套日志库（C++版），开源的已经有很多了，如：
+ spdlog
+  log4cplus
+  boost log
+  glog
+ 在 Github 上以关键字 log 搜索就会出来很多相关的，但是这些库中以我的了解经验来看，要数 Easyloggingpp 最为简单了，使用无需其他任何外部依赖，仅有一个 easyloggin++.h 头文件。下文就对此做一些简要介绍，以作记录。
+示例 在编写 C++ 应用时，通常是以 EXE 或者 DLL 的形式存在，对于这两种不同形式，使用 Easyloggingpp 也有所区别。
+1. 在 EXE 工程中使用 Easyloggingpp 先看代码，如：
+#include &amp;quot;easylogging++.h&amp;quot; INITIALIZE_EASYLOGGINGPP int main(void) { LOG(INFO) &amp;lt;&amp;lt; &amp;quot;easylogging++ test!&amp;quot;; return 0; }  代码看起来很简单，主要做了三件事：
+ a. 引入 easylogging++.h 头文件
+  b. 使用初始化宏进行初始化
+  c.</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 元组介绍</title>
+      <link>https://thinkerou.com/post/cpp-tuple/</link>
+      <pubDate>Sun, 19 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cpp-tuple/</guid>
+      <description>介绍说明 对于熟悉 Python 语言者而言，如下这段代码相信你是熟悉的：
+&amp;gt;&amp;gt;&amp;gt; t = (1, &#39;hello&#39;, 3.14, 1, 3.14) &amp;gt;&amp;gt;&amp;gt; type(t) &amp;lt;type &#39;tuple&#39;&amp;gt; &amp;gt;&amp;gt;&amp;gt; t.count(3.14) 2 &amp;gt;&amp;gt;&amp;gt; t.index(&#39;hello&#39;) 1  对，没错，这就是 Python 提供的 tuple（元组）：一个元组可以定义至少一个元素，或者多个元素同时多个元素并不要求类型一致。函数 count 返回 tuple 中有多少个给定值的元素（注：当元素不在 tuple 中时返回 0），而函数 index 返回 tuple 中给定值的元素的下标（注：当元素不在 tuple 中时抛出异常）。
+对于 C++ 而言，也有类似的数据结构：pair 和 tuple，相信你对于 pair 一定是非常熟悉的，而 tuple 是 c++ 11 新添加的特性，后文将主要介绍这两种数据结构。
+pair 介绍 1. pair 基本概念 类型 pair 定义在头文件 utility 中。
+一个 pair 类型保存两个数据成员，它是用来生成特定类型的模板。当创建一个 pair 时，必须提供两个类型名，pair 的数据成员将具有对应的类型，两个数据类型并不要求一致。形如：
+std::pair&amp;lt;std::string, int&amp;gt; test1; // 保存一个 string 和一个 int std::pair&amp;lt;std::string, std::string&amp;gt; test2; // 保存两个 string std::pair&amp;lt;std::string, std::vector&amp;lt;int&amp;gt;&amp;gt; test3; // 保存一个 string 和一个 vector  pair 的默认构造函数对数据成员进行值初始化。故：test1 中的 string 被初始化为空，int 被初始化为 0；test2 是包含两个空 string 的pair；test3 则保存一个空 string 和一个空 vector。</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Lambda 介绍</title>
+      <link>https://thinkerou.com/post/cpp-lambda/</link>
+      <pubDate>Sun, 05 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cpp-lambda/</guid>
+      <description>C++ lambda 表达式格式 C++ lambda 表达式规范有如下几种形式：
+   编号 表达式     (1) [capture] (params) mutable exception attribute -&amp;gt; return {body}   (2) [capture] (params) -&amp;gt; return {body}   (3) [capture] (params) {body}   (4) [capture] {body}    表达式形式说明：
+ (1)： 完整的 lambda 表达式形式； (2)： const 类型的 lambda 表达式形式，该类型表达式不能更改 capture 列表中的变量的值； (3)： 没有返回值类型的 lambda 表达式，但是返回值类型可以推导出来，使用如下规则：  如果 body 包含 return 语句，则 lambda 表达式返回类型由 return 语句的返回类型确定； 如果没有 return 语句，则函数类似于 void func(params) 函数。   (4)： 没有参数列表的 lambda 表达式，类似于无参函数 func()。  mutable： 说明 lambda 表达式的 body 可以修改 capture 列表中的变量的值，并且可以访问被捕获对象的 non-const 方法；</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Go 语言 sync 包使用记录 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'Go 语言 sync 包使用记录' />
+<meta name="description" content="在 Go 语言中 sync 包提供了互斥锁、读写锁等基本同步原语，除了 Once 和 WaitGroup 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 channel 来完成。
+更多更全的信息和使用说明请见官网文档
+1. Mutex 类型 一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构 …">
+<meta property = 'og:description' content = '在 Go 语言中 sync 包提供了互斥锁、读写锁等基本同步原语，除了 Once 和 WaitGroup 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 channel 来完成。
+更多更全的信息和使用说明请见官网文档
+1. Mutex 类型 一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构 …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/go-sync-package/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/posts/nuclear-4168906_1280.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'Go 语言 sync 包使用记录' />
+<meta property = 'twitter:description'  content = '在 Go 语言中 sync 包提供了互斥锁、读写锁等基本同步原语，除了 Once 和 WaitGroup 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 channel 来完成。
+更多更全的信息和使用说明请见官网文档
+1. Mutex 类型 一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构 …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/posts/nuclear-4168906_1280.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/go-sync-package/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/posts/nuclear-4168906_1280.jpg);'>
+  <h1 class='post_title'>Go 语言 sync 包使用记录</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><p>在 Go 语言中 <code>sync</code> 包提供了互斥锁、读写锁等基本同步原语，除了 <code>Once</code> 和 <code>WaitGroup</code> 类型外，其他类型基本都是为底层函数库而准备，上层次的同步最好还是通过 <code>channel</code> 来完成。</p>
+<p>更多更全的信息和使用说明请见<a href="https://golang.org/pkg/sync/">官网文档</a></p>
+<h3 id="1-mutex-类型">1. Mutex 类型</h3>
+<p>一个 Mutex 就是一个互斥锁，这类锁可以用作其他结构的一部分，Mutex 的零值是一个<strong>未上锁</strong>的互斥锁。</p>
+<p>Mutex 类定义为：</p>
+<pre><code>// A Mutex is a mutual exclusion lock.
+// Mutexes can be created as part of other structures;
+// the zero value for a Mutex is an unlocked mutex.
+//
+// A Mutex must not be copied after first use.
+type Mutex struct {
+    state int32
+    sema  uint32
+}
+</code></pre>
+<p>Mutex 类实现了 <code>Locker</code> 接口：</p>
+<pre><code>// A Locker represents an object that can be locked and unlocked.
+type Locker interface {
+    Lock()
+    Unlock()
+}
+</code></pre>
+<h4 id="11-lock-方法">1.1 Lock 方法</h4>
+<p>Lock 方法原型为：</p>
+<pre><code>func (m *Mutex) Lock() {}
+</code></pre>
+<p>对 m 进行加锁，如果 m 已经被加锁，则执行该方法的 goroutine 将被阻塞直到 m 可用为止。</p>
+<h4 id="12-unlock-方法">1.2 Unlock 方法</h4>
+<p>Unlock 方法原型为：</p>
+<pre><code>func (m *Mutex) Unlock() {}
+</code></pre>
+<p>对 m 进行解锁，如果 m 并未加锁，则会引发一个运行时错误。被加锁的 Mutex 并不与特定的 goroutine 绑定，在一个 goroutine 里面对 Mutex 进行加锁，然后在另一个 goroutine 里面对 Mutex 进行解锁，这是可行的。</p>
+<h3 id="2-waitgroup-类型">2. WaitGroup 类型</h3>
+<p>一个 WaitGroup 会等待一系列 goroutine 直到它们<strong>全部</strong>运行完毕。主 goroutine 通过调用 <code>Add</code> 方法来设置需要等待的 goroutine 数量，而每个运行的 goroutine 在它们运行完毕时调用 <code>Done</code> 方法，调用 <code>Wait</code> 方法可以阻塞直到所有 goroutine 都运行完毕为止。</p>
+<p>WaitGroup 类型定义为：</p>
+<pre><code>// A WaitGroup waits for a collection of goroutines to finish.
+// The main goroutine calls Add to set the number of
+// goroutines to wait for. Then each of the goroutines
+// runs and calls Done when finished. At the same time,
+// Wait can be used to block until all goroutines have finished.
+//
+// A WaitGroup must not be copied after first use.
+type WaitGroup struct {
+    noCopy noCopy
+
+    // 64-bit value: high 32 bits are counter, low 32 bits are waiter count.
+    // 64-bit atomic operations require 64-bit alignment, but 32-bit
+    // compilers do not ensure it. So we allocate 12 bytes and then use
+    // the aligned 8 bytes in them as state.
+    state1 [12]byte
+    sema   uint32
+}
+</code></pre>
+<h4 id="21-add-方法">2.1 Add 方法</h4>
+<p>Add 方法原型为：</p>
+<pre><code>func (m *WaitGroup) Add(delta int) {}
+</code></pre>
+<p>为 WaitGroup 计数器加上给定的增量 delta 值，其中 delta 值可以为负数。</p>
+<p>当计数器的值变为 0 时，所有被 Wait 阻塞的 goroutine 都将被释放，当计数器的值变为负数时，Add 调用将引发一个 panic。</p>
+<p>**注意：**Add 操作必须在创建 goroutine 的语句之前调用，或者在其他需要等待的事件之前调用；在重复使用同一个 WaitGroup 对不同的独立事件集合进行等待时，新的 Add 调用必须发生在之前的所有 Wait 调用均已返回的情况时。</p>
+<h4 id="22-done-方法">2.2 Done 方法</h4>
+<p>Done 方法原型为：</p>
+<pre><code>func (m *WaitGroup) Done() {}
+</code></pre>
+<p>对 WaitGroup 计数器执行减 1 操作。</p>
+<h4 id="23-wait-方法">2.3 Wait 方法</h4>
+<p>Wait 方法原型为：</p>
+<pre><code>func (wg *WaitGroup) Wait()
+</code></pre>
+<p>它会阻塞直到 WaitGroup 计数器的值为 0 为止。</p>
+<h4 id="24-示例">2.4 示例</h4>
+<p>该示例会并发的获取给定的多个url的返回值，并使用WaitGroup进行租塞，直到所有获取操作都已完成。</p>
+<pre><code>var wg sync.WaitGroup
+var urls = []string{
+        &quot;http://www.golang.org/&quot;,
+        &quot;http://www.google.com/&quot;,
+        &quot;http://www.somestupidname.com/&quot;,
+}
+for _, url := range urls {
+        // 对 WaitGroup 计数器执行加一操作
+        wg.Add(1)
+        // 启动一个 goroutine ，用于获取给定的 URL 
+        go func(url string) {
+            // 在 goroutine 执行完毕时，对计数器执行减一操作
+            defer wg.Done()
+            // 获取 URL
+            http.Get(url)
+        }(url)
+}
+
+// 等待直到所有 HTTP 获取操作都执行完毕为止
+wg.Wait()
+</code></pre>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-method-values-pointers/' title = 'Go 语言 struct 方法该使用 pointer 还是 value 传值？' style = 'background-image: url(https://thinkerou.com/images/posts/park-4174278_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-method-values-pointers/'>Go 语言 struct 方法该使用 pointer 还是 value 传值？</a>
+    </h3>
+    <p class = 'pale'>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-http-server-learn/' title = 'Go 语言 HTTP Server 源码学习' style = 'background-image: url(https://thinkerou.com/images/posts/dubrovnik-4169379_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-http-server-learn/'>Go 语言 HTTP Server 源码学习</a>
+    </h3>
+    <p class = 'pale'>1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

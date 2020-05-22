@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>一句 awk 获取 ini 文件的值 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '一句 awk 获取 ini 文件的值' />
+<meta name="description" content="问题背景 使用脚本语言操作 ini 文件已经有很多现有的方案了，比如 python 的 ConfigParser 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 awk 和 sed …">
+<meta property = 'og:description' content = '问题背景 使用脚本语言操作 ini 文件已经有很多现有的方案了，比如 python 的 ConfigParser 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 awk 和 sed …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/awk-ini/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/artist.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '一句 awk 获取 ini 文件的值' />
+<meta property = 'twitter:description'  content = '问题背景 使用脚本语言操作 ini 文件已经有很多现有的方案了，比如 python 的 ConfigParser 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 awk 和 sed …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/artist.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/awk-ini/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/artist.jpg);'>
+  <h1 class='post_title'>一句 awk 获取 ini 文件的值</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="问题背景">问题背景</h2>
+<p>使用脚本语言操作 <code>ini</code> 文件已经有很多现有的方案了，比如 <code>python</code> 的 <code>ConfigParser</code> 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 <code>awk</code> 和 <code>sed</code> 这样的 shell 脚本来搞定呢？</p>
+<h2 id="解决方案">解决方案</h2>
+<p>假设 ini 文件 test.ini 为如下：</p>
+<pre><code>[section1]
+ip=10.11.12.13
+port=1234
+
+[section2]
+ip=10.21.22.23
+port=5678
+</code></pre>
+<p>为了能够获取 section2 下 ip 的值，需要如下几个步骤：</p>
+<blockquote>
+<ol>
+<li>以 <code>=</code> 分隔每行</li>
+<li>找到 <code>[section2]</code></li>
+<li>满足 1 以后，从此开始找到第一个 ip</li>
+<li>打印 ip 对应的值，停止，退出</li>
+</ol>
+</blockquote>
+<h3 id="1-分隔每行">1. 分隔每行</h3>
+<p>在 awk 里可以使用 <code>-F</code> 来指定每行的分隔符号，如下：</p>
+<pre><code>awk -F '=' '{print $1}' test.ini
+# 打印结果
+ip
+port
+
+[section2]
+ip
+port
+</code></pre>
+<h3 id="2-找到-section2">2. 找到 <code>[section2]</code></h3>
+<p>为了找到对应的 <code>[section2]</code> 和 <code>ip</code> 的值，使用 awk 的正则表达式，关于此可阅读参考资料。</p>
+<p>在 awk 里正则表达式的基本语法为：</p>
+<pre><code>awk -F '=' '/'section2'/{print $1}' test.ini
+# 打印结果
+[section2]
+</code></pre>
+<p>即使用 <code>/正则式/{表达式}</code> 这种形式来书写，使用 <code>//</code> 将正则式包装起来，只有当正则式匹配时才会执行后面的表达式。</p>
+<p>为了找到 <code>[section2]</code> 行，所以需要书写这样的语句：</p>
+<pre><code>awk -F '=' '/\['section2'\]/{print $1}' test.ini
+# 打印结果
+[section2]
+</code></pre>
+<p>由于 <code>[]</code> 已经在正则表达式里被使用了，所以这里需要使用 <code>\</code> 对其进行转义。</p>
+<h3 id="3-找到-ip-对应的值">3. 找到 ip 对应的值</h3>
+<p>同理，要找到 ip 对应的值就很容易了：</p>
+<pre><code>awk -F '=' '$1~/'ip'/{print $2}' test.ini
+# 打印结果
+10.11.12.13
+10.21.22.23
+</code></pre>
+<p>这句话的意思是，被 <code>=</code> 分隔后的，第一个串如果与 <code>ip</code> 匹配，则打印该行的第二个串，也就是 ip 对应的值，在 awk 的正则表达式里，使用 <code>~</code> 来表示匹配。</p>
+<h3 id="4-完美解决">4. 完美解决</h3>
+<p>两个独立的语句书写起来是没有什么难度的，那么要把它们组合起来完成需求该如何做呢？</p>
+<pre><code>awk -F '=' '/\['section2'\]/{t=1}t==1&amp;&amp;$1~/'ip'/{print $2;exit}' test.ini
+# 打印结果
+10.21.22.23
+</code></pre>
+<p>结果如预期，完美解决！</p>
+<p>但是这是为什么呢？</p>
+<p>语句执行后，首先找到匹配 <code>[section2]</code> 的行，这时设置一个变量 <code>t</code> 并给其赋值，当 t 被赋值后，就会判断是否相等，相等后就会执行 <code>&amp;&amp;</code> 后面的语句，即找到第一个与 <code>ip</code> 匹配的行，输出对应的值，并结束整个语句的执行。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://coolshell.cn/articles/9070.html">AWK 简明教程</a></p>
+</li>
+<li>
+<p><a href="http://www.gnu.org/software/gawk/manual/gawk.html#Regexp">The GNU Awk User’s Guide</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/shell-scp/' title = '命令行艺术之 scp' style = 'background-image: url(https://thinkerou.com/images/speakers.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/shell' class = 'post_tag'>Shell
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/shell-scp/'>命令行艺术之 scp</a>
+    </h3>
+    <p class = 'pale'>概览 在 linux 服务器上工作，免不了有这样的场景：
+ 从远程服务器上拷贝文件（文件夹）到本地或者另一台远程服务器上
+ 如果是远程服务器跟本地相关的文件下载、上传操作， …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/shell-ps-kill/' title = '命令行艺术之 ps 与 kill' style = 'background-image: url(https://thinkerou.com/images/frustrated.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/shell' class = 'post_tag'>Shell
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/shell-ps-kill/'>命令行艺术之 ps 与 kill</a>
+    </h3>
+    <p class = 'pale'>概览 命令 ps 是 Process Status 的缩写，它是用来列出系统中当前运行的进程，列出的是它们的快照，也即是执行 ps 命令的那一刻的那些进程，如果需要动态的列出进程信 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

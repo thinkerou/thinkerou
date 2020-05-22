@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Git submodule 使用记录 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'Git submodule 使用记录' />
+<meta name="description" content="问题背景 最近在阅读 grpc 相关的代码，在阅读前需要先让代码跑起来，然后跟着 INSTALL 里的说明进行编译，里面有这样的步骤：
+git submodule update --init  这是第一次遇见 git 的 submoduel 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必 …">
+<meta property = 'og:description' content = '问题背景 最近在阅读 grpc 相关的代码，在阅读前需要先让代码跑起来，然后跟着 INSTALL 里的说明进行编译，里面有这样的步骤：
+git submodule update --init  这是第一次遇见 git 的 submoduel 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必 …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/git-submodule/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/fast-lane.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'Git submodule 使用记录' />
+<meta property = 'twitter:description'  content = '问题背景 最近在阅读 grpc 相关的代码，在阅读前需要先让代码跑起来，然后跟着 INSTALL 里的说明进行编译，里面有这样的步骤：
+git submodule update --init  这是第一次遇见 git 的 submoduel 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必 …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/fast-lane.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/git-submodule/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/fast-lane.jpg);'>
+  <h1 class='post_title'>Git submodule 使用记录</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="问题背景">问题背景</h2>
+<p>最近在阅读 <a href="http://www.grpc.io/"><strong>grpc</strong></a> 相关的代码，在阅读前需要先让代码跑起来，然后跟着 <strong>INSTALL</strong> 里的说明进行编译，里面有这样的步骤：</p>
+<pre><code>git submodule update --init
+</code></pre>
+<p>这是第一次遇见 <code>git</code> 的 <code>submoduel</code> 参数，从参数名字可以大概知道是要干什么事，但是具体是如何做的并不知道，所以有必要认真阅读 <code>git</code> 的 <code>submoduele</code> 参数相关的资料来了解其使用。</p>
+<h2 id="使用详情">使用详情</h2>
+<p>先来看看命令 <code>git submodule help</code> 输出的信息：</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/thinkerou.github.io$ git submodule help
+usage: git submodule [--quiet] add [-b &lt;branch&gt;] [-f|--force] [--name &lt;name&gt;] [--reference &lt;repository&gt;] [--] &lt;repository&gt; [&lt;path&gt;]
+or: git submodule [--quiet] status [--cached] [--recursive] [--] [&lt;path&gt;...]
+or: git submodule [--quiet] init [--] [&lt;path&gt;...]
+or: git submodule [--quiet] deinit [-f|--force] [--] &lt;path&gt;...
+or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--checkout|--merge|--rebase] [--reference &lt;repository&gt;] [--recursive] [--] [&lt;path&gt;...]
+or: git submodule [--quiet] summary [--cached|--files] [--summary-limit &lt;n&gt;] [commit] [--] [&lt;path&gt;...]
+or: git submodule [--quiet] foreach [--recursive] &lt;command&gt;
+or: git submodule [--quiet] sync [--recursive] [--] [&lt;path&gt;...]
+</code></pre>
+<p>接下来就以 <code>grpc</code> 代码来作为示例，在 <code>grpc</code> 源代码目录下有这样一个特殊的文件：</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ ls -la
+-rw-r--r--   1 baidu  staff     665  3 22 20:27 .gitmodules 
+</code></pre>
+<p>从文件名可以看出是跟本文讨论的 <code>submodule</code> 相关的。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://www.kafeitu.me/git/2012/03/27/git-submodule.html">Git submodule 使用完整教程</a></p>
+</li>
+<li>
+<p><a href="https://git-scm.com/doc">Git Documentation</a></p>
+</li>
+<li>
+<p><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git 教程</a></p>
+</li>
+<li>
+<p><a href="http://www.bootcss.com/p/git-guide/">Git 简易指南</a></p>
+</li>
+<li>
+<p><a href="https://git.oschina.net/progit/">Pro Git（中文版）</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/git-clean-up-extra-commits/' title = 'Github 上给开源项目提交 PR 前如何清理无关的提交信息' style = 'background-image: url(https://thinkerou.com/images/frustrated.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/git' class = 'post_tag'>Git
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/git-clean-up-extra-commits/'>Github 上给开源项目提交 PR 前如何清理无关的提交信息</a>
+    </h3>
+    <p class = 'pale'>背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/git-commit-open-source/' title = 'Github 上 Fork 项目后如何提交 PR' style = 'background-image: url(https://thinkerou.com/images/speakers.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/git' class = 'post_tag'>Git
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/git-commit-open-source/'>Github 上 Fork 项目后如何提交 PR</a>
+    </h3>
+    <p class = 'pale'>问题描述 在 Github 上 Fork 项目后如何同步源项目的更新 一文中已经介绍了 Fork 别人项目后如何同步其更新，本文要介绍的是 Fork 别人项目后如何提交 PR？
+解 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

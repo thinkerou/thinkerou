@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shell on thinkerou</title>
+    <link>https://thinkerou.com/tags/shell/</link>
+    <description>Recent content in Shell on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一句 awk 获取 ini 文件的值</title>
+      <link>https://thinkerou.com/post/awk-ini/</link>
+      <pubDate>Sun, 10 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/awk-ini/</guid>
+      <description>问题背景 使用脚本语言操作 ini 文件已经有很多现有的方案了，比如 python 的 ConfigParser 模块等。现在有一些 shell 脚本用于执行自动化工作，但是每个模块都有自己的配置文件，修改起来很不方便，能不能收敛到一个配置文件？同时不使用 python 脚本，直接使用 awk 和 sed 这样的 shell 脚本来搞定呢？
+解决方案 假设 ini 文件 test.ini 为如下：
+[section1] ip=10.11.12.13 port=1234 [section2] ip=10.21.22.23 port=5678  为了能够获取 section2 下 ip 的值，需要如下几个步骤：
+  以 = 分隔每行 找到 [section2] 满足 1 以后，从此开始找到第一个 ip 打印 ip 对应的值，停止，退出   1. 分隔每行 在 awk 里可以使用 -F 来指定每行的分隔符号，如下：
+awk -F &#39;=&#39; &#39;{print $1}&#39; test.ini # 打印结果 ip port [section2] ip port  2.</description>
+    </item>
+    
+    <item>
+      <title>命令行艺术之 scp</title>
+      <link>https://thinkerou.com/post/shell-scp/</link>
+      <pubDate>Sun, 20 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/shell-scp/</guid>
+      <description>概览 在 linux 服务器上工作，免不了有这样的场景：
+ 从远程服务器上拷贝文件（文件夹）到本地或者另一台远程服务器上
+ 如果是远程服务器跟本地相关的文件下载、上传操作，可以使用 sz 和 rz 即可完成，但是在两个远程服务器之间就得另寻他法了，这时就是命令 scp 该上场了。
+命令详解 命令 scp 是 Secure copy 的缩写，类似的有 cp 命令，但它用于本机文件拷贝不能跨服务器，同时，命令 scp 是加密传输的。另外，命令 rsync 也能完成 scp 的工作，但当小文件较多时，rsync会导致磁盘 IO 过高。
+命令 scp 的主要工作是：
+ 在 linux 系统下基于 ssh 登录进行安全的远程文件拷贝命令
+  服务器之间的文件拷贝和目录拷贝
+ 1. 命令格式  scp [参数] [原始路径] [目的路径]
+ 在终端上直接输入 scp 则会有这样的帮助信息：
+usage: scp [-12346BCEpqrv] [-c cipher] [-F ssh_config] [-i identity_file] [-l limit] [-o ssh_option] [-P port] [-S program] [[user@]host1:]file1 .</description>
+    </item>
+    
+    <item>
+      <title>命令行艺术之 ps 与 kill</title>
+      <link>https://thinkerou.com/post/shell-ps-kill/</link>
+      <pubDate>Sun, 11 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/shell-ps-kill/</guid>
+      <description>概览 命令 ps 是 Process Status 的缩写，它是用来列出系统中当前运行的进程，列出的是它们的快照，也即是执行 ps 命令的那一刻的那些进程，如果需要动态的列出进程信息，则需要使用 top 命令。
+使用 ps 命令可以确定哪些进程正在运行及运行状态：是否结束、是否僵死、占用多少资源等。
+ Program 与 Process 区别与联系：
+  Program（程序）：通常为 binary program，放在存储介质中（硬盘等），以实体文档存在；
+  Process（进程）：程序被触发后，执行者的权限、属性、程序代码及所需资料都会被载入内存，作业系统会给这个内存内的单元一个唯一标识（PID），也即是进程就是一个正在运行中的程序。
+  更多、详细信息请阅读《鸟哥的 Linux 私房菜》。
+ 命令 ps 主要用于查看进程当前信息，而命令 kill 主要用于管理进程（杀死哪些进程）。
+在 Linux 系统中，进程有 5 种状态：
+ 运行：正在运行或在运行队列中等待
+  中断：休眠中，受阻，在等待某个条件的形成或接收到信号
+  不可中断：收到信号不唤醒和不可运行，必须等待直到中断发生
+  僵死：进程已经终止，但进程描述符还在，直到父进程调用wait4后才释放
+  停止：收到信号后停止运行
+ 对应的进程状态在 ps 命令中则使用如下标识来标记：
+ R ：运行，Running or runnable (on run queue)
+  S ：中断，Interruptible sleep (waiting for an event to complete)</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PHP on thinkerou</title>
+    <link>https://thinkerou.com/tags/php/</link>
+    <description>Recent content in PHP on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Mar 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>更新 PHP5 扩展到 PHP7(NG) 记录</title>
+      <link>https://thinkerou.com/post/php-ext-to-php7/</link>
+      <pubDate>Sun, 06 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-ext-to-php7/</guid>
+      <description>升级扩展到 PHP7 记录 最近在学习 PHP 、grpc 以及 PHP(PHP7) 扩展编写，但是由于 PHP7 内核更新，扩展接口也有很大变动，先前基于 PHP5 编写的扩展并不能直接基于 PHP7 进行编译安装，需要修改一定代码才能编译通过。
+在更新 grpc php 扩展到 PHP7 过程中记录的接口变化，以 GitHub 项目形式来记录。
+参考资料   GitHub: 更新 PHP 扩展到 PHP7
+  Upgrading PHP extensions from PHP5 to NG
+  Internal value representation in PHP 7 - Part 1
+  Internal value representation in PHP 7 - Part 2
+  </description>
+    </item>
+    
+    <item>
+      <title>编写 PHP 扩展入门</title>
+      <link>https://thinkerou.com/post/php-ext-guide/</link>
+      <pubDate>Sun, 17 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-ext-guide/</guid>
+      <description>环境 文中示例 PHP 扩展的环境为：
+ Mac OS PHP7  在开始编写 PHP 扩展前需要准备如下环境：
+ PHP7 源码 使用 brew 安装 libtool  编写 环境准备好以后，就可以开始编写 Hello world 程序了，需要经历如下步骤：
+1. 进入 PHP 源码文件 $ cd php-7.0.5/ext  2. 创建扩展骨架 $ ./ext_skel --extname=helloworld Creating directory helloworld Creating basic files: config.m4 config.w32 .gitignore helloworld.c php_helloworld.h CREDITS EXPERIMENTAL tests/001.phpt helloworld.php [done]. To use your new extension, you will have to execute the following steps: 1. $ cd .</description>
+    </item>
+    
+    <item>
+      <title>那些踩过的 PHP 坑之 array_merge 函数</title>
+      <link>https://thinkerou.com/post/php-array-merge/</link>
+      <pubDate>Sun, 27 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-array-merge/</guid>
+      <description>函数 array_merge 坑在哪里 最近在使用函数 array_merge 合并两个数组时，得到的结果总是不确定，代码如这样：
+$arrResult = array_merge($arrInput1, $arrInput2);  如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变量 $arrResult 的值会根据函数 array_merge 的两个参数的类型及值而变化，如：键为数字的字典、null 等，详细问题解释说明请继续往下看！
+函数 array_merge 说明 来自 PHP 官方网站的array_merge函数说明
+ 函数功能：合并一个或多个数组
+  函数原型：
+ array array_merge(array $array1[, array $...])  函数 array_merge 将一个或多个数组的单元合并，后一个数组中的值追加到前一个数组的后面，并作为函数结果返回。
+ 示例场景1：如果输入数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值，如：
+ &amp;lt;?php // PHP 5.6.15 $a = array(&#39;hello&#39; =&amp;gt; 1, &#39;world&#39; =&amp;gt; 2); $b = array(&#39;hi&#39; =&amp;gt; 1, &#39;world&#39; =&amp;gt; 3); $c = array_merge($a, $b); var_dump($c); $d = array_merge($b, $a); var_dump($d);  执行脚本后的结果为：</description>
+    </item>
+    
+    <item>
+      <title>PHP 的 empty 函数</title>
+      <link>https://thinkerou.com/post/php-empty/</link>
+      <pubDate>Sun, 08 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-empty/</guid>
+      <description>问题是这样的 描述问题现象前，先上代码：
+// $ret[&#39;errno&#39;] 的值由更新 update 数据库返回 // update 操作会把 affected_rows 值返回 if (empty($ret[&#39;errno&#39;])) { // update 不成功则 insert }  根据代码看，问题已经很明显了：
+ 如果 affected_rows 等于 0，$ret[&amp;lsquo;errno&amp;rsquo;] 就等于 0，那么它会就是 empty 的吗？
+  熟悉 PHP 的你，肯定觉得是个小儿科的问题了，但是对于刚看 PHP 两天的我来说，这个问题还是值得记录下。
+ 接下来就记录下，在 PHP 里什么内容会被认为是 empty 的？！
+empty 函数判断的是什么 函数 empty 检查一个变量是否为空，函数原型如下：
+ bool empty(mixed $var)
+  当变量 $var 不存在或者它的值等同于 false 时，那么就会被认为是空的。
+  没有警告产生，即使变量不存在，意味着 empty() 本质上与下列语句等价：
+  !isset($var) || $var === false</description>
+    </item>
+    
+    <item>
+      <title>细说 CGI、FastCGI、PHP-CGI 和 PHP-FPM 的关系</title>
+      <link>https://thinkerou.com/post/cgi-fastcgi-phpcgi-phpfpm/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/cgi-fastcgi-phpcgi-phpfpm/</guid>
+      <description>概念总结 刚开始学习的 PHP 的时候，就会被几个词搞混：CGI、FastCGI、PHP-CGI、PHP-FPM，它们都是干什么活的？之间又有些什么联系和区别呢？接下来就先介绍它们的概念。
+1. CGI CGI 是 Common Gateway Interface 的缩写，可以使客户端从网页浏览器向执行在网络服务器上的程序请求数据，它描述了客户端与服务器程序之间进行数据传输的标准，是一种协议。
+2. FastCGI 顾名思义，是 CGI 的改进版，也是一种协议，实现上是一个常驻进程，它会一直运行着，在请求到来时不会重新启新进程去处理（ CGI 为 fork-and-execute 模式）。
+FastCGI 把 PHP 语言和 Web 服务器分开，故 Nginx 和 PHP 通常可以部署在不同机器上，以减轻 Nginx 和后端的压力。
+ FastCGI 的主要特点有：
+  语言无关的、可伸缩架构的 CGI 开放扩展
+  将 CGI 解释器进程保持在内存中以此获取高性能
+  不依赖任何 web 服务器内部架构
+  平滑重新加载配置文件
+ FastCGI 的工作原理：（markdown画图有问题，等解决后画出流程图会更清晰）
+ Web 服务器启动时载入 FastCGI 进程管理器（运行在 Web 服务器中）；
+  FastCGI 进程管理器自身初始化，启动多个 CGI 解释器进程（可以看见有多个 PHP-CGI 进程），等待 Web 服务器的连接请求；</description>
+    </item>
+    
+    <item>
+      <title>PHP 代码规范摘记</title>
+      <link>https://thinkerou.com/post/php-coding-style/</link>
+      <pubDate>Mon, 28 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/php-coding-style/</guid>
+      <description>概览   PHP 代码文件必须以 &amp;lt;?php 或 &amp;lt;?= 标签开始；
+  PHP 代码文件必须以 不带BOM的 UTF-8 编码；
+  PHP 代码中应该只定义类、函数、常量等声明，或其他会产生 从属效应 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一；
+  类的命名必须遵循 StudlyCaps 大写开头的驼峰命名规范；
+  类中的常量所有字母都必须大写，单词间用下划线分隔；
+  方法名称必须符合 camelCase 式的小写开头驼峰命名规范；
+  代码必须使用4个空格符而不是 tab键 进行缩进；
+  每个 namespace 命名空间声明语句和 use 声明语句块后面，必须插入一个空白行；
+  类的开始花括号({)必须写在函数声明后自成一行，结束花括号(})也必须写在函数主体后自成一行；
+  方法的开始花括号({)必须写在函数声明后自成一行，结束花括号(})也必须写在函数主体后自成一行；
+  类的属性和方法必须添加访问修饰符（private、protected 以及 public）， abstract 以及 final 必须声明在访问修饰符之前，而 static 必须声明在访问修饰符之后；
+  控制结构的关键字后必须要有一个空格符，而调用方法或函数时则一定不能有空格符；
+  控制结构的开始花括号({)必须写在声明的同一行，而结束花括号(})必须写在主体后自成一行；</description>
+    </item>
+    
+    <item>
+      <title>Nginx 与 PHP 环境搭建</title>
+      <link>https://thinkerou.com/post/nginx-php-fpm/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/nginx-php-fpm/</guid>
+      <description>基础工具 为了快速便捷的在本机（Mac OS）上搭建 Nginx+PHP 环境，首先安装 OS X 系统中最受欢迎的包管理工具 Homebrew。
+使用如下命令进行 Homebrew 安装：
+ ruby -e &amp;ldquo;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+ Homebrew 有如下常用的命令：
+ brew install &amp;lt;package_name&amp;gt; #安装一个包
+  brew update #更新 Homebrew 在服务端上的包目录
+  brew upgrade &amp;lt;package_name&amp;gt; #更新一个包
+  brew list &amp;ndash;versions #查看已安装的包列表（包括版本号）
+ Nginx 与 PHP 安装 1. PHP 与 PHP-FPM 环境设置 Mac 系统已经自带安装了 PHP 环境，所以这里不再安装，可以使用如下命令查看自带版本是否为需要的版本：
+ php -v
+  php-fpm -v
+ 验证版本满足需求后即可，否则使用 brew install 进行安装。</description>
+    </item>
+    
+  </channel>
+</rss>

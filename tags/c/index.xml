@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on thinkerou</title>
+    <link>https://thinkerou.com/tags/c/</link>
+    <description>Recent content in C on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>常见 C 语言宏使用记录</title>
+      <link>https://thinkerou.com/post/c-macro/</link>
+      <pubDate>Sat, 30 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/c-macro/</guid>
+      <description>1. 使用宏防止头文件被重复包含 #ifndef COMMON_DEFINE_H #define COMMON_DEFINE_H // 头文件相关内容 #endif  2. 使用宏来注释代码 #if 0 // 被注释的代码段，可以包含 //、/**/ 这样的注释代码 #endif  3. 使用小括号防止宏错误 #define MAX(a, b) (((a) &amp;gt; (b)) ? (a) : (b)) #define MIN(a, b) (((a) &amp;lt; (b)) ? (a) : (b))  4. 字符、字符串转换  使用 ## 连接两个字符串 使用 # 转换为字符串（加双引号） 使用 #@ 转换为字符（加单引号）  示例代码：
+#define CON(x, y) x##y #define STR(x) #x #define CHR(x) #@x CON(hi, 123) // hi123 STR(helloworld) // &amp;quot;helloworld&amp;quot; CHR(1) // &#39;1&#39;  5.</description>
+    </item>
+    
+    <item>
+      <title>关键字 typedef 深入了解</title>
+      <link>https://thinkerou.com/post/typedef-keyword/</link>
+      <pubDate>Sun, 06 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/typedef-keyword/</guid>
+      <description>引子：几行代码 为了不浪费时间，先来看看如下三行代码：
+typedef int arr[10]; typedef void (*pf)(); typedef int* (*pf)(int* (p*)(int*, int*), int*);  如果能准确知道上面三行代码的意义，我想就没有必要继续往下看了，当然，为了温习也可以快速阅读。
+定义 struct 时 typeder 的含义 1. 在 C 中定义一个结构体类型需要用 typedef 关键字: typedef struct TestS { int a; }Test;  于是在声明变量时就可以这样：Test test; 如果没有 typedef 就必须用 struct TestS test; 来声明，这里的 Test 实际上就是 struct TestS 的别名，即 Test == struct TestS。
+另外，这里也可以不写 TestS，也就不能 struct TestS test; 了，必须是 Test test;，如下：
+typedef struct { int a; }Test;  2. 在 C++ 中定义一个结构体类型不再需要用 typedef 关键字: 在 C++ 里定义一个结构体类型就很简单直接了：</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>如何在 go 语言中实现单例模式 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '如何在 Go 语言中实现单例模式' />
+<meta name="description" content="有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // …">
+<meta property = 'og:description' content = '有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/design-patterns-singleton-go/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/posts/mill-4166018_1280.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '如何在 Go 语言中实现单例模式' />
+<meta property = 'twitter:description'  content = '有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/posts/mill-4166018_1280.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/design-patterns-singleton-go/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/posts/mill-4166018_1280.jpg);'>
+  <h1 class='post_title'>如何在 Go 语言中实现单例模式</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><p>有关单例模式的相关内容可以参考<a href="http://thinkerou.com/2017-02/design-patterns-singleton/">《设计模式之单例模式》</a></p>
+<p>单例模式的核心在于<strong>保证系统中一个类只有一个实例且该实例易于外界访问</strong>。</p>
+<h2 id="1-非线程安全-lazy-方式">1. 非线程安全 Lazy 方式</h2>
+<p>非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    type Singleton struct {
+        // something
+    }
+    
+    var instance *Singleton
+    
+    func GetInstance() *Singleton {
+        if instance == nil {
+            instance = &amp;Singleton{}
+        }
+        
+        return instance
+    }
+</code></pre></div><p>这种写法对应着 CPP 中的实现方式。</p>
+<h2 id="2-线程锁方式">2. 线程锁方式</h2>
+<p>在 Go 语言中提供了包 <code>sync/mutex</code> 用于构建多个 goroutine 间的同步逻辑。</p>
+<p>在 Go 中使用线程锁实现的单例模式，如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    type Singleton struct {
+        // something
+    }
+    
+    var (
+        instance *Singleton
+        mtx Sync.Mutex
+    )
+    
+    func GetInstance() *Singleton {
+        mtx.Lock()
+        defer mtx.Unlock()
+        
+        if instance == nil {
+            instance = &amp;Singleton{}
+        }
+        
+        return instance
+    }
+</code></pre></div><h2 id="3-检查锁方式">3. 检查锁方式</h2>
+<p>正如在<a href="http://thinkerou.com/2017-02/design-patterns-singleton/">文中</a>提到的<strong>双检测锁</strong>实现方式，在 Go 中可以实现为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">    type Singleton struct {
+        // something
+    }
+    
+    var (
+        instance *Singleton
+        mtx Sync.Mutex
+    )
+    
+    func GetInstance() *Singleton {
+        if instance == nil {
+            mtx.Lock()
+            defer mtx.Unlock()
+            
+            if instance == nil {
+                instance = &amp;Singleton{}
+            }
+        }
+        return instance
+    }
+</code></pre></div><p>这种实现方式中，编译器会优化没有检查实例存储状态。如果使用 <code>sync/atomic</code> 包可以自动加载和标记状态，如下实现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+    
+    <span style="color:#f92672">import</span> (
+        <span style="color:#e6db74">&#34;sync&#34;</span>
+        <span style="color:#e6db74">&#34;sync/atomic&#34;</span>
+    )
+    
+    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Singleton</span> <span style="color:#66d9ef">struct</span> {
+        <span style="color:#75715e">// something
+</span><span style="color:#75715e"></span>    }
+    
+    <span style="color:#66d9ef">var</span> (
+        <span style="color:#a6e22e">initialized</span> <span style="color:#66d9ef">uint32</span>
+        <span style="color:#a6e22e">instance</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Singleton</span>
+        <span style="color:#a6e22e">mtx</span> <span style="color:#a6e22e">Sync</span>.<span style="color:#a6e22e">Mutex</span>
+    )
+    
+    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetInstance</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Singleton</span> {
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">LoadUInt32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">initialized</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>
+        }
+        
+        <span style="color:#a6e22e">mtx</span>.<span style="color:#a6e22e">Lock</span>()
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">mtx</span>.<span style="color:#a6e22e">Unlock</span>()
+        
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">initialized</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+            <span style="color:#a6e22e">instance</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Singleton</span>{}
+            <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">StoreUint32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">initialized</span>, <span style="color:#ae81ff">1</span>)
+        }
+        
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>
+    }
+</code></pre></div><p>如果读过 Go 源码，或许对上面的实现代码会感到熟悉，正式来源于源码中的 <code>once.go</code> 的实现方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	<span style="color:#f92672">package</span> <span style="color:#a6e22e">sync</span>
+	
+	<span style="color:#f92672">import</span> (
+		<span style="color:#e6db74">&#34;sync/atomic&#34;</span>
+	)
+	
+	<span style="color:#75715e">// Once is an object that will perform exactly one action.
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Once</span> <span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">m</span>    <span style="color:#a6e22e">Mutex</span>
+		<span style="color:#a6e22e">done</span> <span style="color:#66d9ef">uint32</span>
+	}
+	
+	<span style="color:#75715e">// Do calls the function f if and only if Do is being called for the
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// first time for this instance of Once. In other words, given
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 	var once Once
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// if once.Do(f) is called multiple times, only the first call will invoke f,
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// even if f has a different value in each invocation. A new instance of
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Once is required for each function to execute.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Do is intended for initialization that must be run exactly once. Since f
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// is niladic, it may be necessary to use a function literal to capture the
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// arguments to a function to be invoked by Do:
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// 	config.once.Do(func() { config.init(filename) })
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Because no call to Do returns until the one call to f returns, if f causes
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Do to be called, it will deadlock.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// If f panics, Do considers it to have returned; future calls of Do return
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// without calling f.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Once</span>) <span style="color:#a6e22e">Do</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>()) {
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">LoadUint32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">done</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+			<span style="color:#66d9ef">return</span>
+		}
+		<span style="color:#75715e">// Slow-path.
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Lock</span>()
+		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Unlock</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">done</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">StoreUint32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">done</span>, <span style="color:#ae81ff">1</span>)
+			<span style="color:#a6e22e">f</span>()
+		}
+	}
+</code></pre></div><p>看完 <code>once.go</code> 的代码，那是不是可以直接使用 <code>sync.Once</code> 来实现单例模式呢？答案是肯定的。</p>
+<h2 id="4-更完美方式">4. 更完美方式</h2>
+<p>以一个实际项目为示例来说明：</p>
+<blockquote>
+<p>实现一个全局的计算器</p>
+</blockquote>
+<p>直接使用 <code>sync.Once</code> 实现的单例模式如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    <span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+    <span style="color:#f92672">import</span> (
+        <span style="color:#e6db74">&#34;sync&#34;</span>
+    )
+
+    <span style="color:#66d9ef">var</span> (
+        <span style="color:#a6e22e">instance</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Counter</span>
+        <span style="color:#a6e22e">once</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Once</span>
+    }
+
+    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Counter</span> <span style="color:#66d9ef">struct</span> {
+        <span style="color:#a6e22e">number</span> <span style="color:#66d9ef">int</span>
+        <span style="color:#a6e22e">mux</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutx</span>
+    }
+
+    <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Counter</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) {
+        <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Lock</span>()
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Unlock</span>()
+    
+        <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">n</span>
+    }
+
+    <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Counter</span>) <span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) {
+        <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Lock</span>()
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Unlock</span>()
+    
+        <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">-=</span> <span style="color:#a6e22e">n</span>
+    }
+
+    <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Counter</span>) <span style="color:#a6e22e">Get</span>() <span style="color:#66d9ef">int</span> {
+        <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">RLock</span>()
+        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">RUnlock</span>()
+    
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">number</span>
+    }
+
+    <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetInstance</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Counter</span> {
+        <span style="color:#a6e22e">once</span>.<span style="color:#a6e22e">Do</span>(<span style="color:#66d9ef">func</span>() {
+            <span style="color:#a6e22e">instance</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Counter</span>{
+                <span style="color:#a6e22e">number</span>: <span style="color:#ae81ff">0</span>,
+            }
+        })
+    
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>
+    }
+</code></pre></div>
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+  <div class = 'author'>
+    <a href = 'https://github.com/thinkerou' target = "thinkerou's profile" class = 'author_pic'>
+      <img src = 'https://thinkerou.com/images/thinkerou.jpg' alt = ''>
+    </a>
+    <div class = 'author_meta'>
+      <a class = 'author_name' href = 'https://github.com/thinkerou' title = "map[Count:thinkerou]&#39;s profile">thinkerou</a>
+      <p class = 'pale author_bio solo'>活到老学到老</p>
+    </div>
+  </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/design-patterns-singleton/' title = '设计模式之单例模式' style = 'background-image: url(https://thinkerou.com/images/stuck.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F' class = 'post_tag'>设计模式
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/design-patterns-singleton/'>设计模式之单例模式</a>
+    </h3>
+    <p class = 'pale'>1. 目的 保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+2. 动机 如何才能保证一个类只有一个实例，并且这个实例易于被访问？
+一个全局变量使得一个对象可以被访问，但它不 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

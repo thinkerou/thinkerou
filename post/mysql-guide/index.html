@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>My s q l 快速入门 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'MySQL 快速入门' />
+<meta name="description" content="概览 最近开始在 LNMP 环境下进行工作，虽说对于 MySQL 这块内容暂时还排不上时间进行深入学习，比如阅读《高性能 MySQL》等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。
+1. 安装 MySQL  本文里的安装环境为：Mac OS X
+ 在《Nginx 与 PHP 环境搭建》一文里已经提到， …">
+<meta property = 'og:description' content = '概览 最近开始在 LNMP 环境下进行工作，虽说对于 MySQL 这块内容暂时还排不上时间进行深入学习，比如阅读《高性能 MySQL》等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。
+1. 安装 MySQL  本文里的安装环境为：Mac OS X
+ 在《Nginx 与 PHP 环境搭建》一文里已经提到， …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/mysql-guide/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/simple.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'MySQL 快速入门' />
+<meta property = 'twitter:description'  content = '概览 最近开始在 LNMP 环境下进行工作，虽说对于 MySQL 这块内容暂时还排不上时间进行深入学习，比如阅读《高性能 MySQL》等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。
+1. 安装 MySQL  本文里的安装环境为：Mac OS X
+ 在《Nginx 与 PHP 环境搭建》一文里已经提到， …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/simple.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/mysql-guide/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/simple.jpg);'>
+  <h1 class='post_title'>MySQL 快速入门</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="概览">概览</h2>
+<p>最近开始在 <code>LNMP</code> 环境下进行工作，虽说对于 <code>MySQL</code> 这块内容暂时还排不上时间进行深入学习，比如阅读<a href="http://book.douban.com/subject/23008813/">《高性能 MySQL》</a>等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。</p>
+<h4 id="1-安装-mysql">1. 安装 MySQL</h4>
+<blockquote>
+<p>本文里的安装环境为：Mac OS X</p>
+</blockquote>
+<p>在<a href="http://thinkerou.com/2015-11/nginx-php-fpm/">《Nginx 与 PHP 环境搭建》</a>一文里已经提到，在 Mac 上使用 <code>brew</code> 来进行安装包的管理，使用如下命令安装 mysql：</p>
+<blockquote>
+<p>brew install mysql</p>
+</blockquote>
+<p>安装成功后，MySQL 的各种信息会出现在目录下：</p>
+<blockquote>
+<p>/usr/local/Cellar/mysql/5.7.9</p>
+</blockquote>
+<p>该目录下有这样一些文件：</p>
+<pre><code>COPYING						include
+INSTALL-BINARY				lib
+INSTALL_RECEIPT.json		mysql-test
+README						scripts
+bin							share
+homebrew.mxcl.mysql.plist	support-files
+</code></pre>
+<p>目录 <code>bin</code> 包括 <code>mysql</code>、<code>mysqld</code> 、<code>mysql.server</code> 等常见命令，具体包括：</p>
+<pre><code>innochecksum				mysqladmin
+my_print_defaults			mysqlbinlog
+myisam_ftdump				mysqlcheck
+myisamchk					mysqld
+myisamlog					mysqld_multi
+myisampack					mysqld_safe
+mysql						mysqldump
+mysql.server				mysqldumpslow
+mysql_client_test			mysqlimport
+mysql_client_test_embedded	mysqlpump
+mysql_config				mysqlshow
+mysql_config_editor			mysqlslap
+mysql_embedded				mysqltest
+mysql_install_db			mysqltest_embedded
+mysql_plugin				perror
+mysql_secure_installation	replace
+mysql_ssl_rsa_setup			resolve_stack_dump
+mysql_tzinfo_to_sql			resolveip
+mysql_upgrade
+</code></pre>
+<h4 id="2-操控-mysql">2. 操控 MySQL</h4>
+<p>这里的操控 MySQL 主要是指 <code>MySQL 服务</code>的启动、暂停、停止等操作，启动 MySQL 服务主要是 <code>mysql.server</code>、<code>mysqld</code>、<code>mysqld_safe</code>等三种方式。</p>
+<p>使用 <code>mysqld</code> 或 <code>mysqld_safe</code> 命令启动服务时，是在 <code>console</code> 模式下运行的，而使用 <code>sudo mysql.server start</code> 命令启动服务时，则是在后台无控制台窗口下运行。</p>
+<blockquote>
+<p>mysqld 或 mysqld &ndash;console</p>
+</blockquote>
+<blockquote>
+<p>mysqld_safe 执行该命令后出现如下信息：</p>
+</blockquote>
+<pre><code>151201 23:38:48 mysqld_safe Logging to '/usr/local/var/mysql/MacBook-Pro-tianou.local.err'.
+
+151201 23:38:48 mysqld_safe Starting mysqld daemon with databases from /usr/local/var/mysql
+</code></pre>
+<blockquote>
+<p>意思很明显：mysqld_safe 启动的是 mysqld 的守护进程</p>
+</blockquote>
+<blockquote>
+<p>使用 <code>mysql.server start</code> 命令会更加友好</p>
+</blockquote>
+<pre><code>MacBook-Pro:~ thinkerou$ mysql.server start
+Starting MySQL
+. SUCCESS!
+</code></pre>
+<blockquote>
+<p>命令 mysql.server 有如下参数：</p>
+</blockquote>
+<blockquote>
+<p>start | stop | restart | reload | force-reload | status</p>
+</blockquote>
+<h4 id="3-启动方式的联系与区别">3. 启动方式的联系与区别</h4>
+<p>前面说了三种启动服务的方式，那么这三种方式又有何联系与区别呢？一种直观的区别是：<code>mysql.server</code> 和 <code>mysqld_safe</code> 是 <code>shell</code> 脚本， 而 <code>mysqld</code> 是二进制可执行文件。</p>
+<p>首先看看 mysql.server 脚本里都有些什么信息，在脚本的开头有注释： <code>MySQL daemon start/stop script.</code> 清楚的说明了脚本的作用是启动、停止 MySQl 守护进程。同时，在前面已经看到使用 mysql.server 命令操控服务时需要带参数 start、stop 等，那么在 shell 脚本里就应该有所体现，看看具体怎么做的（<em>摘录 case 语句中匹配 start 的部分</em>）：</p>
+<pre><code>case &quot;$mode&quot; in
+  'start')
+    # Start daemon
+   
+   # Safeguard (relative paths, core dumps..)
+   cd $basedir
+   
+   echo $echo_n &quot;Starting MySQL&quot;
+   if test -x $bindir/mysqld_safe
+   then
+     # Give extra arguments to mysqld with the my.cnf file. This script
+     # may be overwritten at next upgrade.
+     $bindir/mysqld_safe --datadir=&quot;$datadir&quot; --pid-file=&quot;$mysqld_pid_file_path&quot; $other_args &gt;/dev/null 2&gt;&amp;1 &amp;
+     wait_for_pid created &quot;$!&quot; &quot;$mysqld_pid_file_path&quot;; return_value=$?
+     
+     # Make lock for RedHat / SuSE
+     if test -w &quot;$lockdir&quot;
+     then
+       touch &quot;$lock_file_path&quot;
+     fi
+     
+     exit $return_value
+   else
+     log_failure_msg &quot;Couldn't find MySQL server ($bindir/mysqld_safe)&quot;
+   fi
+   ;;
+</code></pre>
+<p>从摘录的 shell 脚本可以知道，mysql.server 最终是去调用了 mysqld_safe 脚本，同时传入 <code>--datadir</code> 和 <code>--pid-file</code> 以及 <code>$other_args</code> 等参数，也即是 mysql.server 是为了方便操控 myslq 服务而存在的脚本，真正操控 mysql 服务的并不是它。</p>
+<p>而在 mysql_safe 脚本里，启动、监控 mysql 服务是通过调用 mysqld 来实现，也就是说最终真正在干活的是通过可执行文件 mysqld 来完成的。</p>
+<h2 id="mysql-基础语句">MySQL 基础语句</h2>
+<p>经过上一部分介绍，使用命令 <code>mysql.server start</code> 启动 mysql 服务后，就可以开始介绍基础的 MySQL 语句了，使用如下命令启动 mysql 命令行模式：</p>
+<blockquote>
+<p>mysql -h address -P port -u username -p password</p>
+</blockquote>
+<blockquote>
+<p>mysql -u root -p</p>
+</blockquote>
+<blockquote>
+<p>回车后提示输入密码，默认密码为空，直接回车即可</p>
+</blockquote>
+<p>成功后，会出现如下内容：</p>
+<pre><code>MacBook-Pro:bin thinkerou$ mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.9 Homebrew
+
+Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql&gt;
+</code></pre>
+<p>然后，就可以在这里做操作，比如：</p>
+<blockquote>
+<p>show processlist; # 查看哪些进程在运行</p>
+</blockquote>
+<pre><code>mysql&gt; show processlist; # test
++----+------+-----------+------+---------+------+----------+------------------+
+| Id | User | Host      | db   | Command | Time | State    | Info             |
++----+------+-----------+------+---------+------+----------+------------------+
+|  3 | root | localhost | NULL | Query   |    0 | starting | show processlist |
++----+------+-----------+------+---------+------+----------+------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<blockquote>
+<p>show variables like &ldquo;port&rdquo;; # 查看端口号</p>
+</blockquote>
+<pre><code>mysql&gt; show variables like &quot;port&quot;;
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| port          | 3306  |
++---------------+-------+
+1 row in set (0.00 sec)
+</code></pre>
+<h4 id="1-数据库操作">1. 数据库操作</h4>
+<blockquote>
+<p>show databases[ like &ldquo;pattern&rdquo;]; # 查看当前有哪些数据库</p>
+</blockquote>
+<pre><code>mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mobile             |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+</code></pre>
+<blockquote>
+<p>use dbname; # 使用 dbname 数据库</p>
+</blockquote>
+<pre><code>mysql&gt; use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+</code></pre>
+<blockquote>
+<p>show create database dbname; # 查看当前数据库信息</p>
+</blockquote>
+<pre><code>mysql&gt; show create database mysql;
++----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| mysql    | CREATE DATABASE `mysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+</code></pre>
+<blockquote>
+<p>select database(); # 查看当前数据库</p>
+</blockquote>
+<pre><code>mysql&gt; select database();
++------------+
+| database() |
++------------+
+| mysql      |
++------------+
+1 row in set (0.00 sec)
+</code></pre>
+<blockquote>
+<p>select now(), user(), version(); # 查看当前时间、用户名及数据库版本</p>
+</blockquote>
+<pre><code>mysql&gt; select now(), user(), version();
++---------------------+----------------+-----------+
+| now()               | user()         | version() |
++---------------------+----------------+-----------+
+| 2015-12-02 23:38:45 | root@localhost | 5.7.9     |
++---------------------+----------------+-----------+
+1 row in set (0.00 sec)	
+</code></pre>
+<blockquote>
+<p>create database[ if not exists] dbname dboption; # 创建数据库</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>数据库选项 dboption 有：</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>CHARACTER SET charset_name</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>COLLATE collation_name</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>alter database dbname option; # 修改数据库选项信息</p>
+</blockquote>
+<blockquote>
+<p>drop database[ if exists] dbname; # 删除数据库，同时删除相关目录及内容</p>
+</blockquote>
+<h4 id="2-表操作">2. 表操作</h4>
+<blockquote>
+<p>show tables[ like &ldquo;pattern&rdquo;]; # 显示当前数据库有哪些表</p>
+</blockquote>
+<pre><code>mysql&gt; show tables;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| db                        |
+| engine_cost               |
+| event                     |
+| func                      |
+| general_log               |
+| gtid_executed             |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| innodb_index_stats        |
+| innodb_table_stats        |
+| ndb_binlog_index          |
+| plugin                    |
+| proc                      |
+| procs_priv                |
+| proxies_priv              |
+| server_cost               |
+| servers                   |
+| slave_master_info         |
+| slave_relay_log_info      |
+| slave_worker_info         |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+31 rows in set (0.00 sec)&gt; 
+</code></pre>
+<blockquote>
+<p>show tables from dbname; # 查看某个表，结果同 use dbname; show tables;</p>
+</blockquote>
+<blockquote>
+<p>show create table tablename; # 查看表结构</p>
+</blockquote>
+<blockquote>
+<p>desc tablename /describe tablename /explain tablename /show columns from talbename[ like &ldquo;pattern&rdquo;]; # 查看表结构</p>
+</blockquote>
+<blockquote>
+<p>show table status[ from dbname] [like &ldquo;pattern&rdquo;]; # 查看表结构</p>
+</blockquote>
+<pre><code>mysql&gt; desc db;
++-----------------------+---------------+------+-----+---------+-------+
+| Field                 | Type          | Null | Key | Default | Extra |
++-----------------------+---------------+------+-----+---------+-------+
+| Host                  | char(60)      | NO   | PRI |         |       |
+| Db                    | char(64)      | NO   | PRI |         |       |
+| User                  | char(32)      | NO   | PRI |         |       |
+| Select_priv           | enum('N','Y') | NO   |     | N       |       |
+| Insert_priv           | enum('N','Y') | NO   |     | N       |       |
+| Update_priv           | enum('N','Y') | NO   |     | N       |       |
+| Delete_priv           | enum('N','Y') | NO   |     | N       |       |
+| Create_priv           | enum('N','Y') | NO   |     | N       |       |
+| Drop_priv             | enum('N','Y') | NO   |     | N       |       |
+| Grant_priv            | enum('N','Y') | NO   |     | N       |       |
+| References_priv       | enum('N','Y') | NO   |     | N       |       |
+| Index_priv            | enum('N','Y') | NO   |     | N       |       |
+| Alter_priv            | enum('N','Y') | NO   |     | N       |       |
+| Create_tmp_table_priv | enum('N','Y') | NO   |     | N       |       |
+| Lock_tables_priv      | enum('N','Y') | NO   |     | N       |       |
+| Create_view_priv      | enum('N','Y') | NO   |     | N       |       |
+| Show_view_priv        | enum('N','Y') | NO   |     | N       |       |
+| Create_routine_priv   | enum('N','Y') | NO   |     | N       |       |
+| Alter_routine_priv    | enum('N','Y') | NO   |     | N       |       |
+| Execute_priv          | enum('N','Y') | NO   |     | N       |       |
+| Event_priv            | enum('N','Y') | NO   |     | N       |       |
+| Trigger_priv          | enum('N','Y') | NO   |     | N       |       |
++-----------------------+---------------+------+-----+---------+-------+
+22 rows in set (0.01 sec)
+</code></pre>
+<blockquote>
+<p>create [temporary] table [if not exists] [dbname.]tablename (table define) [option]; # 创建表</p>
+</blockquote>
+<blockquote>
+<p>临时表 temporary 在会好结束后自动消失</p>
+</blockquote>
+<blockquote>
+<p>每个字段必须有类型，且最后一个字段后不能有逗号</p>
+</blockquote>
+<p>表结构定义中字段定义为：</p>
+<blockquote>
+<p>字段名 类型 [not null | null] [default default_value] [auto_increment] [unique [key] | [primary] key] [comment &ldquo;string&rdquo;]</p>
+</blockquote>
+<p>表选项（option）主要有：</p>
+<blockquote>
+<p>字符集：charset=charset_name</p>
+</blockquote>
+<blockquote>
+<p>存储引擎：engine=engine_name，通常为 InnoDB</p>
+</blockquote>
+<blockquote>
+<p>表注释：comment=&quot;string&rdquo;</p>
+</blockquote>
+<p>示例如下：</p>
+<pre><code>  CREATE TABLE `read_status` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+      `user_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '用户Id',
+      `source` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '信息来源',
+      `read_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '当前读取信息中最新操作时间',
+      `db_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '记录更新时间',
+      PRIMARY KEY(`id`),
+      UNIQUE KEY `idx_user_id_source` (`user_id`, `source`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gbk;
+</code></pre>
+<blockquote>
+<p>alter table tablename option; #修改表</p>
+</blockquote>
+<blockquote>
+<p>rename table old_table_name to new_table_name; # 重命名表名</p>
+</blockquote>
+<blockquote>
+<p>drop table [if exists] tablename; # 删除表</p>
+</blockquote>
+<blockquote>
+<p>truncate [table] tablename; # 清空表数据</p>
+</blockquote>
+<blockquote>
+<p>create table tablename like src_table_name; # 复制表结构</p>
+</blockquote>
+<blockquote>
+<p>create table tablename [as] select * from src_table_name; # 复制表结构和数据</p>
+</blockquote>
+<h4 id="3-数据操作增删改查">3. 数据操作（<em>增删改查</em>）</h4>
+<blockquote>
+<p>insert [info] tablename [(字段列表)] value (值列表)[, (值列表), &hellip;]</p>
+</blockquote>
+<blockquote>
+<p>select 字段列表 from tablename[ 其他子句]</p>
+</blockquote>
+<blockquote>
+<p>delete from tablename[ 删除条件子句]</p>
+</blockquote>
+<blockquote>
+<p>update tablename set 字段名=新值[, 字段名=新值] [更新条件]</p>
+</blockquote>
+<h4 id="4-导出导入">4. 导出导入</h4>
+<p>数据导出需要使用命令 <code>mysqldump</code> 来完成：</p>
+<blockquote>
+<p>mysqldump -u username -p password dbname tablename &gt; filename.sql # 导出表</p>
+</blockquote>
+<blockquote>
+<p>mysqldump -u username -p password -B dbname &gt; filename.sql # 导出数据库</p>
+</blockquote>
+<p>而数据的导入则需要使用命令 <code>source</code> 来完成：</p>
+<blockquote>
+<p>source backup.sql # 需要登录 mysql 控制台后完成</p>
+</blockquote>
+<blockquote>
+<p>mysql -u username -p password dbname &lt; backup.sql # 不需要登录 mysql 控制台</p>
+</blockquote>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://dev.mysql.com/doc/refman/5.7/en/tutorial.html">MySQL tutorial 官方手册</a></p>
+</li>
+<li>
+<p><a href="http://www.mysqltutorial.org/">MySQL tutorial</a></p>
+</li>
+<li>
+<p><a href="https://blog.udemy.com/beginners-guide-to-sql/">A Beginner’s Guide to SQL: A MySQL Tutorial</a></p>
+</li>
+<li>
+<p><a href="http://www.tutorialspoint.com/mysql/">tutorialspoint</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/keeping-git-log/' title = 'Keeping log of Git' style = 'background-image: url(https://thinkerou.com/images/posts/candy-bomber-4166906_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/git' class = 'post_tag'>git
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/keeping-git-log/'>Keeping log of Git</a>
+    </h3>
+    <p class = 'pale'>What? I recently migrated the examples of Gin to one separate repository named …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/simplicite/' title = '《简单的艺术》读书笔记' style = 'background-image: url(https://thinkerou.com/images/posts/landscape-4129533_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0' class = 'post_tag'>读书笔记
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/simplicite/'>《简单的艺术》读书笔记</a>
+    </h3>
+    <p class = 'pale'>简单，就是拥有极少，把空间留给必需和精华。简单，让生活摆脱使人精力分散、紧张不安的偏见、拘束和压力，为我们提供很多问题的解决办法。
+  不要再拥有过多的东西，你将省出更多时间来关注 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

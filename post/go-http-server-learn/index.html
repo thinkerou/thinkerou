@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Go 语言 h t t p server 源码学习 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'Go 语言 HTTP Server 源码学习' />
+<meta name="description" content="1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。
+在 Go 中一个简单 HTTP 服务实现如下：
+package main import ( …">
+<meta property = 'og:description' content = '1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。
+在 Go 中一个简单 HTTP 服务实现如下：
+package main import ( …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/go-http-server-learn/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/posts/dubrovnik-4169379_1280.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'Go 语言 HTTP Server 源码学习' />
+<meta property = 'twitter:description'  content = '1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。
+在 Go 中一个简单 HTTP 服务实现如下：
+package main import ( …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/posts/dubrovnik-4169379_1280.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/go-http-server-learn/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/posts/dubrovnik-4169379_1280.jpg);'>
+  <h1 class='post_title'>Go 语言 HTTP Server 源码学习</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h3 id="1-http-server-实现">1. HTTP Server 实现</h3>
+<p>在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通过客户端发送请求给服务器得到对应的响应。</p>
+<p>在 Go 中一个简单 HTTP 服务实现如下：</p>
+<pre><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+)
+
+// step3. 处理请求并返回结果
+func Hello(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, &quot;Hello world!&quot;)
+}
+
+func HelloUser(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, &quot;Hello thinkerou!&quot;)
+}
+
+func main() {
+    // step1. 注册路由
+    http.HandleFunc(&quot;/&quot;, Hello)
+    http.HandleFunc(&quot;/user/&quot;, HelloUser)
+
+    // step2. 监听服务
+    http.ListenAndServe(&quot;:8080&quot;, nil)
+}
+</code></pre>
+<p>这就是一个完整的简单的 Go HTTP Server 程序，运行该程序后，在浏览器输入 <code>http://127.0.0.1:8080/</code> 将会输出 <code>Hello world!</code>，以及输入 <code>http://127.0.0.1:8080/user/</code> 将会输出 <code>Hello thinkerou</code> 到浏览器窗口。</p>
+<h3 id="2-代码分析">2. 代码分析</h3>
+<p>从前述示例代码可知，一个完整简单的 Go HTTP Server 程序包含三部分：</p>
+<ul>
+<li>注册路由</li>
+<li>监听服务</li>
+<li>处理请求</li>
+</ul>
+<p>故后续代码分析就从这三方面来说明。</p>
+<h4 id="21-注册路由">2.1 注册路由</h4>
+<p>包 <code>net/http</code> 中的 <code>HandleFunc</code> 方法用来注册路由，方法原型为：</p>
+<pre><code>// HandleFunc registers the handler function for the given pattern
+// in the DefaultServeMux.
+// The documentation for ServeMux explains how patterns are matched.
+func HandleFunc(pattern string, handler func(ResponseWriter, *Request)) {
+    DefaultServeMux.HandleFunc(pattern, handler)
+}
+</code></pre>
+<p>该方法里涉及到如下几个问题：</p>
+<ul>
+<li><code>DefaultServeMux</code> 是什么？DefaultServeMux 是 ServeMux 的一个实例。</li>
+<li><code>ServeMux</code> 是什么？</li>
+</ul>
+<p>ServeMux 的代码及注释说明如下：</p>
+<pre><code>// ServeMux is an HTTP request multiplexer.
+// It matches the URL of each incoming request against a list of registered
+// patterns and calls the handler for the pattern that
+// most closely matches the URL.
+//
+// Patterns name fixed, rooted paths, like &quot;/favicon.ico&quot;,
+// or rooted subtrees, like &quot;/images/&quot; (note the trailing slash).
+// Longer patterns take precedence over shorter ones, so that
+// if there are handlers registered for both &quot;/images/&quot;
+// and &quot;/images/thumbnails/&quot;, the latter handler will be
+// called for paths beginning &quot;/images/thumbnails/&quot; and the
+// former will receive requests for any other paths in the
+// &quot;/images/&quot; subtree.
+//
+// Note that since a pattern ending in a slash names a rooted subtree,
+// the pattern &quot;/&quot; matches all paths not matched by other registered
+// patterns, not just the URL with Path == &quot;/&quot;.
+//
+// If a subtree has been registered and a request is received naming the
+// subtree root without its trailing slash, ServeMux redirects that
+// request to the subtree root (adding the trailing slash). This behavior can
+// be overridden with a separate registration for the path without
+// the trailing slash. For example, registering &quot;/images/&quot; causes ServeMux
+// to redirect a request for &quot;/images&quot; to &quot;/images/&quot;, unless &quot;/images&quot; has
+// been registered separately.
+//
+// Patterns may optionally begin with a host name, restricting matches to
+// URLs on that host only. Host-specific patterns take precedence over
+// general patterns, so that a handler might register for the two patterns
+// &quot;/codesearch&quot; and &quot;codesearch.google.com/&quot; without also taking over
+// requests for &quot;http://www.google.com/&quot;.
+//
+// ServeMux also takes care of sanitizing the URL request path,
+// redirecting any request containing . or .. elements or repeated slashes
+// to an equivalent, cleaner URL.
+type ServeMux struct {
+    mu    sync.RWMutex
+    m     map[string]muxEntry
+    hosts bool // whether any patterns contain hostnames
+}
+
+type muxEntry struct {
+    explicit bool
+    h        Handler
+    pattern  string
+}
+
+// NewServeMux allocates and returns a new ServeMux.
+func NewServeMux() *ServeMux { return new(ServeMux) }
+
+// DefaultServeMux is the default ServeMux used by Serve.
+var DefaultServeMux = &amp;defaultServeMux
+
+var defaultServeMux ServeMux
+</code></pre>
+<p>ServeMux 是通过 <code>map[string]muxEntry</code> 来存储具体的 URL 模式和 handler（handler是实现Handler接口的类型）；通过实现 Handler 的 ServeHTTP 方法来匹配路由。</p>
+<p>接口 Handler 的原型及注释说明为：</p>
+<pre><code>// A Handler responds to an HTTP request.
+//
+// ServeHTTP should write reply headers and data to the ResponseWriter
+// and then return. Returning signals that the request is finished; it
+// is not valid to use the ResponseWriter or read from the
+// Request.Body after or concurrently with the completion of the
+// ServeHTTP call.
+//
+// Depending on the HTTP client software, HTTP protocol version, and
+// any intermediaries between the client and the Go server, it may not
+// be possible to read from the Request.Body after writing to the
+// ResponseWriter. Cautious handlers should read the Request.Body
+// first, and then reply.
+//
+// Except for reading the body, handlers should not modify the
+// provided Request.
+//
+// If ServeHTTP panics, the server (the caller of ServeHTTP) assumes
+// that the effect of the panic was isolated to the active request.
+// It recovers the panic, logs a stack trace to the server error log,
+// and hangs up the connection. To abort a handler so the client sees
+// an interrupted response but the server doesn't log an error, panic
+// with the value ErrAbortHandler.
+type Handler interface {
+    ServeHTTP(ResponseWriter, *Request)
+}
+</code></pre>
+<p>注意：该接口是整个 HTTP Server 的枢纽，从源码来看一切：</p>
+<pre><code>// HandleFunc registers the handler function for the given pattern.
+func (mux *ServeMux) HandleFunc(pattern string, handler func(ResponseWriter, *Request)) {
+    mux.Handle(pattern, HandlerFunc(handler))
+}
+
+// The HandlerFunc type is an adapter to allow the use of
+// ordinary functions as HTTP handlers. If f is a function
+// with the appropriate signature, HandlerFunc(f) is a
+// Handler that calls f.
+type HandlerFunc func(ResponseWriter, *Request)
+
+// ServeHTTP calls f(w, r).
+func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {
+    f(w, r)
+}
+</code></pre>
+<ul>
+<li>HandlerFunc 是一个函数类型，并实现了 Handler 接口（因为它实现了 Handler 接口的所有方法，即 ServeHTTP 方法），通过调用 HandleFunc() 把 Hello 转换为 HandlerFunc 类型时，就表明 Hello 函数也实现了 ServeHTTP 方法，即实现了 Hadnler 接口。</li>
+</ul>
+<p>类型 ServeMux 的 Handle 实现逻辑为：</p>
+<pre><code>// Handle registers the handler for the given pattern.
+// If a handler already exists for pattern, Handle panics.
+func (mux *ServeMux) Handle(pattern string, handler Handler) {
+    mux.mu.Lock()
+    defer mux.mu.Unlock()
+
+    if pattern == &quot;&quot; {
+        panic(&quot;http: invalid pattern &quot; + pattern)
+    }
+    if handler == nil {
+        panic(&quot;http: nil handler&quot;)
+    }
+    if mux.m[pattern].explicit {
+        panic(&quot;http: multiple registrations for &quot; + pattern)
+    }
+
+    if mux.m == nil {
+        mux.m = make(map[string]muxEntry)
+    }
+    mux.m[pattern] = muxEntry{explicit: true, h: handler, pattern: pattern}
+
+    if pattern[0] != '/' {
+        mux.hosts = true
+    }
+
+    // Helpful behavior:
+    // If pattern is /tree/, insert an implicit permanent redirect for /tree.
+    // It can be overridden by an explicit registration.
+    n := len(pattern)
+    if n &gt; 0 &amp;&amp; pattern[n-1] == '/' &amp;&amp; !mux.m[pattern[0:n-1]].explicit {
+        // If pattern contains a host name, strip it and use remaining
+        // path for redirect.
+        path := pattern
+        if pattern[0] != '/' {
+            // In pattern, at least the last character is a '/', so
+            // strings.Index can't be -1.
+            path = pattern[strings.Index(pattern, &quot;/&quot;):]
+        }
+        url := &amp;url.URL{Path: path}
+        mux.m[pattern[0:n-1]] = muxEntry{h: RedirectHandler(url.String(), StatusMovedPermanently), pattern: pattern}
+    }
+}
+</code></pre>
+<p>这样就完成了整个路由注册过程。</p>
+<h4 id="22-监听服务">2.2 监听服务</h4>
+<p>包 <code>net/http</code> 中的 <code>ListenAndServe</code> 方法用来监听服务（HTTP服务，如果是HTTPS服务的话则使用 <code>ListenAndServeTLS</code> 方法），方法原型及注释说明为：</p>
+<pre><code>// ListenAndServe listens on the TCP network address addr
+// and then calls Serve with handler to handle requests
+// on incoming connections.
+// Accepted connections are configured to enable TCP keep-alives.
+// Handler is typically nil, in which case the DefaultServeMux is
+// used.
+//
+// A trivial example server is:
+//
+//  package main
+//
+//  import (
+//      &quot;io&quot;
+//      &quot;net/http&quot;
+//      &quot;log&quot;
+//  )
+//
+//  // hello world, the web server
+//  func HelloServer(w http.ResponseWriter, req *http.Request) {
+//      io.WriteString(w, &quot;hello, world!\n&quot;)
+//  }
+//
+//  func main() {
+//      http.HandleFunc(&quot;/hello&quot;, HelloServer)
+//      log.Fatal(http.ListenAndServe(&quot;:12345&quot;, nil))
+//  }
+//
+// ListenAndServe always returns a non-nil error.
+func ListenAndServe(addr string, handler Handler) error {
+    server := &amp;Server{Addr: addr, Handler: handler}
+    return server.ListenAndServe()
+}
+</code></pre>
+<p>其中 Server 类型的声明为：</p>
+<pre><code>// A Server defines parameters for running an HTTP server.
+// The zero value for Server is a valid configuration.
+type Server struct {
+    Addr      string      // TCP address to listen on, &quot;:http&quot; if empty
+    Handler   Handler     // handler to invoke, http.DefaultServeMux if nil
+    TLSConfig *tls.Config // optional TLS config, used by ListenAndServeTLS
+
+    // ReadTimeout is the maximum duration for reading the entire
+    // request, including the body.
+    //
+    // Because ReadTimeout does not let Handlers make per-request
+    // decisions on each request body's acceptable deadline or
+    // upload rate, most users will prefer to use
+    // ReadHeaderTimeout. It is valid to use them both.
+    ReadTimeout time.Duration
+
+    // ReadHeaderTimeout is the amount of time allowed to read
+    // request headers. The connection's read deadline is reset
+    // after reading the headers and the Handler can decide what
+    // is considered too slow for the body.
+    ReadHeaderTimeout time.Duration
+
+    // WriteTimeout is the maximum duration before timing out
+    // writes of the response. It is reset whenever a new
+    // request's header is read. Like ReadTimeout, it does not
+    // let Handlers make decisions on a per-request basis.
+    WriteTimeout time.Duration
+
+    // IdleTimeout is the maximum amount of time to wait for the
+    // next request when keep-alives are enabled. If IdleTimeout
+    // is zero, the value of ReadTimeout is used. If both are
+    // zero, there is no timeout.
+    IdleTimeout time.Duration
+
+    // MaxHeaderBytes controls the maximum number of bytes the
+    // server will read parsing the request header's keys and
+    // values, including the request line. It does not limit the
+    // size of the request body.
+    // If zero, DefaultMaxHeaderBytes is used.
+    MaxHeaderBytes int
+
+    // TLSNextProto optionally specifies a function to take over
+    // ownership of the provided TLS connection when an NPN/ALPN
+    // protocol upgrade has occurred. The map key is the protocol
+    // name negotiated. The Handler argument should be used to
+    // handle HTTP requests and will initialize the Request's TLS
+    // and RemoteAddr if not already set. The connection is
+    // automatically closed when the function returns.
+    // If TLSNextProto is not nil, HTTP/2 support is not enabled
+    // automatically.
+    TLSNextProto map[string]func(*Server, *tls.Conn, Handler)
+
+    // ConnState specifies an optional callback function that is
+    // called when a client connection changes state. See the
+    // ConnState type and associated constants for details.
+    ConnState func(net.Conn, ConnState)
+
+    // ErrorLog specifies an optional logger for errors accepting
+    // connections and unexpected behavior from handlers.
+    // If nil, logging goes to os.Stderr via the log package's
+    // standard logger.
+    ErrorLog *log.Logger
+
+    disableKeepAlives int32     // accessed atomically.
+    inShutdown        int32     // accessed atomically (non-zero means we're in Shutdown)
+    nextProtoOnce     sync.Once // guards setupHTTP2_* init
+    nextProtoErr      error     // result of http2.ConfigureServer if used
+
+    mu         sync.Mutex
+    listeners  map[net.Listener]struct{}
+    activeConn map[*conn]struct{}
+    doneChan   chan struct{}
+}
+</code></pre>
+<p>从前面的 <code>ListenAndServe</code> 方法可知，核心逻辑都封装在 Server 的 ListenAndServe 里面了，那么它的逻辑是如何的呢？代码如下：</p>
+<pre><code>// ListenAndServe listens on the TCP network address srv.Addr and then
+// calls Serve to handle requests on incoming connections.
+// Accepted connections are configured to enable TCP keep-alives.
+// If srv.Addr is blank, &quot;:http&quot; is used.
+// ListenAndServe always returns a non-nil error.
+func (srv *Server) ListenAndServe() error {
+    addr := srv.Addr
+    if addr == &quot;&quot; {
+        addr = &quot;:http&quot;
+    }
+    ln, err := net.Listen(&quot;tcp&quot;, addr)
+    if err != nil {
+        return err
+    }
+    return srv.Serve(tcpKeepAliveListener{ln.(*net.TCPListener)})
+}
+</code></pre>
+<p>代码说明：</p>
+<ul>
+<li>初始化监听地址 addr</li>
+<li>调用 <code>net</code> 包的 <code>Listen</code> 方法设置监听</li>
+<li>将监听的 TCP 对象传人 Serve 方法</li>
+</ul>
+<p>Server 类型的 Serve(l net.Listener) 为每个请求开启 goroutine 来保证高并发，方法实现为：</p>
+<pre><code>// Serve accepts incoming connections on the Listener l, creating a
+// new service goroutine for each. The service goroutines read requests and
+// then call srv.Handler to reply to them.
+//
+// For HTTP/2 support, srv.TLSConfig should be initialized to the
+// provided listener's TLS Config before calling Serve. If
+// srv.TLSConfig is non-nil and doesn't include the string &quot;h2&quot; in
+// Config.NextProtos, HTTP/2 support is not enabled.
+//
+// Serve always returns a non-nil error. After Shutdown or Close, the
+// returned error is ErrServerClosed.
+func (srv *Server) Serve(l net.Listener) error {
+    defer l.Close()
+    if fn := testHookServerServe; fn != nil {
+        fn(srv, l)
+    }
+    var tempDelay time.Duration // how long to sleep on accept failure
+
+    if err := srv.setupHTTP2_Serve(); err != nil {
+        return err
+    }
+
+    srv.trackListener(l, true)
+    defer srv.trackListener(l, false)
+
+    baseCtx := context.Background() // base is always background, per Issue 16220
+    ctx := context.WithValue(baseCtx, ServerContextKey, srv)
+    ctx = context.WithValue(ctx, LocalAddrContextKey, l.Addr())
+    for {
+        rw, e := l.Accept()
+        if e != nil {
+            select {
+            case &lt;-srv.getDoneChan():
+                return ErrServerClosed
+            default:
+            }
+            if ne, ok := e.(net.Error); ok &amp;&amp; ne.Temporary() {
+                if tempDelay == 0 {
+                    tempDelay = 5 * time.Millisecond
+                } else {
+                    tempDelay *= 2
+                }
+                if max := 1 * time.Second; tempDelay &gt; max {
+                    tempDelay = max
+                }
+                srv.logf(&quot;http: Accept error: %v; retrying in %v&quot;, e, tempDelay)
+                time.Sleep(tempDelay)
+                continue
+            }
+            return e
+        }
+        tempDelay = 0
+        c := srv.newConn(rw)
+        c.setState(c.rwc, StateNew) // before Serve can return
+        go c.serve(ctx)
+    }
+}
+</code></pre>
+<p>从上面代码 <code>go c.serve(ctx)</code> 可知，私有类型 <code>conn</code> 的 <code>serve</code> 方法是整个服务监听的核心，它读取对应的连接数据进行分配，代码实现为：</p>
+<pre><code>// Serve a new connection.
+func (c *conn) serve(ctx context.Context) {
+    c.remoteAddr = c.rwc.RemoteAddr().String()
+    defer func() {
+        if err := recover(); err != nil &amp;&amp; err != ErrAbortHandler {
+            const size = 64 &lt;&lt; 10
+            buf := make([]byte, size)
+            buf = buf[:runtime.Stack(buf, false)]
+            c.server.logf(&quot;http: panic serving %v: %v\n%s&quot;, c.remoteAddr, err, buf)
+        }
+        if !c.hijacked() {
+            c.close()
+            c.setState(c.rwc, StateClosed)
+        }
+    }()
+
+    if tlsConn, ok := c.rwc.(*tls.Conn); ok {
+        if d := c.server.ReadTimeout; d != 0 {
+            c.rwc.SetReadDeadline(time.Now().Add(d))
+        }
+        if d := c.server.WriteTimeout; d != 0 {
+            c.rwc.SetWriteDeadline(time.Now().Add(d))
+        }
+        if err := tlsConn.Handshake(); err != nil {
+            c.server.logf(&quot;http: TLS handshake error from %s: %v&quot;, c.rwc.RemoteAddr(), err)
+            return
+        }
+        c.tlsState = new(tls.ConnectionState)
+        *c.tlsState = tlsConn.ConnectionState()
+        if proto := c.tlsState.NegotiatedProtocol; validNPN(proto) {
+            if fn := c.server.TLSNextProto[proto]; fn != nil {
+                h := initNPNRequest{tlsConn, serverHandler{c.server}}
+                fn(c.server, tlsConn, h)
+            }
+            return
+        }
+    }
+
+    // HTTP/1.x from here on.
+
+    ctx, cancelCtx := context.WithCancel(ctx)
+    c.cancelCtx = cancelCtx
+    defer cancelCtx()
+
+    c.r = &amp;connReader{conn: c}
+    c.bufr = newBufioReader(c.r)
+    c.bufw = newBufioWriterSize(checkConnErrorWriter{c}, 4&lt;&lt;10)
+
+    for {
+        w, err := c.readRequest(ctx)
+        if c.r.remain != c.server.initialReadLimitSize() {
+            // If we read any bytes off the wire, we're active.
+            c.setState(c.rwc, StateActive)
+        }
+        if err != nil {
+            const errorHeaders = &quot;\r\nContent-Type: text/plain; charset=utf-8\r\nConnection: close\r\n\r\n&quot;
+
+            if err == errTooLarge {
+                // Their HTTP client may or may not be
+                // able to read this if we're
+                // responding to them and hanging up
+                // while they're still writing their
+                // request. Undefined behavior.
+                const publicErr = &quot;431 Request Header Fields Too Large&quot;
+                fmt.Fprintf(c.rwc, &quot;HTTP/1.1 &quot;+publicErr+errorHeaders+publicErr)
+                c.closeWriteAndWait()
+                return
+            }
+            if isCommonNetReadError(err) {
+                return // don't reply
+            }
+
+            publicErr := &quot;400 Bad Request&quot;
+            if v, ok := err.(badRequestError); ok {
+                publicErr = publicErr + &quot;: &quot; + string(v)
+            }
+
+            fmt.Fprintf(c.rwc, &quot;HTTP/1.1 &quot;+publicErr+errorHeaders+publicErr)
+            return
+        }
+
+        // Expect 100 Continue support
+        req := w.req
+        if req.expectsContinue() {
+            if req.ProtoAtLeast(1, 1) &amp;&amp; req.ContentLength != 0 {
+                // Wrap the Body reader with one that replies on the connection
+                req.Body = &amp;expectContinueReader{readCloser: req.Body, resp: w}
+            }
+        } else if req.Header.get(&quot;Expect&quot;) != &quot;&quot; {
+            w.sendExpectationFailed()
+            return
+        }
+
+        c.curReq.Store(w)
+
+        if requestBodyRemains(req.Body) {
+            registerOnHitEOF(req.Body, w.conn.r.startBackgroundRead)
+        } else {
+            if w.conn.bufr.Buffered() &gt; 0 {
+                w.conn.r.closeNotifyFromPipelinedRequest()
+            }
+            w.conn.r.startBackgroundRead()
+        }
+
+        // HTTP cannot have multiple simultaneous active requests.[*]
+        // Until the server replies to this request, it can't read another,
+        // so we might as well run the handler in this goroutine.
+        // [*] Not strictly true: HTTP pipelining. We could let them all process
+        // in parallel even if their responses need to be serialized.
+        // But we're not going to implement HTTP pipelining because it
+        // was never deployed in the wild and the answer is HTTP/2.
+        serverHandler{c.server}.ServeHTTP(w, w.req)
+        w.cancelCtx()
+        if c.hijacked() {
+            return
+        }
+        w.finishRequest()
+        if !w.shouldReuseConnection() {
+            if w.requestBodyLimitHit || w.closedRequestBodyEarly() {
+                c.closeWriteAndWait()
+            }
+            return
+        }
+        c.setState(c.rwc, StateIdle)
+        c.curReq.Store((*response)(nil))
+
+        if !w.conn.server.doKeepAlives() {
+            // We're in shutdown mode. We might've replied
+            // to the user without &quot;Connection: close&quot; and
+            // they might think they can send another
+            // request, but such is life with HTTP/1.1.
+            return
+        }
+
+        if d := c.server.idleTimeout(); d != 0 {
+            c.rwc.SetReadDeadline(time.Now().Add(d))
+            if _, err := c.bufr.Peek(4); err != nil {
+                return
+            }
+        }
+        c.rwc.SetReadDeadline(time.Time{})
+    }
+}
+</code></pre>
+<p>其中会调用 <code>serverhandler{c.server}.ServeHTTP(w, w.req)</code> 方法来处理请求</p>
+<h4 id="23-处理请求">2.3 处理请求</h4>
+<p>serverHandler 初始化路由多路复用器，如果 server 对象没有指定 Handler 则使用默认的 DefaultServeMux 作为路由多路复用器，并调用初始化 Handler 的 ServeHTTP 方法，代码逻辑为：</p>
+<pre><code>// serverHandler delegates to either the server's Handler or
+// DefaultServeMux and also handles &quot;OPTIONS *&quot; requests.
+type serverHandler struct {
+    srv *Server
+}
+
+func (sh serverHandler) ServeHTTP(rw ResponseWriter, req *Request) {
+    handler := sh.srv.Handler
+    if handler == nil {
+        handler = DefaultServeMux
+    }
+    if req.RequestURI == &quot;*&quot; &amp;&amp; req.Method == &quot;OPTIONS&quot; {
+        handler = globalOptionsHandler{}
+    }
+    handler.ServeHTTP(rw, req)
+}
+</code></pre>
+<p>最后会走到匹配路由的代码逻辑里：</p>
+<pre><code>// ServeHTTP dispatches the request to the handler whose
+// pattern most closely matches the request URL.
+func (mux *ServeMux) ServeHTTP(w ResponseWriter, r *Request) {
+    if r.RequestURI == &quot;*&quot; {
+        if r.ProtoAtLeast(1, 1) {
+            w.Header().Set(&quot;Connection&quot;, &quot;close&quot;)
+        }
+        w.WriteHeader(StatusBadRequest)
+        return
+    }
+    h, _ := mux.Handler(r)
+    h.ServeHTTP(w, r)
+}
+</code></pre>
+<p>代码说明：</p>
+<ul>
+<li>匹配注册到路由上的 handler 函数</li>
+<li>调用 handler 函数的 ServeHTTP 方法，即 Hello 函数，然后把数据写到 http.ResponseWriter 对象中返回给客户端</li>
+</ul>
+<p>会继续走到 ServeMux 的 Hanlder 方法里：</p>
+<pre><code>// Find a handler on a handler map given a path string
+// Most-specific (longest) pattern wins
+func (mux *ServeMux) match(path string) (h Handler, pattern string) {
+    var n = 0
+    for k, v := range mux.m {
+        if !pathMatch(k, path) {
+            continue
+        }
+        if h == nil || len(k) &gt; n {
+            n = len(k)
+            h = v.h
+            pattern = v.pattern
+        }
+    }
+    return
+}
+
+// Handler returns the handler to use for the given request,
+// consulting r.Method, r.Host, and r.URL.Path. It always returns
+// a non-nil handler. If the path is not in its canonical form, the
+// handler will be an internally-generated handler that redirects
+// to the canonical path.
+//
+// Handler also returns the registered pattern that matches the
+// request or, in the case of internally-generated redirects,
+// the pattern that will match after following the redirect.
+//
+// If there is no registered handler that applies to the request,
+// Handler returns a ``page not found'' handler and an empty pattern.
+func (mux *ServeMux) Handler(r *Request) (h Handler, pattern string) {
+    if r.Method != &quot;CONNECT&quot; {
+        if p := cleanPath(r.URL.Path); p != r.URL.Path {
+            _, pattern = mux.handler(r.Host, p)
+            url := *r.URL
+            url.Path = p
+            return RedirectHandler(url.String(), StatusMovedPermanently), pattern
+        }
+    }
+
+    return mux.handler(r.Host, r.URL.Path)
+}
+
+// handler is the main implementation of Handler.
+// The path is known to be in canonical form, except for CONNECT methods.
+func (mux *ServeMux) handler(host, path string) (h Handler, pattern string) {
+    mux.mu.RLock()
+    defer mux.mu.RUnlock()
+
+    // Host-specific pattern takes precedence over generic ones
+    if mux.hosts {
+        h, pattern = mux.match(host + path)
+    }
+    if h == nil {
+        h, pattern = mux.match(path)
+    }
+    if h == nil {
+        h, pattern = NotFoundHandler(), &quot;&quot;
+    }
+    return
+}
+</code></pre>
+<p>最后的最后，会走到这里将数据写给客户端：</p>
+<pre><code>// checkConnErrorWriter writes to c.rwc and records any write errors to c.werr.
+// It only contains one field (and a pointer field at that), so it
+// fits in an interface value without an extra allocation.
+type checkConnErrorWriter struct {
+    c *conn
+}
+
+func (w checkConnErrorWriter) Write(p []byte) (n int, err error) {
+    n, err = w.c.rwc.Write(p)
+    if err != nil &amp;&amp; w.c.werr == nil {
+        w.c.werr = err
+        w.c.cancelCtx()
+    }
+    return
+}
+</code></pre>
+<p>当请求结束后，就开始执行连接断开的相关逻辑流程。</p>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-method-values-pointers/' title = 'Go 语言 struct 方法该使用 pointer 还是 value 传值？' style = 'background-image: url(https://thinkerou.com/images/posts/park-4174278_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-method-values-pointers/'>Go 语言 struct 方法该使用 pointer 还是 value 传值？</a>
+    </h3>
+    <p class = 'pale'>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-net-package/' title = 'Go 语言 net 包使用记录' style = 'background-image: url(https://thinkerou.com/images/posts/tixall-gateway-4167373_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-net-package/'>Go 语言 net 包使用记录</a>
+    </h3>
+    <p class = 'pale'>1. 基础概念 关于网络IPC（套接字）相关的知识点，可以参考相关《学习笔记》。
+在 Go 语言中，包 net 封装了关于网络套接字的所有接口。
+对于服务端，使用 Listen 进 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

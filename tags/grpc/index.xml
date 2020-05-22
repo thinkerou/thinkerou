@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GRPC on thinkerou</title>
+    <link>https://thinkerou.com/tags/grpc/</link>
+    <description>Recent content in GRPC on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 May 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>RPC 原理初尝</title>
+      <link>https://thinkerou.com/post/rpc-guide/</link>
+      <pubDate>Sun, 15 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/rpc-guide/</guid>
+      <description>背景 在很早以前就了解过点 RPC 相关的概念，就仅此而已，写的那点网络示例程序也都是本机调用的，直到最近学习 gRPC 才发现还有好多知识需要学习，或许部分原因也是由于以前的工作内容主要是客户端的吧。
+现在接触的是服务端相关的东西，所以有必要好好学习下 RPC 等相关知识，公司系统涉及很多服务且都部署在不同的地域不同的机器上，维护也是由不同的团队维护的。
+所以就需要学习如何编写、部署、搭建新的服务？如何依赖、调用其他服务？如何发布新服务给其他团队使用？等等。
+RPC 介绍 1. RPC 简介  RPC 是 Remote Procedure Call 的缩写, 即远程过程/函数调用 RPC 用于进程间或跨网络通讯 RPC 具有很好的横向扩展能力, 更适合网络/分布式环境通讯  2. RPC 原理 RPC 主要涉及到的角色有：
+ Client Client Stub Server Server Stub  详细原理请原理图进行查看(注：图片来源于参考资料4)。
+根据该原理图可知，完成一次 RPC 需要经历这样几个步骤：
+ 1）Client 以本地调用方式调用服务
+  2）Client Stub 接收调用后将方法、参数等组装成能够进行网络传输的消息体（编码）
+  3）Client Stub 找到服务地址，并将消息发送到服务端
+  4）Server Stub 收到消息后进行解析（解码）
+  5）Server Stub 根据解码结果调用本地的服务
+  6）本地服务执行并将结果返回给 Server Stub</description>
+    </item>
+    
+    <item>
+      <title>GRPC 入门</title>
+      <link>https://thinkerou.com/post/grpc-guide/</link>
+      <pubDate>Sun, 28 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/grpc-guide/</guid>
+      <description>开始 grpc 最近准备开始看看 grpc 相关代码，那首先得让其跑起来，以下记录安装步骤：
+注：系统为 mac
+1. 安装 grpc core 主要是修改 url 路径，否则会被强。
+ clone 代码
+  修改 .gitmodules 和 .git/config 里 boringssl 的url为：https://github.com/google/boringssl.git
+  运行 git submodule update &amp;ndash;init 下载 third_party 文件
+  make
+  sudo make install
+ 如此，会在 /usr/local/lib/ 目录下产生 libgrpc.a 和 libgrpc.dylib 等文件。
+2. 安装 cpp example 验证安装 grpc 核心库成功。
+ cd examples/cpp/route_guide
+  make
+  ./route_guide_server
+  .</description>
+    </item>
+    
+  </channel>
+</rss>

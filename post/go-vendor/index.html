@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>使用 go vendor | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '使用 Go vendor' />
+<meta name="description" content="Go vendor 介绍 Go 语言在发布 1.5 版本时，就说可以使用自身提供的 vendor 特性，但是需要设置如下环境变量：
+GO15VENDOREXPERIMENT=1  在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 go env 命令查看。
+根据官方的说法，在发布 1.7 版本 …">
+<meta property = 'og:description' content = 'Go vendor 介绍 Go 语言在发布 1.5 版本时，就说可以使用自身提供的 vendor 特性，但是需要设置如下环境变量：
+GO15VENDOREXPERIMENT=1  在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 go env 命令查看。
+根据官方的说法，在发布 1.7 版本 …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/go-vendor/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/simple.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '使用 Go vendor' />
+<meta property = 'twitter:description'  content = 'Go vendor 介绍 Go 语言在发布 1.5 版本时，就说可以使用自身提供的 vendor 特性，但是需要设置如下环境变量：
+GO15VENDOREXPERIMENT=1  在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 go env 命令查看。
+根据官方的说法，在发布 1.7 版本 …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/simple.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/go-vendor/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/simple.jpg);'>
+  <h1 class='post_title'>使用 Go vendor</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="go-vendor-介绍">Go vendor 介绍</h2>
+<p>Go 语言在发布 1.5 版本时，就说可以使用自身提供的 <code>vendor</code> 特性，但是需要设置如下环境变量：</p>
+<pre><code>GO15VENDOREXPERIMENT=1
+</code></pre>
+<p>在发布 1.6 版本时，该环境变量的值已经默认设置为 1 了，该值可以使用 <code>go env</code> 命令查看。</p>
+<p>根据官方的说法，在发布 1.7 版本时，将去掉该环境变量，默认开启 <code>vendor</code> 特性。</p>
+<p>现在也有很多包管理工具，比如 <code>Godep</code>、<code>govendor</code>、<code>gvt</code> 等等，并且也都支持语言本身提供的 <code>vendor</code> 特性，那么我的问题是：</p>
+<blockquote>
+<p>不使用第三方包管理工具，如何使用 <code>vendor</code> 特性呢？</p>
+</blockquote>
+<p>一开始 google 了好多文档都没有符合要求的，最后就在 <a href="http://stackoverflow.com/questions/37237036/how-should-i-use-vendor-in-go-1-6">stackover flow</a> 上求问才找到解决方法。</p>
+<h4 id="1-设置环境变量">1. 设置环境变量</h4>
+<blockquote>
+<p>GOPATH=&rdquo;/Users/thinkerou/xyz/&rdquo;</p>
+</blockquote>
+<h4 id="2-建立测试需要的目录">2. 建立测试需要的目录</h4>
+<blockquote>
+</blockquote>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/xyz$ pwd
+/Users/thinkerou/xyz
+thinkerou@MacBook-Pro-thinkerou:~/xyz$ ls
+src
+thinkerou@MacBook-Pro-thinkerou:~/xyz$ cd src
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ ls
+ou
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ cd ou
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls
+main.go vendor
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ cd vendor/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ ls
+vendor.json
+</code></pre>
+<p>就是需要在 <code>$GOPATH</code> 目录下建立 <code>src/my-program-name</code> 目录，同时需要在目录 <code>src/my-program-name</code> 目录下建立 <code>vendor</code> 目录。</p>
+<blockquote>
+<p>注：vendor.json 暂时还没有用处，应该是只有使用第三方包管理工具时才有用。</p>
+</blockquote>
+<h4 id="3-编写测试文件">3. 编写测试文件</h4>
+<p>测试的 <code>main.go</code> 文件内容为：</p>
+<blockquote>
+</blockquote>
+<pre><code>package main
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;github.com/zenazn/goji&quot;
+    &quot;github.com/zenazn/goji/web&quot;
+)
+func hello(c web.C, w http.ResponseWriter, r *http.Request) {
+     fmt.Fprintf(w, &quot;Hello, %s!&quot;, c.URLParams[&quot;name&quot;])
+}
+func main() {
+    goji.Get(&quot;/hello/:name&quot;, hello)
+    goji.Serve()
+}
+</code></pre>
+<p>示例程序中使用到了第三方 <code>goji</code> 库。</p>
+<h4 id="4-获取第三方库文件">4. 获取第三方库文件</h4>
+<p>使用命令 <code>go get</code> 获取依赖的第三方库文件，如下：</p>
+<blockquote>
+</blockquote>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls
+main.go  vendor.j
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ go get
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls
+main.go  vendor.j
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ cd ..
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ ls
+github.com ou
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ cd github.com/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/github.com$ ls
+zenazn
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/github.com$ cd zenazn/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/github.com/zenazn$ ls
+goji
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/github.com/zenazn$ cd goji/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/github.com/zenazn/goji$ ls
+LICENSE            bind               example            graceful           serve_appengine.go
+README.md          default.go         goji.go            serve.go           web
+</code></pre>
+<p>从上可知，在 <code>$GOPATH/src</code> 目录下出现了第三方依赖库的目录 <code>github.com/zenazn/goji/</code> 树。</p>
+<p>在获取到第三方库文件后，使用命令 <code>go build</code> 就会生成可执行文件，或使用命令 <code>go run main.go</code> 直接运行程序。</p>
+<p>到这里，会发现还是使用老方法来运行程序的，并没有使用到本文要讨论的话题：<strong>如何使用 vendor 特性？</strong></p>
+<h4 id="5-使用-vendor-特性">5. 使用 vendor 特性</h4>
+<p>为了使用上新的 <code>vendor</code> 特性，需要做一些操作：</p>
+<blockquote>
+</blockquote>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/xyz$ pwd
+/Users/thinkerou/xyz
+thinkerou@MacBook-Pro-thinkerou:~/xyz$ ls
+bin pkg src
+thinkerou@MacBook-Pro-thinkerou:~/xyz$ cd src/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ ls
+github.com ou
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src$ cd ou/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ ls
+main.go vendor
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou$ cd vendor/
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ ls
+vendor.json
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ mv ../../github.com .
+thinkerou@MacBook-Pro-thinkerou:~/xyz/src/ou/vendor$ ls
+github.com  vendor.json
+</code></pre>
+<p>从上可知，使用原来的老方法，在 <code>$GOPATH</code> 目录下已经产生了 <code>bin</code> 和 <code>pkg</code> 目录，都是熟知的。</p>
+<p>为了支持 <code>vendor</code> 特性，需要将使用 <code>go get</code> 命令获取到的第三方目录 <code>剪切或复制</code> 到 <code>src/my-program-name/vendor/</code> 目录下。</p>
+<p>如此，使用命令 <code>go build</code> 或 <code>go run main.go</code> 即可执行程序，并不会去重新下载依赖的第三方库文件，而是直接使用 <code>vendor</code> 目录下的文件。</p>
+<h4 id="6-白话-vendor-原理">6. 白话 vendor 原理</h4>
+<p>简单来说，<code>vendor</code> 的原理就是：</p>
+<blockquote>
+<p>在执行 <code>go build</code> 或 <code>go run</code> 命令时，会首先去判断 <code>vendor</code> 是否存在，以及是否存在依赖的第三方库文件，如果满足则使用之；否则，就走原来的流程去获取第三方库文件到 <code>$GOPATH/src/</code> 目录下。</p>
+</blockquote>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://stackoverflow.com/questions/37237036/how-should-i-use-vendor-in-go-1-6">How should I use vendor in Go 1.6?</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/go/wiki/PackageManagementTools">PackageManagementTools</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-method-values-pointers/' title = 'Go 语言 struct 方法该使用 pointer 还是 value 传值？' style = 'background-image: url(https://thinkerou.com/images/posts/park-4174278_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-method-values-pointers/'>Go 语言 struct 方法该使用 pointer 还是 value 传值？</a>
+    </h3>
+    <p class = 'pale'>在 Go 语言中 struct 方法可以使用 pointer 或 value 两种形式进行传值：
+func (s *MyStruct) pointerMethod() {} // …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/go-http-server-learn/' title = 'Go 语言 HTTP Server 源码学习' style = 'background-image: url(https://thinkerou.com/images/posts/dubrovnik-4169379_1280.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/go' class = 'post_tag'>Go
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/go-http-server-learn/'>Go 语言 HTTP Server 源码学习</a>
+    </h3>
+    <p class = 'pale'>1. HTTP Server 实现 在 Go 语言中， HTTP Server 是指支持 http 协议的服务器，HTTP 是一个简单的请求-响应协议，通常运行在 TCP 之上，通 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

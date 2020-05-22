@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>如何对模板类进行单元测试 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '如何对模板类进行单元测试' />
+<meta name="description" content="背景介绍 在对 C&#43;&#43; 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。
+具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对于模板类并没有进行测试，而是对其上层调用进行测试。
+现在的问题是，对于模板类需不需要进行单元测试或接口测试？被写成模板类，说明这个类是比较通 …">
+<meta property = 'og:description' content = '背景介绍 在对 C&#43;&#43; 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。
+具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对于模板类并没有进行测试，而是对其上层调用进行测试。
+现在的问题是，对于模板类需不需要进行单元测试或接口测试？被写成模板类，说明这个类是比较通 …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/how-test-template-using-gtest/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/stuck.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '如何对模板类进行单元测试' />
+<meta property = 'twitter:description'  content = '背景介绍 在对 C&#43;&#43; 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。
+具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对于模板类并没有进行测试，而是对其上层调用进行测试。
+现在的问题是，对于模板类需不需要进行单元测试或接口测试？被写成模板类，说明这个类是比较通 …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/stuck.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/how-test-template-using-gtest/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/stuck.jpg);'>
+  <h1 class='post_title'>如何对模板类进行单元测试</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="背景介绍">背景介绍</h2>
+<p>在对 C++ 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。</p>
+<p>具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对于模板类并没有进行测试，而是对其上层调用进行测试。</p>
+<p>现在的问题是，对于模板类需不需要进行单元测试或接口测试？被写成模板类，说明这个类是比较通用且很多地方都在使用它，所以我认为还是有必要进行测试的。</p>
+<h2 id="如何测试单参数模板类">如何测试单参数模板类</h2>
+<p>现有如下一个模板类：</p>
+<pre><code>// 不用纠结于细节，只为说明。
+template &lt;typename E&gt;
+class Queue
+{
+public:
+    Queue()
+    {
+    }
+
+    void Enqueue(const E&amp; element)
+    {
+    }
+
+    E* Dequeue()
+    {
+    }
+
+    size_t size() const 
+    {
+        return (size_t)123;
+    }
+};
+</code></pre>
+<p>那么使用 gtest 该如何对该类进行测试呢？</p>
+<h3 id="第一步需要构建工厂类用于创建被测试类">第一步：需要构建工厂类，用于创建被测试类：</h3>
+<pre><code>// 主模板类
+template &lt;class T&gt;
+Queue&lt;T&gt;* CreateQueue();
+
+// 全特化版本1
+template &lt;&gt;
+Queue&lt;int&gt;* CreateQueue&lt;int&gt;()
+{
+    return new Queue &lt; int &gt; ;
+}
+
+// 全特化版本2
+template &lt;&gt;
+Queue&lt;char&gt;* CreateQueue&lt;char&gt;()
+{
+    return new Queue &lt; char &gt; ;
+}
+</code></pre>
+<h3 id="第二步编写测试类">第二步，编写测试类：</h3>
+<pre><code>template &lt;class T&gt;
+class QueueTest : public testing::Test
+{
+protected:
+    QueueTest() : queue(CreateQueue&lt;T&gt;())
+    {
+    }
+
+    virtual ~QueueTest()
+    {
+        delete queue;
+    }
+
+    Queue&lt;T&gt;* const queue;
+};
+</code></pre>
+<h3 id="第三步定义需要测试的类型列表">第三步，定义需要测试的类型列表：</h3>
+<pre><code>typedef ::testing::Types&lt;int, char&gt; Implementations;
+</code></pre>
+<h3 id="第四步编写测试用例">第四步，编写测试用例：</h3>
+<pre><code>TYPED_TEST_CASE(QueueTest, Implementations);
+TYPED_TEST(QueueTest, DefaultConstructor)
+{
+    EXPECT_EQ(123, this-&gt;queue-&gt;size());
+}
+</code></pre>
+<h3 id="第五步运行用例查看结果">第五步，运行用例，查看结果。</h3>
+<p><strong>特别说明</strong></p>
+<p>如果使用 <code>--gtest_filter</code> 进行过滤，则不能写为这样的形式：</p>
+<pre><code>--gtest_filter=QueueTest.DefaultConstructor
+--gtest_filter=QueueTest.*
+</code></pre>
+<p>**原因：**因为后面带了 <code>/n</code>，n表示数字。</p>
+<p>而应该使用如下形式：</p>
+<pre><code>--gtest_filter=QueueTest*
+</code></pre>
+<p><strong>在前面的例子中，被测试模板类只有一个类型参数，如果是多个类型参数呢，那该如何测试？</strong></p>
+<pre><code>// 现在有两个类型参数
+template &lt;class E, class F&gt;
+class QueueNew
+{
+public:
+    QueueNew() {}
+    void Enqueue(const E&amp; element) {}
+    E* Dequeue() {}
+    F size() const 
+    {
+        return (F)123;
+    }
+};
+</code></pre>
+<blockquote>
+<p>可以静静的想几分钟，看看能不能有思路。</p>
+</blockquote>
+<h2 id="如何测试多参数模板类">如何测试多参数模板类</h2>
+<p>当被测试模板类有两个甚至多个类型参数时，再按前面例子的办法来进行就行不通了，因为 gtest 模板类测试宏仅接收一个模板参数，那该如何处理这个问题呢？</p>
+<p>我的做法是<strong>将多个参数放在一个结构体里，做成一个模板类</strong>，像这样写：</p>
+<pre><code>template &lt;class A, class B&gt;
+struct Params
+{
+    typedef typename A TypeA;
+    typedef typename B TypeB;
+};
+</code></pre>
+<p>那么，工厂类应该做出改变，写为如下：</p>
+<pre><code>template &lt;class I, class V&gt;
+QueueNew&lt;I, V&gt;* CreateQueueNew();
+
+template &lt;&gt;
+QueueNew&lt;int, int&gt;* CreateQueueNew&lt;int, int&gt;()
+{
+    return new QueueNew&lt;int, int&gt;;
+}
+template &lt;&gt;
+QueueNew&lt;char, char&gt;* CreateQueueNew&lt;char, char&gt;()
+{
+    return new QueueNew&lt;char, char&gt;;
+}
+</code></pre>
+<p>然后，测试框架随之改变为如下：</p>
+<pre><code>template &lt;class T&gt;
+class QueueNewUnitTest : public testing::Test
+{
+protected:
+    QueueNewUnitTest() : m_queue(CreateQueueNew&lt;typename T::TypeA, typename T::TypeB&gt;())
+    {
+    }
+
+    virtual ~QueueNewUnitTest()
+    {
+        delete m_queue;
+    }
+
+    void Setup()
+    {
+    }
+
+    void TearDown()
+    {
+    }
+
+    QueueNew&lt;typename T::TypeA, typename T::TypeB&gt;* const m_queue;
+};        
+</code></pre>
+<p>其中，<code>QueueNew</code> 是被测试模板类。</p>
+<p>同时需要改变需要测试的类型列表写法：</p>
+<pre><code>typedef ::testing::Types&lt;Params&lt;int, int&gt;, Params&lt;char, char&gt; &gt; Implementations;
+</code></pre>
+<p>这样一来就可以开始写测试用例，和前面的大同小异：</p>
+<pre><code>TYPED_TEST_CASE(QueueNewUnitTest, Implementations);
+
+TYPED_TEST(QueueNewUnitTest, DefaultConstructor)
+{
+    // 如果需要使用类型，就需要写如下代码
+    typename TypeParam::TypeA someA;
+    typename TypeParam::TypeB someB;
+
+    ASSERT_EQ(0, this-&gt;m_queue-&gt;length());
+	
+    // 假设有push_back 和 push_front函数
+    ASSERT_TRUE(this-&gt;m_queue-&gt;push_back(someA, someB));
+    ASSERT_TRUE(this-&gt;m_queue-&gt;push_front(someA, someB));
+    this-&gt;m_queue-&gt;clear();
+}
+</code></pre>
+<p>运行结果依然如预期。</p>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/gtest-dll/' title = '使用 gtest 给 DLL 工程编写单元测试' style = 'background-image: url(https://thinkerou.com/images/speakers.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/gtest' class = 'post_tag'>gtest
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/gtest-dll/'>使用 gtest 给 DLL 工程编写单元测试</a>
+    </h3>
+    <p class = 'pale'>背景说明 任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C++ 使用比较广泛的单元测试框架应该非 googletest 莫属了。
+通常在工程代码中，使用 gtest …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>Github 上给开源项目提交 p r 前如何清理无关的提交信息 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'Github 上给开源项目提交 PR 前如何清理无关的提交信息' />
+<meta name="description" content="背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回复的：
+ Can you please send this PR without all of the irrelevant …">
+<meta property = 'og:description' content = '背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回复的：
+ Can you please send this PR without all of the irrelevant …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/git-clean-up-extra-commits/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/frustrated.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'Github 上给开源项目提交 PR 前如何清理无关的提交信息' />
+<meta property = 'twitter:description'  content = '背景 最近在学习 gRPC 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说提交代码时应该把无关的提交历史给删除，具体回复是这样的：
+@murgatroid99 这么回复的：
+ Can you please send this PR without all of the irrelevant …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/frustrated.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/git-clean-up-extra-commits/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/frustrated.jpg);'>
+  <h1 class='post_title'>Github 上给开源项目提交 PR 前如何清理无关的提交信息</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="背景">背景</h2>
+<p>最近在学习 <a href="https://github.com/grpc/grpc">gRPC</a> 的过程中尝试给项目提一些代码，但是得到项目组的两位大牛回复说<strong>提交代码时应该把无关的提交历史给删除</strong>，具体回复是这样的：</p>
+<p>@murgatroid99 <a href="https://github.com/grpc/grpc/pull/6848">这么回复的</a>：</p>
+<blockquote>
+<p>Can you please send this PR without all of the irrelevant commits? All of the changes for this PR are in the second-to-last commit.</p>
+</blockquote>
+<p>@ctiller <a href="https://github.com/grpc/grpc/pull/6932">这么回复的</a>：</p>
+<blockquote>
+<p>I&rsquo;m not sure we want this to be blanket turned on for all platforms.</p>
+</blockquote>
+<blockquote>
+<p>Also, it&rsquo;d be good to clean up some of the spurious unrelated commits here.</p>
+</blockquote>
+<p>我能看懂他们说的是什么，就是说我提交代码时有太多的无关的提交历史应该清理了再提交，像<a href="https://thinkerou.com/static/image/clean_up_commit_before.png">这样</a>的：</p>
+<p><img src="https://thinkerou.com/static/image/clean_up_commit_before.png" alt="清理历史前的样子"></p>
+<p>这确实是个问题，那该如何清理呢？</p>
+<h2 id="解决方案">解决方案</h2>
+<h4 id="1-使用命令-git-checkout-branch-name">1. 使用命令 <code>git checkout branch-name</code></h4>
+<p>切换到待清理的分支：</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git checkout default_roots_pem
+Switched to branch 'default_roots_pem'
+</code></pre>
+<h4 id="2-使用命令-git-rebase--i-version-id">2. 使用命令 <code>git rebase -i version-id</code></h4>
+<p>指定 base 为需要删除的提交的前一次提交，其中 <code>version-id</code> 是通过命令 <code>git log</code> 根据需要选择的。</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git rebase -i fa9b7c1bc6488be17d18007f45c57dac39ea5b79
+Successfully rebased and updated refs/heads/default_roots_pem.
+</code></pre>
+<p>执行该命令后会弹出<a href="https://thinkerou.com/static/image/clean_up_pick_before.png">文本信息</a>，里面记录了相关的提交日志：</p>
+<p><img src="https://thinkerou.com/static/image/clean_up_pick_before.png" alt="清理文本信息前的样子"></p>
+<p>然后将里面无关的 <code>pick</code> 信息删除，就变成<a href="https://thinkerou.com/static/image/clean_up_pick_after.png">这样</a>的了：</p>
+<p><img src="https://thinkerou.com/static/image/clean_up_pick_after.png" alt="清理文本信息后的样子"></p>
+<p>保存文本后退出编辑，如果有冲突需要根据提示进行冲突处理。</p>
+<p>当有冲突时，在保存文本文件退出后会有提示，然后运行 <code>git rebase --continue</code> 命令就会出现哪些文件产生了冲突：</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git rebase -i fa9b7c1bc6488be17d18007f45c57dac39ea5b79
+
+It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+    git rebase (--continue | --abort | --skip)
+If that is not the case, please
+    rm -fr &quot;/Users/thinkerou/Documents/opensource/grpc/.git/rebase-merge&quot;
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git rebase --continue
+src/core/lib/surface/server.c: needs merge
+You must edit all merge conflicts and then
+mark them as resolved using git add
+</code></pre>
+<p>然后打开提示有冲突的文件，搜索 <code>&lt;&lt;&lt;&lt;</code> 或 <code>&gt;&gt;&gt;&gt;</code> 就能找到冲突的地方，进行合并处理后保存文件，并使用命令 <code>git add file-name</code> 进行文件添加。</p>
+<p>然后继续运行 <code>git rebase --continue</code> 命令，这时会弹出文本信息，将刚刚修改的文件提交信息前的 <code>#</code> 去掉后保存。</p>
+<p>重复上面的步骤，直到提示成功为止。</p>
+<blockquote>
+<p>核心步骤：</p>
+</blockquote>
+<blockquote>
+<p>git rebase &ndash;continue</p>
+</blockquote>
+<blockquote>
+<p>修改冲突文件并保存</p>
+</blockquote>
+<blockquote>
+<p>git add filename</p>
+</blockquote>
+<blockquote>
+<p>git rebase &ndash;continue</p>
+</blockquote>
+<blockquote>
+<p>修改弹出的文本信息里关于 filename 文件提交信息前的 <code>#</code></p>
+</blockquote>
+<blockquote>
+<p>重复上述步骤直到提示成功方可进行正式提交</p>
+</blockquote>
+<h4 id="3-使用命令-git-push--f-origin-branch-name">3. 使用命令 <code>git push -f origin branch-name</code></h4>
+<p>将更新提交到 <code>Github</code> 上，但是这里跟平常的 <code>push</code> 有所区别的是，需要参数 <code>-f</code> 执行强制提交，是因为当前本地的历史和远端的历史已经出现的分歧。</p>
+<pre><code>thinkerou@MacBook-Pro-thinkerou:~/Documents/opensource/grpc$ git push -f origin default_roots_pem
+Username for 'https://github.com': thinkerou
+Password for 'https://thinkerou@github.com':
+Counting objects: 15, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (13/13), done.
+Writing objects: 100% (15/15), 1.57 KiB | 0 bytes/s, done.
+Total 15 (delta 11), reused 0 (delta 0)
+To https://github.com/thinkerou/grpc.git
++ 1e60d3d...f3bc3b6 default_roots_pem -&gt; default_roots_pem (forced update)
+</code></pre>
+<p>这些操作完成后，在源项目的 <code>Pull requests</code> 下就会变成<a href="https://thinkerou.com/static/image/clean_up_commit_after.png">这样</a>：</p>
+<p><img src="https://thinkerou.com/static/image/clean_up_commit_after.png" alt="清理历史后的样子"></p>
+<p>至此问题解决，结果看起来也清爽了很多。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">Git Branching-Rebasing</a></li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/git-commit-open-source/' title = 'Github 上 Fork 项目后如何提交 PR' style = 'background-image: url(https://thinkerou.com/images/speakers.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/git' class = 'post_tag'>Git
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/git-commit-open-source/'>Github 上 Fork 项目后如何提交 PR</a>
+    </h3>
+    <p class = 'pale'>问题描述 在 Github 上 Fork 项目后如何同步源项目的更新 一文中已经介绍了 Fork 别人项目后如何同步其更新，本文要介绍的是 Fork 别人项目后如何提交 PR？
+解 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/git-fork-sync/' title = 'Github 上 Fork 项目后如何同步源项目的更新' style = 'background-image: url(https://thinkerou.com/images/read.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/git' class = 'post_tag'>Git
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/git-fork-sync/'>Github 上 Fork 项目后如何同步源项目的更新</a>
+    </h3>
+    <p class = 'pale'>问题背景 最近 Fork 了 grpc 到我的 Github 帐号grpc下，以学习之然后记录点笔记上传，但是过段时间后发现原来的项目已经有了很多代码提交，那么我该如何将这些新提交 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

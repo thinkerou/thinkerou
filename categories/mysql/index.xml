@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on thinkerou</title>
+    <link>https://thinkerou.com/categories/mysql/</link>
+    <description>Recent content in MySQL on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 13 Dec 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MySQL 快速入门</title>
+      <link>https://thinkerou.com/post/mysql-guide/</link>
+      <pubDate>Sun, 13 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/mysql-guide/</guid>
+      <description>概览 最近开始在 LNMP 环境下进行工作，虽说对于 MySQL 这块内容暂时还排不上时间进行深入学习，比如阅读《高性能 MySQL》等书籍，但是对于一些基本操作、基本语句还是需要先系统进行学习。
+1. 安装 MySQL  本文里的安装环境为：Mac OS X
+ 在《Nginx 与 PHP 环境搭建》一文里已经提到，在 Mac 上使用 brew 来进行安装包的管理，使用如下命令安装 mysql：
+ brew install mysql
+ 安装成功后，MySQL 的各种信息会出现在目录下：
+ /usr/local/Cellar/mysql/5.7.9
+ 该目录下有这样一些文件：
+COPYING	include INSTALL-BINARY	lib INSTALL_RECEIPT.json	mysql-test README	scripts bin	share homebrew.mxcl.mysql.plist	support-files  目录 bin 包括 mysql、mysqld 、mysql.server 等常见命令，具体包括：
+innochecksum	mysqladmin my_print_defaults	mysqlbinlog myisam_ftdump	mysqlcheck myisamchk	mysqld myisamlog	mysqld_multi myisampack	mysqld_safe mysql	mysqldump mysql.server	mysqldumpslow mysql_client_test	mysqlimport mysql_client_test_embedded	mysqlpump mysql_config	mysqlshow mysql_config_editor	mysqlslap mysql_embedded	mysqltest mysql_install_db	mysqltest_embedded mysql_plugin	perror mysql_secure_installation	replace mysql_ssl_rsa_setup	resolve_stack_dump mysql_tzinfo_to_sql	resolveip mysql_upgrade  2.</description>
+    </item>
+    
+  </channel>
+</rss>

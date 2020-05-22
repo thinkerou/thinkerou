@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>P h p 代码规范摘记 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'PHP 代码规范摘记' />
+<meta name="description" content="概览   PHP 代码文件必须以 &lt;?php 或 &lt;?= 标签开始；
+  PHP 代码文件必须以 不带BOM的 UTF-8 编码；
+  PHP 代码中应该只定义类、函数、常量等声明，或其他会产生 从属效应 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一； …">
+<meta property = 'og:description' content = '概览   PHP 代码文件必须以 &lt;?php 或 &lt;?= 标签开始；
+  PHP 代码文件必须以 不带BOM的 UTF-8 编码；
+  PHP 代码中应该只定义类、函数、常量等声明，或其他会产生 从属效应 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一； …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/php-coding-style/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/stuck.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'PHP 代码规范摘记' />
+<meta property = 'twitter:description'  content = '概览   PHP 代码文件必须以 &lt;?php 或 &lt;?= 标签开始；
+  PHP 代码文件必须以 不带BOM的 UTF-8 编码；
+  PHP 代码中应该只定义类、函数、常量等声明，或其他会产生 从属效应 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一； …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/stuck.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/php-coding-style/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/stuck.jpg);'>
+  <h1 class='post_title'>PHP 代码规范摘记</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="概览">概览</h2>
+<ul>
+<li>
+<p>PHP 代码文件<strong>必须</strong>以 <code>&lt;?php</code> 或 <code>&lt;?=</code> 标签开始；</p>
+</li>
+<li>
+<p>PHP 代码文件<strong>必须</strong>以 <code>不带BOM的 UTF-8</code> 编码；</p>
+</li>
+<li>
+<p>PHP 代码中<strong>应该</strong>只定义类、函数、常量等声明，或其他会产生 <code>从属效应</code> 的操作（如：生成文件输出以及修改ini配置文件等），二者只能选其一；</p>
+</li>
+<li>
+<p>类的命名<strong>必须</strong>遵循 <code>StudlyCaps</code> 大写开头的驼峰命名规范；</p>
+</li>
+<li>
+<p>类中的常量所有字母都<strong>必须</strong>大写，单词间用下划线分隔；</p>
+</li>
+<li>
+<p>方法名称<strong>必须</strong>符合 <code>camelCase</code> 式的小写开头驼峰命名规范；</p>
+</li>
+<li>
+<p>代码<strong>必须</strong>使用4个空格符而不是 tab键 进行缩进；</p>
+</li>
+<li>
+<p>每个 <code>namespace</code> 命名空间声明语句和 <code>use</code> 声明语句块后面，<strong>必须</strong>插入一个空白行；</p>
+</li>
+<li>
+<p>类的开始花括号(<code>{</code>)<strong>必须</strong>写在函数声明后自成一行，结束花括号(<code>}</code>)也<strong>必须</strong>写在函数主体后自成一行；</p>
+</li>
+<li>
+<p>方法的开始花括号(<code>{</code>)<strong>必须</strong>写在函数声明后自成一行，结束花括号(<code>}</code>)也<strong>必须</strong>写在函数主体后自成一行；</p>
+</li>
+<li>
+<p>类的属性和方法<strong>必须</strong>添加访问修饰符（<code>private</code>、<code>protected</code> 以及 <code>public</code>）， <code>abstract</code> 以及 <code>final</code> <strong>必须</strong>声明在访问修饰符之前，而 <code>static</code> <strong>必须</strong>声明在访问修饰符之后；</p>
+</li>
+<li>
+<p>控制结构的关键字后<strong>必须</strong>要有一个空格符，而调用方法或函数时则<strong>一定不能</strong>有空格符；</p>
+</li>
+<li>
+<p>控制结构的开始花括号(<code>{</code>)<strong>必须</strong>写在声明的同一行，而结束花括号(<code>}</code>)<strong>必须</strong>写在主体后自成一行；</p>
+</li>
+<li>
+<p>控制结构的开始左括号后和结束右括号前，都<strong>一定不能</strong>有空格符。</p>
+</li>
+</ul>
+<blockquote>
+<p>以下例子程序简单展示了以上大部分规范：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+use FooInterface;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+class Foo extends Bar implements FooInterface
+{
+    public function sampleFunction($a, $b = null)
+    {
+        if ($a === $b) {
+            bar();
+        } elseif ($a &gt; $b) {
+            $foo-&gt;bar($arg1);
+        } else {
+            BazClass::bar($arg2, $arg3);
+        }
+    }
+
+    final public static function bar()
+    {
+        // method body
+    }
+}
+</code></pre>
+<h2 id="通用规则">通用规则</h2>
+<h4 id="1-文件">1. 文件</h4>
+<p>所有 PHP 文件<strong>必须</strong>以一个空白行作为结束；</p>
+<p>纯 PHP 代码文件<strong>必须</strong><code>省略</code>最后的 <code>?&gt;</code> 结束标签。</p>
+<h4 id="2-缩进">2. 缩进</h4>
+<p>代码<strong>必须</strong>使用4个空格符的缩进，<strong>一定不能</strong>用 tab键 。</p>
+<blockquote>
+<p>备注：
+使用空格而不是 tab 键缩进的好处在于避免在比较代码差异、打补丁、重阅代码以及注释时产生混淆。</p>
+</blockquote>
+<h4 id="3-关键字及-truefalsenull">3. 关键字及 True/False/Null</h4>
+<p>PHP 所有<a href="http://php.net/manual/en/reserved.keywords.php">关键字</a><strong>必须</strong>全部<code>小写</code>；</p>
+<p>常量 <code>true</code> 、<code>false</code> 和 <code>null</code> 也<strong>必须</strong>全部<code>小写</code>。</p>
+<h2 id="namespace-及-use-声明">namespace 及 use 声明</h2>
+<p><code>namespace</code> 声明后<strong>必须</strong>插入一个空白行；</p>
+<p>所有 <code>use</code> <strong>必须</strong>在 <code>namespace</code> 后声明；</p>
+<p>每条 <code>use</code> 声明语句<strong>必须</strong>只有一个 <code>use</code> 关键词；</p>
+<p><code>use</code> 声明语句块后<strong>必须</strong>要有一个空白行。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+use FooClass;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+// ... additional PHP code ...
+</code></pre>
+<h2 id="类属性和方法">类、属性和方法</h2>
+<blockquote>
+<p>注：这里的“类”泛指所有的 class 类、接口和 traits 可复用代码块。</p>
+</blockquote>
+<h4 id="1-扩展与继承">1. 扩展与继承</h4>
+<p>关键词 <code>extends</code> 和 <code>implements</code><strong>必须</strong>写在类名称的同一行；</p>
+<p>类的开始花括号<strong>必须</strong>独占一行，结束花括号也<strong>必须</strong>在类主体后独占一行。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+use FooClass;
+use BarClass as Bar;
+use OtherVendor\OtherPackage\BazClass;
+
+class ClassName extends ParentClass implements \ArrayAccess, \Countable
+{
+    // constants, properties, methods
+}
+</code></pre>
+<h4 id="2-属性">2. 属性</h4>
+<p>每个属性都<strong>必须</strong>添加访问修饰符；</p>
+<p><strong>一定不可</strong>使用关键字 <code>var</code> 声明一个属性；</p>
+<p>每条语句<strong>一定不可</strong>定义超过一个属性；</p>
+<p><strong>不要</strong>使用下划线作为前缀，来区分属性是 protected 或 private。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public $foo = null;
+}
+</code></pre>
+<h4 id="3-方法">3. 方法</h4>
+<p>所有方法都<strong>必须</strong>添加访问修饰符；</p>
+<p><strong>不要</strong>使用下划线作为前缀，来区分方法是 protected 或 private；</p>
+<p>方法名称后<strong>一定不能</strong>有空格符，其开始花括号<strong>必须</strong>独占一行，结束花括号也<strong>必须</strong>在方法主体后单独成一行。参数左括号后和右括号前<strong>一定不能</strong>有空格；</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public function fooBarBaz($arg1, &amp;$arg2, $arg3 = [])
+    {
+        // method body
+    }
+}   
+</code></pre>
+<h4 id="4-方法参数">4. 方法参数</h4>
+<p>参数列表中，每个逗号后面<strong>必须</strong>要有一个空格，而逗号前面<strong>一定不能</strong>有空格；</p>
+<p>有默认值的参数，<strong>必须</strong>放到参数列表的末尾。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+class ClassName
+{
+    public function foo($arg1, &amp;$arg2, $arg3 = [])
+    {
+        // method body
+    }
+}
+</code></pre>
+<h4 id="5-abstract--final-以及-static">5. <code>abstract</code> 、 <code>final</code> 以及 <code>static</code></h4>
+<p>需要添加 <code>abstract</code> 或 <code>final</code> 声明时， <strong>必须</strong>写在访问修饰符前，而 <code>static</code> 则<strong>必须</strong>写在其后。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+namespace Vendor\Package;
+
+abstract class ClassName
+{
+    protected static $foo;
+
+    abstract protected function zim();
+
+    final public static function bar()
+    {
+        // method body
+    }
+}
+</code></pre>
+<h4 id="6-方法及函数调用">6. 方法及函数调用</h4>
+<p>方法及函数调用时，方法名或函数名与参数左括号之间<strong>一定不能</strong>有空格，参数右括号前也<strong>一定不能</strong>有空格，每个参数前<strong>一定不能</strong>有空格，但其后<strong>必须</strong>有一个空格。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+bar();
+$foo-&gt;bar($arg1);
+Foo::bar($arg2, $arg3);
+</code></pre>
+<h2 id="控制结构">控制结构</h2>
+<p>控制结构的基本规范如下：</p>
+<ul>
+<li>控制结构关键词后<strong>必须</strong>有一个空格；</li>
+<li>左括号 <code>(</code> 后<strong>一定不能</strong>有空格；</li>
+<li>右括号 <code>)</code> 前也<strong>一定不</strong>能有空格；</li>
+<li>右括号 <code>)</code> 与开始花括号 <code>{</code> 间<strong>一定</strong>有一个空格；</li>
+<li>结构体主体<strong>一定</strong>要有一次缩进；</li>
+<li>结束花括号 <code>}</code> <strong>一定</strong>在结构体主体后单独成行。</li>
+</ul>
+<p>每个结构体的主体都<strong>必须</strong>被包含在成对的花括号之中，这能让结构体更加结构化，以及减少加入新行时出错的可能性。</p>
+<h4 id="1-if-elseif-和-else">1. <code>if</code>、 <code>elseif</code> 和 <code>else</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+if ($expr1) {
+    // if body
+} elseif ($expr2) {
+    // elseif body
+} else {
+    // else body;
+}
+</code></pre>
+<p><strong>应该</strong>使用关键词 <code>elseif</code> 代替所有 <code>else if</code> ，以使得所有的控制关键字都像是单独的一个词。</p>
+<h4 id="2-switch-和-case">2. <code>switch</code> 和 <code>case</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+switch ($expr) {
+    case 0:
+        echo 'First case, with a break';
+        break;
+    case 1:
+        echo 'Second case, which falls through';
+        // no break
+    case 2:
+    case 3:
+    case 4:
+        echo 'Third case, return instead of break';
+        return;
+    default:
+        echo 'Default case';
+        break;
+}
+</code></pre>
+<blockquote>
+<p>如果存在非空的 <code>case</code> 直穿语句，主体里必须有类似 <code>// no break</code> 的注释。</p>
+</blockquote>
+<h4 id="3-while-和-do-while">3. <code>while</code> 和 <code>do while</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+while ($expr) {
+    // structure body
+}
+
+do {
+    // structure body;
+} while ($expr);
+</code></pre>
+<h4 id="4-for">4. <code>for</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+for ($i = 0; $i &lt; 10; $i++) {
+    // for body
+}
+</code></pre>
+<h4 id="5-foreach">5. <code>foreach</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+foreach ($iterable as $key =&gt; $value) {
+    // foreach body
+}
+</code></pre>
+<h4 id="6-try-catch">6. <code>try</code>, <code>catch</code></h4>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+try {
+    // try body
+} catch (FirstExceptionType $e) {
+    // catch body
+} catch (OtherExceptionType $e) {
+    // catch body
+}
+</code></pre>
+<h2 id="闭包">闭包</h2>
+<p>声明闭包时关键词 <code>function</code> 后及关键词 <code>use</code> 的前后都<strong>必须</strong>要有一个空格；</p>
+<p>开始花括号<strong>必须</strong>写在声明的同一行，结束花括号<strong>必须</strong>紧跟主体结束的下一行；</p>
+<p>参数列表和变量列表的左括号后以及右括号前<strong>必须不能</strong>有空格；</p>
+<p>参数和变量列表中，逗号前<strong>必须不能</strong>有空格，而逗号后<strong>必须</strong>要有空格；</p>
+<p>闭包中有默认值的参数<strong>必须</strong>放到列表的后面。</p>
+<blockquote>
+<p>示例代码如下：</p>
+</blockquote>
+<pre><code>&lt;?php
+$closureWithArgs = function ($arg1, $arg2) {
+    // body
+};
+
+$closureWithArgsAndVars = function ($arg1, $arg2) use ($var1, $var2) {
+    // body
+};
+</code></pre>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://www.php-fig.org/">PHP-FIG</a></p>
+</li>
+<li>
+<p><a href="https://github.com/PizzaLiu/PHP-FIG">Github PSR 中文版</a></p>
+</li>
+</ul>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-to-php7/' title = '更新 PHP5 扩展到 PHP7(NG) 记录' style = 'background-image: url(https://thinkerou.com/images/artist.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-to-php7/'>更新 PHP5 扩展到 PHP7(NG) 记录</a>
+    </h3>
+    <p class = 'pale'>升级扩展到 PHP7 记录 最近在学习 PHP 、grpc 以及 PHP(PHP7) 扩展编写，但是由于 PHP7 内核更新，扩展接口也有很大变动，先前基于 PHP5 编写的扩展并 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-guide/' title = '编写 PHP 扩展入门' style = 'background-image: url(https://thinkerou.com/images/simple.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-guide/'>编写 PHP 扩展入门</a>
+    </h3>
+    <p class = 'pale'>环境 文中示例 PHP 扩展的环境为：
+ Mac OS PHP7  在开始编写 PHP 扩展前需要准备如下环境：
+ PHP7 源码 使用 brew 安装 libtool  编写 环 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

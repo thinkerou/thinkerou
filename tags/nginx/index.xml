@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nginx on thinkerou</title>
+    <link>https://thinkerou.com/tags/nginx/</link>
+    <description>Recent content in Nginx on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Sep 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx 与 PHP 环境搭建</title>
+      <link>https://thinkerou.com/post/nginx-php-fpm/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/nginx-php-fpm/</guid>
+      <description>基础工具 为了快速便捷的在本机（Mac OS）上搭建 Nginx+PHP 环境，首先安装 OS X 系统中最受欢迎的包管理工具 Homebrew。
+使用如下命令进行 Homebrew 安装：
+ ruby -e &amp;ldquo;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+ Homebrew 有如下常用的命令：
+ brew install &amp;lt;package_name&amp;gt; #安装一个包
+  brew update #更新 Homebrew 在服务端上的包目录
+  brew upgrade &amp;lt;package_name&amp;gt; #更新一个包
+  brew list &amp;ndash;versions #查看已安装的包列表（包括版本号）
+ Nginx 与 PHP 安装 1. PHP 与 PHP-FPM 环境设置 Mac 系统已经自带安装了 PHP 环境，所以这里不再安装，可以使用如下命令查看自带版本是否为需要的版本：
+ php -v
+  php-fpm -v
+ 验证版本满足需求后即可，否则使用 brew install 进行安装。</description>
+    </item>
+    
+  </channel>
+</rss>

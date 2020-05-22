@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on thinkerou</title>
+    <link>https://thinkerou.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何在 Go 语言中实现单例模式</title>
+      <link>https://thinkerou.com/post/design-patterns-singleton-go/</link>
+      <pubDate>Sun, 14 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/design-patterns-singleton-go/</guid>
+      <description>有关单例模式的相关内容可以参考《设计模式之单例模式》
+单例模式的核心在于保证系统中一个类只有一个实例且该实例易于外界访问。
+1. 非线程安全 Lazy 方式 非线程安全的单例模式是最常见的实现方式，但是它不能在多线程情况下使用，在 Go 中实现如：
+type Singleton struct { // something } var instance *Singleton func GetInstance() *Singleton { if instance == nil { instance = &amp;amp;Singleton{} } return instance } 这种写法对应着 CPP 中的实现方式。
+2. 线程锁方式 在 Go 语言中提供了包 sync/mutex 用于构建多个 goroutine 间的同步逻辑。
+在 Go 中使用线程锁实现的单例模式，如下：
+type Singleton struct { // something } var ( instance *Singleton mtx Sync.Mutex ) func GetInstance() *Singleton { mtx.Lock() defer mtx.</description>
+    </item>
+    
+    <item>
+      <title>设计模式之单例模式</title>
+      <link>https://thinkerou.com/post/design-patterns-singleton/</link>
+      <pubDate>Sun, 26 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/design-patterns-singleton/</guid>
+      <description>1. 目的 保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+2. 动机 如何才能保证一个类只有一个实例，并且这个实例易于被访问？
+一个全局变量使得一个对象可以被访问，但它不能防止实例化多个对象。
+ 更好的办法是：让类自身负责保存它的唯一实例。
+ 这个类可以保证没有其它实例可以被创建，并且它可以提供一个访问该实例的方法，这就是单例（Singleton）模式。
+3. 适用性 单例模式适用于如下情况：
+ 当类只能有一个实例，且客户可以从一个众所周知的访问点访问它时； 当这个唯一实例应该是通过子类化扩展的，且客户应该无需更改代码就能使用一个扩展的实例时。  4. 参与者 定义一个 Instance 操作，允许客户访问它的唯一实例，Instance 是 C++ 中的一个静态成员函数；负责创建它自己的唯一实例。
+5. 协作 客户只能通过 Singleton 的 Instance 操作访问一个 Singleton 的实例。
+6. 效果   对唯一实例的受控访问
+ 因为 Singleton 类封装它的唯一实例，所以它可以严格的控制客户怎样以及何时访问它。    缩小名空间
+ 单例模式是对全局变量的改进，避免了哪些存储唯一实例的全局变量污染名空间。    允许对操作和表示的精化
+ Singleton 类可以有子类，且用这个扩展类的实例来配置一个应用是很容易的。    7. 实现 单例模式使得这个唯一实例是类的一般实例，但该类被写成只有一个实例能被创建，为了做到这的常用方法是：将创建这个实例的操作隐藏在一个类操作（即一个静态成员函数或是一个类方法）后面， 由它保证只有一个实例被创建。这个操作可以访问保存唯一实例的变量，而且它可以保证这个变量在返回值之前用这个唯一实例初始化。这种方法保证了单例在它首次使用前被创建和使用。
+在 C++ 中可以用 Singleton 类的静态成员函数 Instance 来定义这个类操作， Singleton 还定义一个静态成员变量 _instance，它包含一个指向它的唯一实例的指针。</description>
+    </item>
+    
+  </channel>
+</rss>

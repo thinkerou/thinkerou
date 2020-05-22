@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>使用 gtest 给 d l l 工程编写单元测试 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '使用 gtest 给 DLL 工程编写单元测试' />
+<meta name="description" content="背景说明 任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C&#43;&#43; 使用比较广泛的单元测试框架应该非 googletest 莫属了。
+通常在工程代码中，使用 gtest 比较广泛的方式是以 lib 的形式来做单元测试，这种方式使用也比较简单直接，本文就不再赘述。
+但是，对于大部分工程代码而言， …">
+<meta property = 'og:description' content = '背景说明 任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C&#43;&#43; 使用比较广泛的单元测试框架应该非 googletest 莫属了。
+通常在工程代码中，使用 gtest 比较广泛的方式是以 lib 的形式来做单元测试，这种方式使用也比较简单直接，本文就不再赘述。
+但是，对于大部分工程代码而言， …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/gtest-dll/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/speakers.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '使用 gtest 给 DLL 工程编写单元测试' />
+<meta property = 'twitter:description'  content = '背景说明 任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C&#43;&#43; 使用比较广泛的单元测试框架应该非 googletest 莫属了。
+通常在工程代码中，使用 gtest 比较广泛的方式是以 lib 的形式来做单元测试，这种方式使用也比较简单直接，本文就不再赘述。
+但是，对于大部分工程代码而言， …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/speakers.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/gtest-dll/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/speakers.jpg);'>
+  <h1 class='post_title'>使用 gtest 给 DLL 工程编写单元测试</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="背景说明">背景说明</h2>
+<p>任何时候给你的代码增加单元测试（或接口测试）都不晚，对于 C/C++ 使用比较广泛的单元测试框架应该非 <a href="https://code.google.com/p/googletest/">googletest</a> 莫属了。</p>
+<p>通常在工程代码中，使用 gtest 比较广泛的方式是<strong>以 lib 的形式</strong>来做单元测试，这种方式使用也比较简单直接，本文就不再赘述。</p>
+<p>但是，对于大部分工程代码而言，并不是只有 EXE 文件，通常这些 EXE 文件都会依赖至少一个 DLL 文件，同时这些 DLL 文件并不会导出所有函数或类，而仅导出极少的东西给外部使用。（注：本文仅讨论 gtest 在 windows 上的应用）</p>
+<p>那么，问题来了，该如何使用 gtest 对 DLL 里没有导出的函数或类做单元测试呢？</p>
+<h2 id="解决方案">解决方案</h2>
+<p>做为<a href="https://github.com/thinkerou/gtest-dll-test">示例</a>，假设整个 Solution 包含如下三个 project：</p>
+<ul>
+<li>
+<p>coreTest 工程：一个被 mainTest 工程应用的 DLL 库；</p>
+</li>
+<li>
+<p>mainTest 工程：整个 Solution 的 main 入口，调用 coreTest.dll 的 EXE 文件；</p>
+</li>
+<li>
+<p>unitTest 工程：将 gtest 包装成 DLL 的工程。</p>
+</li>
+</ul>
+<p>详细的代码示例及工程属性设置请阅读完整的<a href="https://github.com/thinkerou/gtest-dll-test">示例代码</a>。</p>
+<p>为了使用 gtest 对 DLL 里没有导出的函数或类进行单元测试，或许会有如下两种方法：</p>
+<ul>
+<li>
+<p>新建一个 EXE 工程，然后将所有被测文件包含进来，即可编写对应文件的 unittest，使用 gtest 的 lib 方式；</p>
+</li>
+<li>
+<p>将 gtest 包装成一个 DLL，然后直接在 DLL 工程里编写对应文件的 unittest。</p>
+</li>
+</ul>
+<p>第一种方式的问题就是容易出现各种文件路径不对的问题，甚至有的时候需要修改产品代码的头文件；</p>
+<p>第二种方式就没有那么多问题了，但是需要注意的是，<strong>对工程属性的设置一定要正确</strong>，下文详细介绍。</p>
+<h2 id="重要说明">重要说明</h2>
+<p>在编写 gtest DLL 和使用 gtest DLL 时需要设置工程属性，特别强调如下：</p>
+<ul>
+<li>
+<p>unitTest 工程需要添加 preprocessor 参数： <strong>GTEST_CREATE_SHARED_LIBRARY</strong></p>
+</li>
+<li>
+<p>在 unitTest DLL 工程里导出的 gtest 的 main 函数里需要<strong>显示 LoadLibrary(L&quot;coreTest.dll&rdquo;)</strong>，其他 DLL 类似</p>
+</li>
+<li>
+<p>在使用 unitTest DLL 的工程（DLL 和 EXE）里需要添加 preprocessor 参数：<strong>GTEST_LINKED_AS_SHARED_LIBRARY</strong></p>
+</li>
+<li>
+<p>在每个 unittest 文件里需要 <strong>#pragma comment(lib, &ldquo;unitTest.lib&rdquo;)</strong></p>
+</li>
+</ul>
+<p>**总结：**在工程中以 gtest DLL 的形式来编写单元测试就是这样的，重要的也容易出错的地方就是工程属性的设置。</p>
+<h2 id="参考资料">参考资料</h2>
+<blockquote>
+<p><a href="https://code.google.com/p/googletest/">gtest 官网</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/thinkerou/gtest-dll-test">示例代码</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://code.google.com/p/googletest/source/browse/trunk/README?r=638">gtest README</a></p>
+</blockquote>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/how-test-template-using-gtest/' title = '如何对模板类进行单元测试' style = 'background-image: url(https://thinkerou.com/images/stuck.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/gtest' class = 'post_tag'>gtest
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/how-test-template-using-gtest/'>如何对模板类进行单元测试</a>
+    </h3>
+    <p class = 'pale'>背景介绍 在对 C++ 项目进行单元测试时，基本都在使用 gtest 进行。无论是单元测试，还是接口测试。
+具体来说，就是对函数进行单元测试或接口测试，对模块进行集成测试。但是，对 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>那些踩过的 p h p 坑之 array merge 函数 | thinkerou</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.71.0" />
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '那些踩过的 PHP 坑之 array_merge 函数' />
+<meta name="description" content="函数 array_merge 坑在哪里 最近在使用函数 array_merge 合并两个数组时，得到的结果总是不确定，代码如这样：
+$arrResult = array_merge($arrInput1, $arrInput2);  如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变 …">
+<meta property = 'og:description' content = '函数 array_merge 坑在哪里 最近在使用函数 array_merge 合并两个数组时，得到的结果总是不确定，代码如这样：
+$arrResult = array_merge($arrInput1, $arrInput2);  如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变 …'>
+<meta property = 'og:url' content = 'https://thinkerou.com/post/php-array-merge/' />
+<meta property = 'og:image' content = 'https://thinkerou.com/images/stuck.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '那些踩过的 PHP 坑之 array_merge 函数' />
+<meta property = 'twitter:description'  content = '函数 array_merge 坑在哪里 最近在使用函数 array_merge 合并两个数组时，得到的结果总是不确定，代码如这样：
+$arrResult = array_merge($arrInput1, $arrInput2);  如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变 …'/>
+<meta name = 'twitter:image' content = 'https://thinkerou.com/images/stuck.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://thinkerou.com/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://thinkerou.com/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://thinkerou.com/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://thinkerou.com/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://thinkerou.com/post/php-array-merge/'>
+  <link rel = 'stylesheet' href = 'https://thinkerou.com/css/styles.c96fb35cdb82bc48464011f0651dba456b89bed82175473135ae0ecdd5badc854a5d80ae4f9d8df6b4b90e8d01e9a3c686bb8463c33c66f3bac235102d1c8b32.css' integrity = 'sha512-yW&#43;zXNuCvEhGQBHwZR26RWuJvtghdUcxNa4OzdW63IVKXYCuT52N9rS5Do0B6aPGhruEY8M8ZvO6wjUQLRyLMg=='>
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+      <a href = 'https://thinkerou.com/' class = 'nav_item'>Home</a>
+      <a href = 'https://thinkerou.com/about/' class = 'nav_item'>About</a>
+      <a href = 'https://thinkerou.com/blog/' class = 'nav_item'>Blog</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+    <a href='https://thinkerou.com/' class = 'nav-brand nav_item'>thinkerou</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+</header>
+
+
+    <main>
+<section class = 'post_header' style = 'background-image:url(https://thinkerou.com/images/stuck.jpg);'>
+  <h1 class='post_title'>那些踩过的 PHP 坑之 array_merge 函数</h1>
+</section>
+<div class = 'post'>
+  <article class='post_content'><h2 id="函数-array_merge-坑在哪里">函数 array_merge 坑在哪里</h2>
+<p>最近在使用函数 <code>array_merge</code> 合并两个数组时，得到的结果总是不确定，代码如这样：</p>
+<pre><code>$arrResult = array_merge($arrInput1, $arrInput2);
+</code></pre>
+<p>如果已踩过这个坑，肯定能一眼看出代码的潜在问题，以及如何避免，但是问题究竟是什么呢？变量 <code>$arrResult</code> 的值会根据函数 <code>array_merge</code> 的两个参数的类型及值而变化，如：<strong>键为数字的字典</strong>、<strong>null</strong> 等，详细问题解释说明请继续往下看！</p>
+<h2 id="函数-array_merge-说明">函数 array_merge 说明</h2>
+<p><strong>来自 PHP 官方网站的<code>array_merge</code>函数说明</strong></p>
+<blockquote>
+<p>函数功能：合并一个或多个数组</p>
+</blockquote>
+<blockquote>
+<p>函数原型：</p>
+</blockquote>
+<pre><code>array array_merge(array $array1[, array $...])
+</code></pre>
+<p>函数 <code>array_merge</code> 将一个或多个数组的单元合并，后一个数组中的值追加到前一个数组的后面，并作为函数结果返回。</p>
+<blockquote>
+<p>示例场景1：如果输入数组中有相同的<strong>字符串键名</strong>，则该键名后面的值将覆盖前一个值，如：</p>
+</blockquote>
+<pre><code>&lt;?php
+// PHP 5.6.15
+$a = array('hello' =&gt; 1, 'world' =&gt; 2);
+$b = array('hi' =&gt; 1, 'world' =&gt; 3);
+
+$c = array_merge($a, $b);
+var_dump($c);
+
+$d = array_merge($b, $a);
+var_dump($d);
+</code></pre>
+<p>执行脚本后的结果为：</p>
+<pre><code>array(3) {
+  [&quot;hello&quot;]=&gt;
+  int(1)
+  [&quot;world&quot;]=&gt;
+  int(3)
+  [&quot;hi&quot;]=&gt;
+  int(1)
+}
+array(3) {
+  [&quot;hi&quot;]=&gt;
+  int(1)
+  [&quot;world&quot;]=&gt;
+  int(2)
+  [&quot;hello&quot;]=&gt;
+  int(1)
+}
+</code></pre>
+<blockquote>
+<p>示例场景2：如果输入数组只有一个且为数字索引，即其中一个数组为 <code>array()</code>，则键名会<strong>以连续方式重新索引</strong>，如：</p>
+</blockquote>
+<pre><code>php &gt; $a = array(3 =&gt; 3, 2=&gt;2, 5=&gt;5);
+php &gt; $b = array_merge($a);
+php &gt; var_dump($b);
+array(3) {
+  [0]=&gt;
+  int(3)
+  [1]=&gt;
+  int(2)
+  [2]=&gt;
+  int(5)
+}
+php &gt; $c = array_merge($a, array());
+php &gt; var_dump($c);
+array(3) {
+  [0]=&gt;
+  int(3)
+  [1]=&gt;
+  int(2)
+  [2]=&gt;
+  int(5)
+}
+php &gt; $d = array_merge(array(), $a);
+php &gt; var_dump($d);
+array(3) {
+  [0]=&gt;
+  int(3)
+  [1]=&gt;
+  int(2)
+  [2]=&gt;
+  int(5)
+}
+</code></pre>
+<blockquote>
+<p>示例场景3：如果输入数组为标准的数组，即索引为默认的数字索引，则后面的值不会覆盖原来的值，而是追加到后面，如：</p>
+</blockquote>
+<pre><code>&lt;?php
+// PHP 5.6.15
+$a = array('hello', 20, 'world');
+$b = array(5, 'hello', 20);
+
+$c = array_merge($a, $b);
+var_dump($c);
+
+$d = array_merge($b, $a);
+var_dump($d);
+</code></pre>
+<p>执行脚本后的输出为：</p>
+<pre><code>array(6) {
+  [0]=&gt;
+  string(5) &quot;hello&quot;
+  [1]=&gt;
+  int(20)
+  [2]=&gt;
+  string(5) &quot;world&quot;
+  [3]=&gt;
+  int(5)
+  [4]=&gt;
+  string(5) &quot;hello&quot;
+  [5]=&gt;
+  int(20)
+}
+array(6) {
+  [0]=&gt;
+  int(5)
+  [1]=&gt;
+  string(5) &quot;hello&quot;
+  [2]=&gt;
+  int(20)
+  [3]=&gt;
+  string(5) &quot;hello&quot;
+  [4]=&gt;
+  int(20)
+  [5]=&gt;
+  string(5) &quot;world&quot;
+}
+</code></pre>
+<p>又如：</p>
+<pre><code>&lt;?php
+// PHP 5.6.15
+$a = array(10 =&gt; 1, 'world' =&gt; 2);
+$b = array('hi' =&gt; 1, 10 =&gt; 3);
+
+$c = array_merge($a, $b);
+var_dump($c);
+
+$d = array_merge($b, $a);
+var_dump($d);
+</code></pre>
+<p>执行脚本后的结果为：</p>
+<pre><code>array(4) {
+  [0]=&gt;
+  int(1)
+  [&quot;world&quot;]=&gt;
+  int(2)
+  [&quot;hi&quot;]=&gt;
+  int(1)
+  [1]=&gt;
+  int(3)
+}
+array(4) {
+  [&quot;hi&quot;]=&gt;
+  int(1)
+  [0]=&gt;
+  int(3)
+  [1]=&gt;
+  int(1)
+  [&quot;world&quot;]=&gt;
+  int(2)
+}
+</code></pre>
+<p>对于包含有数字索引的数组的合并结果是不是和预想的有些不一样呢？对于我这样的初学者来说，接下来会犯这样的错误的：</p>
+<blockquote>
+<p>合并完两个 array 后，会使用以前的 key 去进行操作</p>
+</blockquote>
+<p><strong>坑一</strong></p>
+<blockquote>
+<p>当合并数组中有<strong>数字键名</strong>时，其会被<strong>重新编号</strong>！</p>
+</blockquote>
+<p>但是，如果想完全保留原有数组并只想新的数组附加到后面，则需要使用 <code>+</code> 运算符，关于此请继续阅读。</p>
+<p>从前面的函数原型格式可以知道，函数 array_merge 只能接受 array 参数，但如果参数是 <code>null</code> 呢？会有什么结果输出？</p>
+<p><strong>坑二</strong></p>
+<blockquote>
+<p>当合并数组中</p>
+</blockquote>
+<h2 id="使用--合并数组">使用 + 合并数组</h2>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p><a href="http://php.net/manual/en/function.array-merge.php">PHP Manual: Array Functions</a></p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/19711491/merge-array-returns-null-if-one-or-more-of-arrays-is-empty/19712372#19712372">StackOverflow: merge_array returns null if one or more of arrays is empty?</a></p>
+</li>
+</ul>
+<blockquote>
+<p><a href="http://stackoverflow.com/questions/5233721/php-array-merge-associative-arrays">StackOverflow: php array_merge associative arrays</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://stackoverflow.com/questions/5929642/php-array-merge-with-numerical-keys/5929690#5929690">StackOverflow: PHP array_merge with numerical keys</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://stackoverflow.com/questions/9555758/php-default-array-values-if-key-doesnt-exist/17443217#17443217">StackOverflow: PHP default array values if key doesn&rsquo;t exist?</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://stackoverflow.com/questions/24868372/array-merge-without-losing-null-values">StackOverflow: array_merge() without losing null values</a></p>
+</blockquote>
+
+    <div class = 'post_extra'><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+
+  </article>
+  <aside><h3>More from thinkerou</h3>
+<ul class='posts aside'>
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-to-php7/' title = '更新 PHP5 扩展到 PHP7(NG) 记录' style = 'background-image: url(https://thinkerou.com/images/artist.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-to-php7/'>更新 PHP5 扩展到 PHP7(NG) 记录</a>
+    </h3>
+    <p class = 'pale'>升级扩展到 PHP7 记录 最近在学习 PHP 、grpc 以及 PHP(PHP7) 扩展编写，但是由于 PHP7 内核更新，扩展接口也有很大变动，先前基于 PHP5 编写的扩展并 …</p>
+  </div>
+</li>
+
+<li class = 'post_item'>
+  <a class = 'post_card' href='https://thinkerou.com/post/php-ext-guide/' title = '编写 PHP 扩展入门' style = 'background-image: url(https://thinkerou.com/images/simple.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://thinkerou.com/tags/php' class = 'post_tag'>PHP
+      </a><div class = 'copy' data-share = 'Share Story' data-copied = 'Link Copied'>
+  <svg>
+    <use xlink:href="#copy"></use>
+  </svg>  
+</div>
+
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://thinkerou.com/post/php-ext-guide/'>编写 PHP 扩展入门</a>
+    </h3>
+    <p class = 'pale'>环境 文中示例 PHP 扩展的环境为：
+ Mac OS PHP7  在开始编写 PHP 扩展前需要准备如下环境：
+ PHP7 源码 使用 brew 安装 libtool  编写 环 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+</div>
+<script src = 'https://thinkerou.com/js/autosize.min.js'></script>
+<script src = 'https://thinkerou.com/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+</svg>
+<footer class = 'footer'>
+  <div class = 'footer_inner wrap pale'>
+    <p>&copy;&nbsp;<span class = 'year'></span>&nbsp;thinkerou.
+    Designed by  <a href = 'https://github.com/thinkerou' title = 'Linkedin Profile'>thinkerou</a></p>
+  </div>
+</footer>
+<script src = 'https://thinkerou.com/js/index.min.6f1e15baf1bfc7bd8fef3888ed12b61dbfe9bae77f3b2d13081b506d3845498ce50ecd52ea2bd050cc6abd234571aa92ae756910d8e032f623706e12b0d65e07.js'></script>
+
+  </body>
+</html>

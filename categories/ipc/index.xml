@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IPC on thinkerou</title>
+    <link>https://thinkerou.com/categories/ipc/</link>
+    <description>Recent content in IPC on thinkerou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 23 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://thinkerou.com/categories/ipc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>网络IPC（套接字）学习笔记</title>
+      <link>https://thinkerou.com/post/ipc/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://thinkerou.com/post/ipc/</guid>
+      <description>1. socket 描述符 socket 主要用于运行在不同服务器上的进程之间通信，也可以用于在同一服务器上的进程之间通信。
+socket 描述符则是 socket 的唯一标识，其本质是一种特殊的文件描述符。
+创建 socket 描述符的函数原型为：
+int socket(int domain, int type, int protocol);  参数说明：
+  domain 参数决定了通信的性质，即地址格式等
+ AF_INET: IPv4因特网域 AF_INET6: IPv6因特网域 AF_UNIX: UNIX域 AF_UNSPEC: 未指定，可以表达任何域的通配符    type 参数指定类型
+ SOCK_DGRAM: 固定长度，无连接，不可靠的消息 SOCK_RAW: IP协议的数据报接口 SOCK_SEQPACKET: 固定长度，顺序式，面向连接的，可靠的消息 SOCK_STREAM：顺序式，面向连接的，双向的，可靠的字节流    protocol 参数代表协议号
+ 0: 使用对于给定 domain 和 type 下的默认协议，在 AF_INET 通信域下， SOCK_STREAM 类型的默认协议是 TCP协议，而对于 SOCK_DGRAM 类型的默认协议则是 UDP协议。    2.</description>
+    </item>
+    
+  </channel>
+</rss>

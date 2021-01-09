@@ -3,17 +3,31 @@
 [![Website Badge](https://img.shields.io/badge/Website-3b5998?style=flat-square&logo=google-chrome&logoColor=white)](https://thinkerou.com/)
 [![Twitter Badge](https://img.shields.io/badge/-Twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/thinkerou)
 
-My name is 田欧 and I'm a software developer engineer. I'm from China, living in 北京 and currently working at 快手
+My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京 and currently working at 快手
 
 [![](https://gitwar.herokuapp.com/badge?username=thinkerou&label=Gitwar%20Profile%20Score&style=for-the-badge&color=0088cc)](https://gitwar.herokuapp.com/)
 
-<a href="https://github.com/thinkerou">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=thinkerou&show_icons=true&theme=merko&count_private=true" alt="thinkerou's github stats" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=thinkerou&theme=merko&layout=compact" alt="thinkerou's github top languages" />
+<hr>
+
+## Languages & Frameworks & Tools & Abilities
+
+![Java](https://img.shields.io/badge/-Java-black?logo=java&style=social)&nbsp;&nbsp;
+![Spring](https://img.shields.io/badge/-Spring%20Framework-black?logo=spring&style=social)&nbsp;&nbsp;
+![Go](https://img.shields.io/badge/-Go-black?logo=go&style=social)&nbsp;&nbsp;
+![MySQL](https://img.shields.io/badge/-MySQL-black?logo=mysql&style=social)&nbsp;&nbsp;
+![Git](https://img.shields.io/badge/-Git-black?logo=git&style=social)&nbsp;&nbsp;
+![Redis](https://img.shields.io/badge/-Redis-black?logo=redis&style=social)&nbsp;&nbsp;
+
+<hr>
+
+<a href="https://github.com/thinkerou/github-readme-stats" title="Go to Source">
+  <img height=180 src="https://github-readme-stats.vercel.app/api?username=thinkerou&show_icons=true&theme=gotham">
 </a>
+<a href="https://github.com/anuraghazra/github-readme-stats">
+  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=thinkerou&hide=c%23,powershell,java&title_color=2aa889&text_color=99d1ce&icon_color=2bbc8a&bg_color=0c1014&langs_count=8&layout=compact" />
+</a>
+
 <br/>
-
-
 
 
 <!--

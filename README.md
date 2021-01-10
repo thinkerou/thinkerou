@@ -1,11 +1,8 @@
-# Hey, folks! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
-
-[![Website Badge](https://img.shields.io/badge/Website-3b5998?style=flat-square&logo=google-chrome&logoColor=white)](https://thinkerou.com/)
-[![Twitter Badge](https://img.shields.io/badge/-Twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/thinkerou)
-
-My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京 and currently working at 快手
+# Hey, folks! <img src="https://raw.githubusercontent.com/thinkerou/thinkerou/master/wave.gif" width="30px"> [![Website Badge](https://img.shields.io/badge/website-3b5998?style=flat-square&logo=google-chrome&logoColor=white)](https://thinkerou.com/) [![Twitter Badge](https://img.shields.io/badge/-twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/thinkerou)
 
 [![](https://gitwar.herokuapp.com/badge?username=thinkerou&label=Gitwar%20Profile%20Score&style=for-the-badge&color=0088cc)](https://gitwar.herokuapp.com/)
+
+My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京 and currently working at 快手
 
 <hr>
 

@@ -2,7 +2,7 @@
 
 [![](https://gitwar.herokuapp.com/badge?username=thinkerou&label=Gitwar%20Profile%20Score&style=for-the-badge&color=0088cc)](https://gitwar.herokuapp.com/)
 
-My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京 and currently working at 快手
+My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京.
 
 <hr>
 

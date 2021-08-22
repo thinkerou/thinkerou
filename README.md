@@ -12,7 +12,7 @@
 
 My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京.
 
-- 🔭 I’m currently working on [<img width="60px" src="https://s2-10623.kwimgs.com/udata/pkg/cloudcdn/img/new-logo.79c3bfe1.svg" />](https://www.kuaishou.com)
+- 🔭 I’m currently working on [<img width="24px" src="https://static.yximgs.com/udata/pkg/WEB-LIVE/kwai_icon.8f6787d8.ico" />](https://www.kuaishou.com) and worked on [<img width="80px" src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" />](https://www.baidu.com/) and [<img width="24px" src="https://www.sogou.com/images/logo/new/favicon.ico?v=4" />](https://www.sogou.com/)
 - 🌱 I’m currently learning [<img width="45px" src="https://golang.google.cn/lib/godoc/images/go-logo-blue.svg" />](https://golang.google.cn) and [<img width="30px" src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" />](https://www.rust-lang.org/)
 - 👯 I’m looking to collaborate on [<img width="28px" src="https://gin-gonic.com/favicons/favicon.ico" />](https://github.com/gin-gonic)
 - 💬 Ask me about anything [<img width="25px" src="https://github.githubassets.com/favicons/favicon.svg" />](https://github.com/thinkerou/thinkerou/discussions)

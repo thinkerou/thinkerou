@@ -16,7 +16,7 @@ My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳
 - 🌱 I’m currently learning [<img width="25" src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/80px-Java_programming_language_logo.svg.png" />](https://en.wikipedia.org/wiki/Java_(programming_language))  [<img width="45px" src="https://golang.google.cn/lib/godoc/images/go-logo-blue.svg" />](https://golang.google.cn)  [<img width="30px" src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" />](https://www.rust-lang.org/)
 - 👯 I’m looking to collaborate on [<img width="28px" src="https://gin-gonic.com/favicons/favicon.ico" />](https://github.com/gin-gonic)
 - 💬 Ask me about anything [<img width="25px" src="https://github.githubassets.com/favicons/favicon.svg" />](https://github.com/thinkerou/thinkerou/discussions)
-- 📫 How to reach me [<img width="60px" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" />](thinkerou@gmail.com)
+- 📫 How to reach me <a href="mailto:thinkerou@gmail.com"><img width="60px" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" />
 
 <br />
 

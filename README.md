@@ -24,7 +24,7 @@ My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳
   <img height=180 src="https://github-readme-stats.anuraghazra1.vercel.app/api?username=thinkerou&show_icons=true&include_all_commits=true&theme=flag-india">
 </a>
 <a href="https://github.com/anuraghazra/github-readme-stats">
-  <img height=180 src="https://github-readme-stats.anuraghazra1.vercel.app/api/top-langs/?username=thinkerou&layout=compact&theme=flag-india" />
+  <img height=180 src="https://github-readme-stats.anuraghazra1.vercel.app/api/top-langs/?username=thinkerou&layout=compact&theme=flag-india&hide=Shell,HTML,Protocol Buffer,M4,Makefile&langs_count=15" />
 </a>
 
 <!--

@@ -1,32 +1,31 @@
-# Hey, folks! <img src="https://raw.githubusercontent.com/thinkerou/thinkerou/master/wave.gif" width="30px"> [![Website Badge](https://img.shields.io/badge/website-3b5998?style=flat-square&logo=google-chrome&logoColor=white)](https://thinkerou.com/) [![Twitter Badge](https://img.shields.io/badge/-twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/thinkerou)
+### Hey, folks! 
 
-[![](https://gitwar.herokuapp.com/badge?username=thinkerou&label=Gitwar%20Profile%20Score&style=for-the-badge&color=0088cc)](https://gitwar.herokuapp.com/)
+<a href="https://thinkerou.com">
+  <img align="left" alt="thinkerou | Website" width="20px" src="https://raw.githubusercontent.com/anuraghazra/anuraghazra/master/assets/codesandbox.svg" />
+</a>
+<a href="https://twitter.com/thinkerou">
+  <img align="left" alt="thinkerou | Twitter" width="21px" src="https://raw.githubusercontent.com/anuraghazra/anuraghazra/master/assets/twitter.svg" />
+</a>
+
+<br />
+<br />
 
 My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京.
 
-<hr>
+- 🔭 I’m currently working on [<img width="60px" src="https://s2-10623.kwimgs.com/udata/pkg/cloudcdn/img/new-logo.79c3bfe1.svg" />](https://www.kuaishou.com)
+- 🌱 I’m currently learning [<img width="45px" src="https://golang.google.cn/lib/godoc/images/go-logo-blue.svg" />](https://golang.google.cn) and [<img width="30px" src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" />](https://www.rust-lang.org/)
+- 👯 I’m looking to collaborate on [<img width="28px" src="https://gin-gonic.com/favicons/favicon.ico" />](https://github.com/gin-gonic)
+- 💬 Ask me about anything [<img width="25px" src="https://github.githubassets.com/favicons/favicon.svg" />](https://github.com/thinkerou/thinkerou/discussions)
+- 📫 How to reach me [<img width="60px" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" />](thinkerou@gmail.com)
 
-## Languages & Frameworks & Tools & Abilities
-
-![Java](https://img.shields.io/badge/-Java-black?logo=java&style=social)&nbsp;&nbsp;
-![Spring](https://img.shields.io/badge/-Spring%20Framework-black?logo=spring&style=social)&nbsp;&nbsp;
-![Go](https://img.shields.io/badge/-Go-black?logo=go&style=social)&nbsp;&nbsp;
-![MySQL](https://img.shields.io/badge/-MySQL-black?logo=mysql&style=social)&nbsp;&nbsp;
-![C](https://img.shields.io/badge/-C-black?logo=c&style=social)&nbsp;&nbsp;
-![Git](https://img.shields.io/badge/-Git-black?logo=git&style=social)&nbsp;&nbsp;
-![Redis](https://img.shields.io/badge/-Redis-black?logo=redis&style=social)&nbsp;&nbsp;
-
-<hr>
+<br />
 
 <a href="https://github.com/thinkerou/github-readme-stats" title="Go to Source">
-  <img height=180 src="https://github-readme-stats.vercel.app/api?username=thinkerou&show_icons=true&theme=gotham">
+  <img height=200 src="https://github-readme-stats.anuraghazra1.vercel.app/api?username=thinkerou&show_icons=true&include_all_commits=true&theme=flag-india">
 </a>
 <a href="https://github.com/anuraghazra/github-readme-stats">
-  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=thinkerou&hide=c%23,powershell,java&title_color=2aa889&text_color=99d1ce&icon_color=2bbc8a&bg_color=0c1014&langs_count=8&layout=compact" />
+  <img height=200 src="https://github-readme-stats.anuraghazra1.vercel.app/api/top-langs/?username=thinkerou&layout=compact&theme=flag-india" />
 </a>
-
-<br/>
-
 
 <!--
 **thinkerou/thinkerou** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

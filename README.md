@@ -10,7 +10,7 @@
 <br />
 <br />
 
-My name is 田欧 and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京.
+I am thinkerou and I'm a software developer engineer. I'm from China 🇨🇳, living in 北京.
 
 - 🔭 I’m currently working on [<img width="24px" src="https://static.yximgs.com/udata/pkg/WEB-LIVE/kwai_icon.8f6787d8.ico" />](https://www.kuaishou.com) and once worked on [<img width="80px" src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" />](https://www.baidu.com/) [<img width="24px" src="https://www.sogou.com/images/logo/new/favicon.ico?v=4" />](https://www.sogou.com/)
 - 🌱 I’m currently learning [<img width="25" src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/80px-Java_programming_language_logo.svg.png" />](https://en.wikipedia.org/wiki/Java_(programming_language))  [<img width="45px" src="https://golang.google.cn/lib/godoc/images/go-logo-blue.svg" />](https://golang.google.cn) 
